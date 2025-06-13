@@ -29,3 +29,7 @@
 
 ![ERD 논리 모델링 캡처](./images/yeogi_Benchmarking.png)
 
+
+
+### 4. 발표 자료 (Google Docs)
+- **[👉 PPT 바로가기 (Figma)](https://docs.google.com/presentation/d/1qmwcCL1dfyikTTQWJc1J7Y3-UYxVyWhAIQWyliEs4sg/edit?usp=sharing)**  
