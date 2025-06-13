@@ -27,5 +27,5 @@
 
 > ERD 전체 이미지 캡처:
 
-![ERD 논리 모델링 캡처](./images/yeogi Benchmarking.png)
+![ERD 논리 모델링 캡처](./images/yeogi_Benchmarking.png)
 
