@@ -1,0 +1,321 @@
+.container {
+  max-width: 384px;
+  margin: 0 auto;
+}
+
+main {
+  height: 100vh;
+}
+
+/* 전체 헤더 배경 및 기본 레이아웃 */
+.site-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  padding: 0 40px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.nav__logo {
+  margin: 0;
+}
+
+.nav__logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-svg {
+  width: 106px;
+  height: 18px;
+  fill: rgb(255, 71, 82);
+}
+
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 106px;
+  max-width: 239px;
+  height: 44px;
+  padding-left: 12px;
+  padding-right: 14px;
+}
+
+.nav__actions.user {
+  border-style: solid;
+  border-radius: 8px;
+  border-width: 1.5px;
+  border-color: rgb(235 235 235 / 1);
+}
+
+.nav__actions.user:hover {
+  background-color: rgb(245 245 245);
+}
+
+.nav__actions.user .user__name-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.nav__actions.user img {
+  height: 26px;
+  max-height: 26px;
+  min-height: 26px;
+  width: 26px;
+  display: flex;
+  flex-shrink: 0;
+  flex-basis: 26px;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  border-radius: 50%;
+  --tw-bg-opacity: 1;
+  background-color: rgb(214 214 214 / var(--tw-bg-opacity));
+  margin-right: 6px;
+  overflow: hidden;
+}
+
+.nav__actions.user h2 {
+  font-size: 0.75rem;
+  line-height: normal;
+  letter-spacing: 0px;
+  font-weight: 600;
+  color: rgb(51 51 51 / 1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.site-header__auth-link {
+  display: inline-flex;
+  align-content: center;
+  justify-content: center;
+  width: 128px;
+  height: 40px;
+  padding: 9px 14px;
+  border-style: solid;
+  border-radius: 8px;
+  border-width: 1.5px;
+  border-color: rgb(235 235 235);
+  font-size: 0.875rem;
+  line-height: normal;
+  font-weight: 600;
+  color: rgb(51 51 51);
+  letter-spacing: 0px;
+}
+
+.site-header__auth-link:hover {
+  background-color: rgb(245 245 245);
+}
+
+.nav__menu-wrap {
+  position: relative;
+}
+
+.nav__content-wrap {
+  position: absolute;
+  z-index: 9;
+  right: 0;
+  top: 50px;
+  width: 270px;
+  height: 610px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 16px #00000014;
+  user-select: none;
+  text-align: center;
+}
+
+.guest-panel {
+  padding: 8px 16px 16px;
+}
+
+.guest-panel .auth-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  padding: 0 14px;
+  background: #1d8bff;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #fff;
+  line-height: 17px;
+}
+
+.guest-panel .auth-link:hover {
+  background: #006ce0;
+}
+
+.nav__menu-lists {
+  text-align: left;
+}
+
+.nav__menu-lists a {
+  display: block;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  line-height: 20px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav__menu-lists a:hover {
+  background-color: rgb(245 245 245);
+}
+
+.nav__menu-btn {
+  width: 40px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav__menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__item {
+  display: flex;
+  align-items: center;
+}
+
+.nav__link {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+/* 전체 헤더 배경 및 기본 레이아웃 */
+
+/* 전체 푸터 배경 및 기본 레이아웃 */
+footer {
+  background-color: rgb(250 250 250);
+  padding: 40px 20px;
+  font-size: 14px;
+  color: rgb(112 112 112);
+}
+
+footer a,
+footer p {
+  color: #999 !important;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-left {
+  flex: 1 1 250px;
+  margin-bottom: 20px;
+}
+
+.footer-left h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.footer-left button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(51 51 51);
+  border-style: solid;
+  border-color: rgb(235 235 235);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.footer-left button:hover {
+  background-color: #555;
+}
+
+.footer-right {
+  flex: 2 1 600px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-section {
+  min-width: 120px;
+}
+
+.footer-section h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section li {
+  margin-bottom: 6px;
+}
+
+.footer-section a {
+  color: #333;
+  text-decoration: none;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  margin-top: 30px;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  font-size: 13px;
+  color: #777;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-bottom address {
+  font-style: normal;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #999;
+}
+
+.footer-bottom a {
+  color: #777;
+  text-decoration: none;
+  margin-right: 18px;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+/* 전체 푸터 배경 및 기본 레이아웃 */
