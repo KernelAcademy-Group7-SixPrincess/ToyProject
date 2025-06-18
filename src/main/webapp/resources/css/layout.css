@@ -6,6 +6,8 @@
 main {
   max-width: 1200px;
   margin: 0 auto;
+  padding-top: 20px;
+  padding-bottom: 96px;
 }
 
 /* 전체 헤더 배경 및 기본 레이아웃 */
