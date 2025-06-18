@@ -29,7 +29,7 @@
     </h1>
 
     <section class="nav__actions">
-      <a href="/login/auth" class="site-header__auth-link"
+      <a href="/user/auth" class="site-header__auth-link"
       >로그인/회원가입</a
       >
       <button class="nav__menu-btn" aria-label="메뉴 열기">
@@ -46,6 +46,26 @@
           ></path>
         </svg>
       </button>
+
+      <div class="nav__content-wrap guest" id="menu" hidden>
+        <div class="guest-panel">
+          <a href="/user/auth" class="auth-link">로그인/회원가입</a>
+        </div>
+        <ul class="nav__menu-lists">
+          <li><a href="/">국내숙소</a></li>
+          <li><a href="/">고객센터</a></li>
+        </ul>
+      </div>
+
+      <div class="nav__content-wrap user" id="menu" hidden>
+        <div class="guest-panel">
+          <a href="/user/auth" class="auth-link">로그인/회원가입</a>
+        </div>
+        <ul class="nav__menu-lists">
+          <li><a href="/">국내숙소</a></li>
+          <li><a href="/">고객센터</a></li>
+        </ul>
+      </div>
     </section>
   </nav>
 </header>
@@ -59,7 +79,7 @@
     <h2 class="email_title">이메일로 시작하기</h2>
   </section>
 
-  <form action="/login" method="post" aria-labelledby="form-title">
+  <form action="/user/login" method="post" aria-labelledby="form-title">
     <div class="form-group">
       <label for="userEmail" class="label">
         이메일 <span aria-hidden="true" class="required"></span>
@@ -105,7 +125,7 @@
 
   <div class="go-to-register">
     <p>계정이 없으신가요?</p>
-    <a href="/signup/email">이메일로 회원가입</a>
+    <a href="/user/signup">이메일로 회원가입</a>
   </div>
 </main>
 
@@ -170,5 +190,7 @@
     </p>
   </section>
 </footer>
+
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>
 </html>

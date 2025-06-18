@@ -29,7 +29,7 @@
         </h1>
 
         <section class="nav__actions">
-            <a href="/login/auth" class="site-header__auth-link"
+            <a href="/user/auth" class="site-header__auth-link"
             >로그인/회원가입</a
             >
             <button class="nav__menu-btn" aria-label="메뉴 열기">
@@ -46,6 +46,26 @@
                     ></path>
                 </svg>
             </button>
+
+            <div class="nav__content-wrap guest" id="menu" hidden>
+                <div class="guest-panel">
+                    <a href="/user/auth" class="auth-link">로그인/회원가입</a>
+                </div>
+                <ul class="nav__menu-lists">
+                    <li><a href="/">국내숙소</a></li>
+                    <li><a href="/">고객센터</a></li>
+                </ul>
+            </div>
+
+            <div class="nav__content-wrap user" id="menu" hidden>
+                <div class="guest-panel">
+                    <a href="/user/auth" class="auth-link">로그인/회원가입</a>
+                </div>
+                <ul class="nav__menu-lists">
+                    <li><a href="/">국내숙소</a></li>
+                    <li><a href="/">고객센터</a></li>
+                </ul>
+            </div>
         </section>
     </nav>
 </header>
@@ -72,7 +92,7 @@
         <h2 class="login__title">로그인/회원가입</h2>
     </section>
 
-    <a href="/login/email" class="join_btn email_btn">
+    <a href="/user/login" class="join_btn email_btn">
         <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="21"
@@ -153,5 +173,7 @@
         </p>
     </section>
 </footer>
+
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>
 </html>
