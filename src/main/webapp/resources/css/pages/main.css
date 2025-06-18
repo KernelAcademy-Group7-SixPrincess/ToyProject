@@ -42,6 +42,7 @@
     font-size: 16px;
     font-weight: 700;
     color: rgb(29 139 255);
+    border-bottom: 1px solid rgb(245 245 245);
 }
 
 .kv img {
@@ -109,4 +110,36 @@
 
 .kv svg {
     fill: rgb(153, 153, 153);
+}
+
+.recommend {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.recommend .title {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    font-size: 18px;
+    color: rgb(51 51 51);
+}
+
+.recommend .swiper-slide a {
+    display: flex;
+    flex-direction: column;
+}
+
+.recommend .swiper-slide img {
+    border-radius: 12px;
+}
+
+.recommend .swiper-slide img:hover {
+    filter: brightness(80%) saturate(150%);
+}
+
+.recommend .swiper-slide span {
+    font-size: 14px;
+    color: rgb(51 51 51);
+    padding: 12px 4px 20px;
 }
