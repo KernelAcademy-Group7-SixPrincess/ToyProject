@@ -28,7 +28,7 @@
         </div>
 
         <div class="nav__actions guest">
-            <a href="/login/auth" class="site-header__auth-link">로그인/회원가입</a>
+            <a href="/user/auth" class="site-header__auth-link">로그인/회원가입</a>
 
             <button class="nav__menu-btn" aria-label="메뉴 열기" aria-controls="menu" aria-expanded="false">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="rgb(51, 51, 51)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
@@ -38,7 +38,7 @@
 
             <div class="nav__content-wrap guest" id="menu" hidden>
                 <div class="guest-panel">
-                    <a href="/login/auth" class="auth-link">로그인/회원가입</a>
+                    <a href="/user/auth" class="auth-link">로그인/회원가입</a>
                 </div>
                 <ul class="nav__menu-lists">
                     <li><a href="/">국내숙소</a></li>
@@ -48,7 +48,7 @@
 
             <div class="nav__content-wrap user" id="menu" hidden>
                 <div class="guest-panel">
-                    <a href="/login/auth" class="auth-link">로그인/회원가입</a>
+                    <a href="/user/auth" class="auth-link">로그인/회원가입</a>
                 </div>
                 <ul class="nav__menu-lists">
                     <li><a href="/">국내숙소</a></li>
