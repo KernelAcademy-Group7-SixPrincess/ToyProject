@@ -42,7 +42,7 @@
                 </div>
                 <ul class="nav__menu-lists">
                     <li><a href="/">국내숙소</a></li>
-                    <li><a href="/">고객센터</a></li>
+                    <li><a href="/board">고객센터</a></li>
                 </ul>
             </div>
 
@@ -52,7 +52,7 @@
                 </div>
                 <ul class="nav__menu-lists">
                     <li><a href="/">국내숙소</a></li>
-                    <li><a href="/">고객센터</a></li>
+                    <li><a href="/board">고객센터</a></li>
                 </ul>
             </div>
         </div>
@@ -92,7 +92,7 @@
         -->
     </nav>
 </header>
-
+<%--<%@ include file="../common/header.jsp" %>--%>
 <main>
     <section class="kv" aria-label="여행 숙소 검색 섹션">
         <div class="kv-wrap">
@@ -305,7 +305,7 @@
         </div>
     </section>
 </main>
-
+<%--<%@ include file="../common/footer.jsp" %>--%>
 <footer>
     <section class="footer-container">
         <section class="footer-left">
