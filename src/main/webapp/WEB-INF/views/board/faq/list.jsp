@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/main.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/board.css" />
 </head>
-<body class="faq">
+<body class="board faq">
 <header class="site-header">
     <nav class="nav" aria-label="메인 메뉴">
         <div class="nav__logo">
