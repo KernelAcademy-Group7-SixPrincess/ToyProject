@@ -64,7 +64,6 @@
       <artifactId>mysql-connector-j</artifactId>
       <version>8.3.0</version>
     </dependency>
-<<<<<<< fix/mybatisConfiguration
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
@@ -120,16 +119,12 @@
       <version>2.9.0</version>
     </dependency>
 
-
-=======
-
     <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.38</version>
     </dependency>
->>>>>>> develop
   </dependencies>
   <build>
     <finalName>Spring</finalName>
