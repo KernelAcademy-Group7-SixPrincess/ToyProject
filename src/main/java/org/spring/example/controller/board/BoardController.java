@@ -8,9 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class BoardController {
 
-    @GetMapping("/board")
-    public String Board(Model model) {
+    @GetMapping("/faq")
+    public String Faq(Model model) {
 
-        return "board/board";
+        return "board/faq/list";
+    }
+
+    @GetMapping("/notice")
+    public String Notice(Model model) {
+
+        return "board/notice/list";
     }
 }
