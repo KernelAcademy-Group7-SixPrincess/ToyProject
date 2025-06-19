@@ -12,7 +12,7 @@
            http://mybatis.org/schema/mybatis-spring.xsd">
 
     <!-- @Component, @Repository 등 자동 스캔 -->
-    <context:component-scan base-package="org.spring.example.mapper"/>
+    <context:component-scan base-package="org.spring.example.room.mapper"/>
 
     <!-- DB 연결 설정 -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
@@ -29,6 +29,6 @@
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="org.spring.example.mapper"/>
+        <property name="basePackage" value="org.spring.example.room.mapper"/>
     </bean>
 </beans>
