@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -108,36 +109,33 @@
                 <span>제목</span>
                 <span>작성일</span>
             </li>
-            <li class="notice-item">
-                <span class="no">3</span>
-                <span class="title">
-              <a href="#">
-                <strong>[공지]</strong>
-                네 그렇슴니다 네네
-              </a>
-            </span>
-                <span class="date">2025.06.19.</span>
-            </li>
+            <c:forEach var="post" items="${pinnedPosts}">
+                <li class="notice-item">
+                    <span class="no">${post.postId}</span>
+                    <span class="title">
+                        <a href="/notice/${post.postId}">
+                            <strong>[공지]</strong>
+                            ${post.title}
+                        </a>
+                    </span>
+                    <span class="date">${post.formattedDate}</span>
+                </li>
+            </c:forEach>
         </ul>
 
         <ul class="notice-list" role="list" aria-label="공지사항 목록">
-            <li class="notice-item">
-                <span class="no">1</span>
-                <span class="title"><a href="#">공지사항 1번입니다</a></span>
-                <span class="date">2025.06.11.</span>
-            </li>
+            <c:forEach var="post" items="${normalPosts}">
+                <li class="notice-item">
+                    <span class="no">${post.postId}</span>
+                    <span class="title">
+                        <a href="/notice/${post.postId}">
+                                ${post.title}
+                        </a>
+                    </span>
+                    <span class="date">${post.formattedDate}</span>
+                </li>
+            </c:forEach>
 
-            <li class="notice-item">
-                <span class="no">2</span>
-                <span class="title"><a href="#">두번째 공지사항</a></span>
-                <span class="date">2025.06.16.</span>
-            </li>
-
-            <li class="notice-item">
-                <span class="no">3</span>
-                <span class="title"><a href="#">네 그렇슴니다 네네</a></span>
-                <span class="date">2025.06.19.</span>
-            </li>
         </ul>
 
         <a href="/notice/write" class="write-btn" role="button">

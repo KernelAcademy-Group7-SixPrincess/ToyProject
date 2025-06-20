@@ -114,7 +114,7 @@
       </div>
 
       <div class="form-group form-check">
-        <input type="checkbox" id="pinned" name="pinned" />
+        <input type="checkbox" id="pinned" name="isPinned" />
         <label for="pinned">공지 상단 고정</label>
       </div>
 

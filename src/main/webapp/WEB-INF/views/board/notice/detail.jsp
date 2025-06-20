@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -104,7 +105,7 @@
       <h1 id="notice-title" class="notice-title">[공지] 네 그렇습니다 네네</h1>
       <p class="notice-meta">
         <time datetime="2025-06-19">2025.06.19</time>
-        | 글 번호: 3
+        | 글 번호: ${post.postId}
       </p>
     </header>
 
@@ -117,12 +118,12 @@
     </section>
   </article>
   <nav class="notice-actions" aria-label="글 조작 버튼">
-    <a href="edit.jsp?id=3" class="button">수정</a>
+    <a href="edit.jsp?id=${post.postId}" class="button">수정</a>
     <form action="delete" method="post" onsubmit="return confirm('삭제할까요?')" style="display: inline">
       <input type="hidden" name="id" value="3" />
       <button type="submit" class="button danger">삭제</button>
     </form>
-    <a href="list.jsp" class="button">목록으로</a>
+    <a href="/notice" class="button">목록으로</a>
   </nav>
 </main>
 

@@ -16,6 +16,15 @@ public class PostDto {
     private boolean isDeleted;
     private LocalDateTime deletedAt;
     private Long deletedBy;
+    private String formattedDate;
+
+    public String getFormattedDate() {
+        return formattedDate;
+    }
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
+    }
+
 
 
     public Long getPostId() {

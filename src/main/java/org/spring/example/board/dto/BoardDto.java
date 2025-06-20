@@ -1,5 +1,8 @@
 package org.spring.example.board.dto;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("BoardDto")
 public class BoardDto {
     private int boardId;
     private String boardType;
