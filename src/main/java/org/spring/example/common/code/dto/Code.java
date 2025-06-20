@@ -1,9 +1,8 @@
-package org.spring.example.code;
+package org.spring.example.common.code.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 
 /**
@@ -21,9 +20,10 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Builder
 @AllArgsConstructor
-public class CodeDto {
+public class Code {
     private final String codeTypeId;
     private final int code;
     private final String codeTypeName;
     private final String codeName;
+    private final char isUsed;
 }
