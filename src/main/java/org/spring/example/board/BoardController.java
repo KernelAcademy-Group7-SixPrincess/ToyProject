@@ -16,7 +16,6 @@ public class BoardController {
 
     @GetMapping("/notice")
     public String Notice(Model model) {
-
         return "board/notice/list";
     }
 }
