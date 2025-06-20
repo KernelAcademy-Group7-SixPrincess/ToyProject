@@ -253,36 +253,5 @@
 </footer>
 
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-<script>
-    const buttons = document.querySelectorAll(".accordion-trigger");
-
-    buttons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            const panel = document.getElementById(btn.getAttribute("aria-controls"));
-            const isExpanded = btn.getAttribute("aria-expanded") === "true";
-
-            if (isExpanded) {
-                // 닫기
-                btn.setAttribute("aria-expanded", "false");
-                panel.style.height = panel.scrollHeight + "px";
-                requestAnimationFrame(() => {
-                    panel.style.height = "0";
-                });
-            } else {
-                // 열기
-                btn.setAttribute("aria-expanded", "true");
-                panel.style.height = panel.scrollHeight + "px";
-
-                panel.addEventListener(
-                    "transitionend",
-                    function handler() {
-                        panel.style.height = "auto";
-                        panel.removeEventListener("transitionend", handler);
-                    }
-                );
-            }
-        });
-    });
-</script>
 </body>
 </html>
