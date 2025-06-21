@@ -1,11 +1,15 @@
 package org.spring.example.room.dto;
 
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @RequiredArgsConstructor
-public class RoomDto {
+@Builder
+@NoArgsConstructor(force = true)
+public class Room {
     /**
      * 객실 ID(BIGINT) <br>
      * NOT NULL
@@ -20,17 +24,25 @@ public class RoomDto {
      */
     private final String typeCodeId;
     /**
-     * 객실 상태 코드유형 ID
-     */
-    private final String statusCodeId;
-    /**
      * 객실 타입 코드
      */
     private final int typeCodeCode;
     /**
+     * 객실 타입 이름
+     */
+    private final String typeName;
+    /**
+     * 객실 상태 코드유형 ID
+     */
+    private final String statusCodeId;
+    /**
      * 객실 상태 코드
      */
     private final int statusCodeCode;
+    /**
+     * 객실 상태 이름
+     */
+    private final String statusName;
     /**
      * 객실 대표 이미지 ID
      */
