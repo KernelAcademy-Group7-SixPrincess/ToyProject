@@ -38,12 +38,27 @@ public class BoardController {
         int totalCount = postService.countNormalPostsByBoardId(boardId);
         int totalPages = (int) Math.ceil((double) totalCount / pageSize);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd.");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
         for (PostDto post : pinnedPosts) {
-            post.setFormattedDate(post.getCreatedAt() != null ? post.getCreatedAt().format(formatter) : "");
+            if (post.getCreatedAt() != null) {
+                post.setFormattedDate(post.getCreatedAt().format(formatter));
+                post.setIsoDate(post.getCreatedAt().format(isoFormatter));
+            } else {
+                post.setFormattedDate("");
+                post.setIsoDate("");
+            }
         }
+
         for (PostDto post : normalPosts) {
-            post.setFormattedDate(post.getCreatedAt() != null ? post.getCreatedAt().format(formatter) : "");
+            if (post.getCreatedAt() != null) {
+                post.setFormattedDate(post.getCreatedAt().format(formatter));
+                post.setIsoDate(post.getCreatedAt().format(isoFormatter));
+            } else {
+                post.setFormattedDate("");
+                post.setIsoDate("");
+            }
         }
 
         model.addAttribute("pinnedPosts", pinnedPosts);

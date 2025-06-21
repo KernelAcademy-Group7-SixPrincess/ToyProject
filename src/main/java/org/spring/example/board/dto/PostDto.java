@@ -17,6 +17,16 @@ public class PostDto {
     private LocalDateTime deletedAt;
     private Long deletedBy;
     private String formattedDate;
+    private String isoDate;
+
+
+    public String getIsoDate() {
+        return isoDate;
+    }
+
+    public void setIsoDate(String isoDate) {
+        this.isoDate = isoDate;
+    }
 
     public String getFormattedDate() {
         return formattedDate;
@@ -24,7 +34,6 @@ public class PostDto {
     public void setFormattedDate(String formattedDate) {
         this.formattedDate = formattedDate;
     }
-
 
 
     public Long getPostId() {

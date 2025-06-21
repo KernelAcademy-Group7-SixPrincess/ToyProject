@@ -104,7 +104,7 @@
     <header>
       <h1 id="notice-title" class="notice-title">${post.title}</h1>
       <p class="notice-meta">
-        <time datetime="2025-06-19">${post.formattedDate}</time>
+        <time datetime="${post.isoDate}">${post.formattedDate}</time>
         | 글 번호: ${post.postId}
       </p>
     </header>

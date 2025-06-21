@@ -118,7 +118,7 @@
                             ${post.title}
                         </a>
                     </span>
-                    <span class="date">${post.formattedDate}</span>
+                    <time datetime="${post.isoDate}">${post.formattedDate}</time>
                 </li>
             </c:forEach>
         </ul>
