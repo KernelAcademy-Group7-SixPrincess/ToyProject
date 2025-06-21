@@ -2,12 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-           http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx.xsd
            http://mybatis.org/schema/mybatis-spring
            http://mybatis.org/schema/mybatis-spring.xsd">
 
@@ -29,7 +30,16 @@
         <property name="mapperLocations" value="classpath:mappers/*.xml"/>
     </bean>
 
-<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
-<!--        <property name="basePackage" value="org.spring.example"/>-->
-<!--    </bean>-->
+    <!-- 트랜잭션 매니저 등록 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- @Transactional 어노테이션 활성화 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="org.spring.example.room.mapper, org.spring.example.board.mapper"/>
+    </bean>
 </beans>
