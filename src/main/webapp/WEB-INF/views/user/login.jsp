@@ -112,7 +112,7 @@
         이메일
         <span aria-hidden="true" class="required"></span>
       </label>
-      <input type="email" id="email" name="email" placeholder="abc@gccompany.co.kr" required aria-required="true" />
+      <input type="email" id="email" name="email" placeholder="abc@fastcampus.co.kr" required aria-required="true" />
       <span class="error_msg" role="alert" id="emailError">올바른 형식의 이메일 주소를 입력해주세요.</span>
     </div>
 

@@ -5,7 +5,7 @@
 <mapper namespace="org.spring.example.board.mapper.PostMapper">
 
     <!-- 게시글 등록 -->
-    <insert id="insert" parameterType="PostDto">
+    <insert id="createPost" parameterType="PostDto">
         INSERT INTO post (
             board_id, user_id, title, content,
             is_pinned, is_answered, faq_keyword,
