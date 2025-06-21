@@ -248,6 +248,8 @@
 </footer>
 
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/signupValidation.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/resources/js/auth-validation/validationUtils.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/resources/js/auth-validation/signupValidation.js"></script>
+
 </body>
 </html>

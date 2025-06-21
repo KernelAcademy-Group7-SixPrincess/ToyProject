@@ -108,35 +108,21 @@
 
   <form action="/user/login" method="post" aria-labelledby="form-title">
     <div class="form-group">
-      <label for="userEmail" class="label">
-        이메일 <span aria-hidden="true" class="required"></span>
+      <label for="email" class="label">
+        이메일
+        <span aria-hidden="true" class="required"></span>
       </label>
-      <input
-              type="email"
-              id="userEmail"
-              name="userEmail"
-              placeholder="abc@gccompany.co.kr"
-              required
-              aria-required="true"
-      />
-      <span class="error" role="alert" id="emailError"
-      >이메일 주소를 입력해 주세요.</span
-      >
+      <input type="email" id="email" name="email" placeholder="abc@gccompany.co.kr" required aria-required="true" />
+      <span class="error_msg" role="alert" id="emailError">올바른 형식의 이메일 주소를 입력해주세요.</span>
     </div>
 
     <div class="form-group">
-      <label for="userPassword" class="label">
-        비밀번호 <span aria-hidden="true" class="required"></span>
+      <label for="password" class="label">
+        비밀번호
+        <span aria-hidden="true" class="required"></span>
       </label>
-      <input
-              type="password"
-              id="userPassword"
-              name="userPassword"
-              placeholder="비밀번호를 입력하세요."
-              required
-              aria-required="true"
-      />
-      <span class="error" role="alert" id="passwordError"></span>
+      <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요." required aria-required="true" />
+      <span class="error_msg" id="passwordError">8자 이상 입력해주세요.</span>
     </div>
 
     <div class="form-options">
@@ -147,7 +133,7 @@
       <a href="/reset-password">비밀번호 재설정</a>
     </div>
 
-    <button type="submit" class="login_btn">로그인</button>
+    <button type="submit" class="login_btn submit_btn" disabled>로그인</button>
   </form>
 
   <div class="go-to-register">
@@ -219,5 +205,7 @@
 </footer>
 
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/resources/js/auth-validation/validationUtils.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/resources/js/auth-validation/loginValidation.js"></script>
 </body>
 </html>
