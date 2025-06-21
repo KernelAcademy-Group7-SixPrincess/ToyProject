@@ -427,6 +427,9 @@ body {
   color: #000;
 }
 
+fieldset {
+  border: none;
+}
 
 
 

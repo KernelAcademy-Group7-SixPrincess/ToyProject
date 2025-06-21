@@ -103,7 +103,7 @@
   </header>
 
   <section aria-labelledby="signup-heading" class="signup__title-wrap">
-    <h2 class="email_title">이메일로 시작하기</h2>
+    <h2 class="email_title heading_title">이메일로 시작하기</h2>
   </section>
 
   <form action="/user/login" method="post" aria-labelledby="form-title">

@@ -6,7 +6,8 @@
 }
 
 .login .container,
-.auth .container{
+.auth .container,
+.signup .container{
   max-width: 384px;
 }
 
