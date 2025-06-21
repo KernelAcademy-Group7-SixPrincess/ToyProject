@@ -12,14 +12,14 @@
            http://mybatis.org/schema/mybatis-spring.xsd">
 
     <!-- @Component, @Repository 등 자동 스캔 -->
-    <context:component-scan base-package="org.spring.example.room.mapper"/>
+    <context:component-scan base-package="org.spring.example"/>
 
     <!-- DB 연결 설정 -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/spring?serverTimezone=UTC"/>
-        <property name="username" value="사용자 아이디"/>
-        <property name="password" value="사용자 비밀번호"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1234"/>
     </bean>
 
     <!-- MyBatis 설정 -->
@@ -29,7 +29,7 @@
         <property name="mapperLocations" value="classpath:mappers/*.xml"/>
     </bean>
 
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="org.spring.example"/>
-    </bean>
+<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+<!--        <property name="basePackage" value="org.spring.example"/>-->
+<!--    </bean>-->
 </beans>
