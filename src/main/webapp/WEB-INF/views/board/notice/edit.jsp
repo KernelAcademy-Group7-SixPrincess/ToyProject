@@ -1,11 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>자주묻는질문</title>
+    <title>공지사항 - 글 수정하기</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/reset.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/setting.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" />
@@ -100,64 +99,30 @@
 </header>
 
 <main>
-    <section aria-labelledby="notice-title">
-        <h1 id="notice-title" class="notice-title board-title">공지사항</h1>
+    <section aria-labelledby="write-title">
+        <h1 id="write-title" class="write-title board-title">수정하기</h1>
 
-        <ul class="notice-list pinned" role="list" aria-label="고정된 공지사항 목록">
-            <li class="notice-item notice-header">
-                <span>NO</span>
-                <span>제목</span>
-                <span>작성일</span>
-            </li>
-            <c:forEach var="post" items="${pinnedPosts}">
-                <li class="notice-item">
-                    <span class="no">${post.postId}</span>
-                    <span class="title">
-                        <a href="/notice/${post.postId}">
-                            <strong>[공지]</strong>
-                            ${post.title}
-                        </a>
-                    </span>
-                    <span class="date">${post.formattedDate}</span>
-                </li>
-            </c:forEach>
-        </ul>
+        <form action="/notice/${post.postId}/edit" method="post" class="write-form">
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input type="text" id="title" name="title" value="${post.title}" required />
+            </div>
 
-        <ul class="notice-list" role="list" aria-label="공지사항 목록">
-            <c:forEach var="post" items="${normalPosts}">
-                <li class="notice-item">
-                    <span class="no">${post.postId}</span>
-                    <span class="title">
-                        <a href="/notice/${post.postId}">
-                                ${post.title}
-                        </a>
-                    </span>
-                    <span class="date">${post.formattedDate}</span>
-                </li>
-            </c:forEach>
+            <div class="form-group">
+                <label for="content">내용</label>
+                <textarea id="content" name="content" rows="10" required>${post.content}</textarea>
+            </div>
 
-        </ul>
+            <div class="form-group form-check">
+                <input type="checkbox" id="pinned" name="pinned" value="true" />
+                <label for="pinned">공지 상단 고정</label>
+            </div>
 
-        <a href="/notice/write" class="write-btn" role="button">
-            <span aria-hidden="true">✏️</span>
-            <span>글쓰기</span>
-        </a>
-
-        <nav aria-label="페이지 이동">
-            <ul class="pagination">
-                <c:if test="${currentPage > 1}">
-                    <li><a href="?page=${currentPage - 1}">&laquo; 이전</a></li>
-                </c:if>
-                <c:forEach var="i" begin="1" end="${totalPages}">
-                    <li class="${i == currentPage ? 'active' : ''}">
-                        <a href="?page=${i}">${i}</a>
-                    </li>
-                </c:forEach>
-                <c:if test="${currentPage < totalPages}">
-                    <li><a href="?page=${currentPage + 1}">다음 &raquo;</a></li>
-                </c:if>
-            </ul>
-        </nav>
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">수정 완료</button>
+                <a href="/notice" class="cancel-link" role="button">취소</a>
+            </div>
+        </form>
     </section>
 </main>
 

@@ -10,7 +10,7 @@ public class PostDto {
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private boolean isPinned;
+    private boolean pinned;
     private boolean isAnswered;
     private String faqKeyword;
     private boolean isDeleted;
@@ -84,11 +84,11 @@ public class PostDto {
     }
 
     public boolean isPinned() {
-        return isPinned;
+        return pinned;
     }
 
     public void setPinned(boolean pinned) {
-        isPinned = pinned;
+        this.pinned = pinned;
     }
 
     public boolean isAnswered() {

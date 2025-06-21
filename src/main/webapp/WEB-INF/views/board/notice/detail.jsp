@@ -102,24 +102,20 @@
 <main>
   <article aria-labelledby="notice-title" class="notice-detail">
     <header>
-      <h1 id="notice-title" class="notice-title">[공지] 네 그렇습니다 네네</h1>
+      <h1 id="notice-title" class="notice-title">${post.title}</h1>
       <p class="notice-meta">
-        <time datetime="2025-06-19">2025.06.19</time>
+        <time datetime="2025-06-19">${post.formattedDate}</time>
         | 글 번호: ${post.postId}
       </p>
     </header>
 
     <section class="notice-content">
-      <p>
-        공지사항 내용이 여기에 들어갑니다.
-        <br />
-        여러 줄로 구성될 수도 있습니다.
-      </p>
+      <p>${post.content}</p>
     </section>
   </article>
   <nav class="notice-actions" aria-label="글 조작 버튼">
-    <a href="edit.jsp?id=${post.postId}" class="button">수정</a>
-    <form action="delete" method="post" onsubmit="return confirm('삭제할까요?')" style="display: inline">
+    <a href="/notice/${post.postId}/edit" class="button">수정</a>
+    <form action="/notice/${post.postId}/delete" method="post" onsubmit="return confirm('삭제할까요?')" style="display: inline">
       <input type="hidden" name="id" value="3" />
       <button type="submit" class="button danger">삭제</button>
     </form>
