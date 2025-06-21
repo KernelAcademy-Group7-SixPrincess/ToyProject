@@ -42,7 +42,9 @@
                 </div>
                 <ul class="nav__menu-lists">
                     <li><a href="/">국내숙소</a></li>
-                    <li><a href="/board">고객센터</a></li>
+                    <li><a href="/notice">공지사항</a></li>
+                    <li><a href="/faq">자주묻는질문</a></li>
+                    <li><a href="/qna">고객문의</a></li>
                 </ul>
             </div>
 
@@ -52,7 +54,9 @@
                 </div>
                 <ul class="nav__menu-lists">
                     <li><a href="/">국내숙소</a></li>
-                    <li><a href="/board">고객센터</a></li>
+                    <li><a href="/notice">공지사항</a></li>
+                    <li><a href="/faq">자주묻는질문</a></li>
+                    <li><a href="/qna">고객문의</a></li>
                 </ul>
             </div>
         </div>
@@ -74,8 +78,10 @@
               <a href="/login/auth" class="auth-link">로그인/회원가입</a>
             </div>
             <ul class="nav__menu-lists">
-              <li><a href="/">국내숙소</a></li>
-              <li><a href="/">고객센터</a></li>
+                <li><a href="/">국내숙소</a></li>
+                <li><a href="/notice">공지사항</a></li>
+                <li><a href="/faq">자주묻는질문</a></li>
+                <li><a href="/qna">고객문의</a></li>
             </ul>
           </div>
 
@@ -363,5 +369,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/swiper.js"></script>
 </body>
 </html>

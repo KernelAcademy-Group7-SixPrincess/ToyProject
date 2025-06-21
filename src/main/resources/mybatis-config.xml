@@ -19,5 +19,6 @@
     <typeAliases>
         <!-- 패키지 전체 등록 -->
         <package name="org.spring.example.room.dto"/>
+        <package name="org.spring.example.board.dto"/>
     </typeAliases>
 </configuration>
