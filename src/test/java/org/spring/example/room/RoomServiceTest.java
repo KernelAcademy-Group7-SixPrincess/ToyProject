@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.spring.example.room.dto.Room;
 import org.spring.example.room.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -46,6 +47,21 @@ public class RoomServiceTest {
                 .capacity(2)
                 .maxCapacity(3)
                 .build();
+    }
+
+    @Transactional
+    @Rollback
+    @Test(expected = DataIntegrityViolationException.class)
+    public void shouldThrowExceptionIfFieldIsNull() {
+        //Given
+        Room room = createTestRoom();
+        room.setName(null);
+
+        //When
+        roomService.createRoom(room);
+
+        //Then
+
     }
 
     @Transactional
