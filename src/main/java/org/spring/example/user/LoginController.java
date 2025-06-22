@@ -17,4 +17,10 @@ public class LoginController {
 
         return "user/login";
     }
+
+    @GetMapping("/user/signup")
+    public String Signup(Model model) {
+
+        return "user/signup";
+    }
 }

@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
+@RequestMapping("/board")
 public class BoardController {
 
     private final PostService postService;
@@ -18,62 +19,110 @@ public class BoardController {
         this.postService = postService;
     }
 
+    @GetMapping("/{type}")
+    public String listPosts(@PathVariable String type,
+                            @RequestParam(defaultValue = "1") int page,
+                            @RequestParam(required = false) String keyword,
+                            Model model) {
+
+        int boardId = getBoardIdByType(type);
+        int pageSize = 8;
+        List<PostDto> pinnedPosts = postService.findPinnedPostsByBoardId(boardId);
+        List<PostDto> normalPosts = postService.findPagedNormalPostsByBoardId(boardId, page, pageSize);
+        int totalCount = postService.countNormalPostsByBoardId(boardId);
+        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
 
 
-    @GetMapping("/faq")
-    public String faqList(Model model) {
-        // FAQ 게시판 처리 나중에 구현
-        return "board/faq/list";
-    }
+        if ("faq".equals(type) && keyword != null && !keyword.isBlank()) {
+            // FAQ 검색
+            normalPosts = postService.searchPostsByKeyword(boardId, keyword);
+        }
 
-    @GetMapping("/notice")
-    public String noticeList(Model model) {
-        int noticeBoardId = 1;
 
-        List<PostDto> pinnedPosts = postService.getPinnedPostsByBoardId(noticeBoardId);
-        List<PostDto> normalPosts = postService.getNormalPostsByBoardId(noticeBoardId);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd.");
         for (PostDto post : pinnedPosts) {
             if (post.getCreatedAt() != null) {
                 post.setFormattedDate(post.getCreatedAt().format(formatter));
-            } else {
-                post.setFormattedDate(""); // 또는 원하는 기본값
+                post.setIsoDate(post.getCreatedAt().format(isoFormatter));
             }
         }
+
         for (PostDto post : normalPosts) {
             if (post.getCreatedAt() != null) {
                 post.setFormattedDate(post.getCreatedAt().format(formatter));
-            } else {
-                post.setFormattedDate("");
+                post.setIsoDate(post.getCreatedAt().format(isoFormatter));
             }
         }
 
         model.addAttribute("pinnedPosts", pinnedPosts);
         model.addAttribute("normalPosts", normalPosts);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
 
-        return "board/notice/list";
+        return "board/" + type + "/list";
     }
 
-
-
-    @GetMapping("/notice/write")
-    public String noticeWriteForm() {
-        return "board/notice/write";
+    @GetMapping("/{type}/write")
+    public String writeForm(@PathVariable String type) {
+        return "board/" + type + "/write";
     }
 
-    @PostMapping("/notice/submit")
-    public String submitNotice(@ModelAttribute PostDto postDto) {
-        postDto.setBoardId(1); // 공지사항 id = 1
+    @PostMapping("/{type}/submit")
+    public String submitPost(@PathVariable String type, @ModelAttribute PostDto postDto) {
+        postDto.setBoardId(getBoardIdByType(type));
         postDto.setUserId(1L); // 테스트 유저
+
         postService.createPost(postDto);
-        return "redirect:/notice";
+        return "redirect:/board/" + type;
     }
 
-    @GetMapping("/notice/{postId}")
-    public String noticeDetail(@PathVariable Long postId, Model model) {
-        PostDto post = postService.getPostById(postId);
+    @GetMapping("/{type}/{postId}")
+    public String viewPost(@PathVariable String type, @PathVariable Long postId, Model model) {
+        PostDto post = postService.findPostById(postId);
         model.addAttribute("post", post);
-        return "board/notice/detail";
+        return "board/" + type + "/detail";
+    }
+
+    @GetMapping("/{type}/{postId}/edit")
+    public String editForm(@PathVariable String type, @PathVariable Long postId, Model model) {
+        PostDto post = postService.findPostById(postId);
+        model.addAttribute("post", post);
+        return "board/" + type + "/edit";
+    }
+
+    @PostMapping("/{type}/{postId}/edit")
+    public String submitEdit(@PathVariable String type, @PathVariable Long postId, @ModelAttribute PostDto postDto) {
+        postDto.setPostId(postId);
+        postDto.setUserId(1L);
+        postDto.setBoardId(getBoardIdByType(type));
+
+        postService.updatePost(postDto);
+
+        if ("faq".equals(type)) {
+            return "redirect:/board/" + type;
+        } else {
+            return "redirect:/board/" + type + "/" + postId;
+        }
+    }
+
+    @PostMapping("/{type}/{postId}/delete")
+    public String deletePost(@PathVariable String type, @PathVariable Long postId) {
+        PostDto postDto = new PostDto();
+        postDto.setPostId(postId);
+        postDto.setDeletedBy(1L);
+
+        postService.softDelete(postDto);
+        return "redirect:/board/" + type;
+    }
+
+    private int getBoardIdByType(String type) {
+        return switch (type) {
+            case "notice" -> 1;
+            case "faq" -> 2;
+            case "qna" -> 3;
+            default -> throw new IllegalArgumentException("Unknown board type: " + type);
+        };
     }
 }

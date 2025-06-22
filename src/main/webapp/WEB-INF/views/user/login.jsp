@@ -40,9 +40,9 @@
         </div>
         <ul class="nav__menu-lists">
           <li><a href="/">국내숙소</a></li>
-          <li><a href="/notice">공지사항</a></li>
-          <li><a href="/faq">자주묻는질문</a></li>
-          <li><a href="/qna">고객문의</a></li>
+          <li><a href="/board/notice">공지사항</a></li>
+          <li><a href="/board/faq">자주묻는질문</a></li>
+          <li><a href="/board/qna">고객문의</a></li>
         </ul>
       </div>
 
@@ -52,9 +52,9 @@
         </div>
         <ul class="nav__menu-lists">
           <li><a href="/">국내숙소</a></li>
-          <li><a href="/notice">공지사항</a></li>
-          <li><a href="/faq">자주묻는질문</a></li>
-          <li><a href="/qna">고객문의</a></li>
+          <li><a href="/board/notice">공지사항</a></li>
+          <li><a href="/board/faq">자주묻는질문</a></li>
+          <li><a href="/board/qna">고객문의</a></li>
         </ul>
       </div>
     </div>
@@ -103,40 +103,26 @@
   </header>
 
   <section aria-labelledby="signup-heading" class="signup__title-wrap">
-    <h2 class="email_title">이메일로 시작하기</h2>
+    <h2 class="email_title heading_title">이메일로 시작하기</h2>
   </section>
 
   <form action="/user/login" method="post" aria-labelledby="form-title">
     <div class="form-group">
-      <label for="userEmail" class="label">
-        이메일 <span aria-hidden="true" class="required"></span>
+      <label for="email" class="label">
+        이메일
+        <span aria-hidden="true" class="required"></span>
       </label>
-      <input
-              type="email"
-              id="userEmail"
-              name="userEmail"
-              placeholder="abc@gccompany.co.kr"
-              required
-              aria-required="true"
-      />
-      <span class="error" role="alert" id="emailError"
-      >이메일 주소를 입력해 주세요.</span
-      >
+      <input type="email" id="email" name="email" placeholder="abc@fastcampus.co.kr" required aria-required="true" />
+      <span class="error_msg" role="alert" id="emailError">올바른 형식의 이메일 주소를 입력해주세요.</span>
     </div>
 
     <div class="form-group">
-      <label for="userPassword" class="label">
-        비밀번호 <span aria-hidden="true" class="required"></span>
+      <label for="password" class="label">
+        비밀번호
+        <span aria-hidden="true" class="required"></span>
       </label>
-      <input
-              type="password"
-              id="userPassword"
-              name="userPassword"
-              placeholder="비밀번호를 입력하세요."
-              required
-              aria-required="true"
-      />
-      <span class="error" role="alert" id="passwordError"></span>
+      <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요." required aria-required="true" />
+      <span class="error_msg" id="passwordError">8자 이상 입력해주세요.</span>
     </div>
 
     <div class="form-options">
@@ -147,7 +133,7 @@
       <a href="/reset-password">비밀번호 재설정</a>
     </div>
 
-    <button type="submit" class="login_btn">로그인</button>
+    <button type="submit" class="login_btn submit_btn" disabled>로그인</button>
   </form>
 
   <div class="go-to-register">
@@ -156,68 +142,11 @@
   </div>
 </main>
 
-<footer>
-  <section class="footer-container">
-    <section class="footer-left">
-      <h2>고객센터</h2>
-      <p>고객행복센터(전화): 오전 9시 ~ 새벽 3시 운영</p>
-      <p>카카오톡 문의: 24시간 운영</p>
-      <button type="button">📞 1670-6250</button>
-      <button type="button">💬 카카오 문의</button>
-    </section>
+<%@ include file="../common/footer.jsp" %>
 
-    <nav class="footer-right" aria-label="사이트 링크">
-      <section class="footer-section">
-        <h3>회사</h3>
-        <ul>
-          <li>
-            <a href="https://gccompany.co.kr" target="_blank">회사소개</a>
-          </li>
-        </ul>
-      </section>
-      <section class="footer-section">
-        <h3>서비스</h3>
-        <ul>
-          <li><a href="/notice">공지사항</a></li>
-          <li><a href="/faq">자주 묻는 질문</a></li>
-          <li>
-            <a href="https://business.yeogi.com" target="_blank"
-            >기업 출장/복지 서비스 문의</a
-            >
-          </li>
-        </ul>
-      </section>
-      <section class="footer-section">
-        <h3>모든 여행</h3>
-        <ul>
-          <li><a href="/notice">국내숙소</a></li>
-        </ul>
-      </section>
-    </nav>
-  </section>
-
-  <section class="footer-bottom">
-    <address>
-      (주)여기어때컴퍼니<br />
-      주소: 서울특별시 강남구 봉은사로 479, 11층 | 대표이사: 정명훈 |
-      사업자등록번호: 742-86-00224<br />
-      이메일: help@yeogi.com | 통신판매번호: 2017-서울강남-01779
-    </address>
-    <p>
-      <a href="/policy/terms#TERMS" target="_blank">이용약관</a>
-      <a href="/policy/terms#PRIVACY_POLICY" target="_blank"
-      >개인정보처리방침</a
-      >
-
-      <a
-              href="/policy/terms#CONSUMER_DISPUTE_RESOLUTION_STANDARD"
-              target="_blank"
-      >소비자 분쟁해결 기준</a
-      >
-    </p>
-  </section>
-</footer>
 
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/resources/js/auth-validation/validationUtils.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/resources/js/auth-validation/loginValidation.js"></script>
 </body>
 </html>
