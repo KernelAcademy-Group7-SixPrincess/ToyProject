@@ -111,6 +111,7 @@
     <update id="updateRoomByRoom" parameterType="Room">
         UPDATE room
         <set>
+            <if test="accId != null">acc_id = #{accId},</if>
             <if test="typeCodeId != null">type_code_id = #{typeCodeId},</if>
             <if test="statusCodeId != null">status_code_id = #{statusCodeId},</if>
             <if test="typeCodeCode != null">type_code_code = #{typeCodeCode},</if>

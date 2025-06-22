@@ -12,6 +12,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/applicationContext.xml")
@@ -20,6 +23,10 @@ public class RoomServiceTest {
     @Autowired
     private RoomService roomService;
 
+    /**
+     * Test용 객실 생성
+     * @return Test 객실 객체
+     */
     public Room createTestRoom() {
         return Room.builder()
                 .accId(1L)
@@ -41,6 +48,11 @@ public class RoomServiceTest {
                 .build();
     }
 
+    /**
+     * 객실 조회 Test <br>
+     * 객실 생성 후 DB 에서 조회 확인 <br>
+     * 객실 ID로 조회
+     */
     @Transactional
     @Rollback
     @Test
@@ -60,6 +72,10 @@ public class RoomServiceTest {
         assertThat(resultRoom.getTypeCodeId()).isEqualTo(room.getTypeCodeId());
     }
 
+    /**
+     * 객실 생성 Test <br>
+     * 객실을 생성 후 findRoomByRoomId로 조회 확인
+     */
     @Transactional
     @Rollback
     @Test
@@ -74,6 +90,75 @@ public class RoomServiceTest {
         // Then
         assertThat(savedRoom).isNotNull();
         assertThat(savedRoom.getName()).isEqualTo(room.getName());
+    }
+
+    /**
+     * 객실 리스트 조회 Test <br>
+     * 10개의 테스트 객체 생성 후 조회 
+     */
+    @Transactional
+    @Rollback
+    @Test
+    public void findAllRoomsByAccId() {
+        //Given
+        Room room = null;
+        List<Room> predicateRoomList = new ArrayList<>();
+        for(int i = 0; i < 10; i++) {
+            room = createTestRoom();
+            roomService.createRoom(room);
+            predicateRoomList.add(room);
+        }
+        long accId = room.getAccId();
+        
+        //When
+        List<Room> roomList = roomService.findRoomsByAccId(accId);
+
+        //Then
+        assertThat(roomList).isNotNull();
+        assertThat(roomList.size()).isEqualTo(10);
+
+        assertThat(predicateRoomList).usingRecursiveComparison()
+                .ignoringFields("createdAt", "updatedAt").isEqualTo(roomList);
+    }
+
+    /**
+     * 객실 갱신 Test
+     */
+    @Transactional
+    @Rollback
+    @Test
+    public void updateRoomByRoomTest() {
+        //Given
+        Room room = createTestRoom();
+        roomService.createRoom(room);
+
+        //When
+        room.setAccId(2L);
+        roomService.updateRoomByRoom(room);
+        Room updatedRoom = roomService.findRoomByRoomId(room.getId());
+
+        //Then
+        assertThat(updatedRoom).isNotNull();
+        assertThat(updatedRoom.getAccId()).isEqualTo(2L);
+    }
+
+    /**
+     * 객실 삭제 Test
+     */
+    @Transactional
+    @Rollback
+    @Test
+    public void deleteRoomByRoomId() {
+        //Given
+        Room room = createTestRoom();
+        roomService.createRoom(room);
+
+        //When
+        roomService.deleteRoomByRoomId(room.getId());
+        Room deletedRoom = roomService.findRoomByRoomId(room.getId());
+
+        //Then
+        assertThat(deletedRoom).isNull();
     }
 
 }

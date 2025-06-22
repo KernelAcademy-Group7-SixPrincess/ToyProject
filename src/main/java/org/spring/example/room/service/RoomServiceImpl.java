@@ -27,7 +27,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<Room> findAllRoomsByAccId(long accId) {
+    public List<Room> findRoomsByAccId(long accId) {
         List<Room> roomList = roomMapper.findRoomsByAccId(accId);
         if(roomList.isEmpty()) throw new NoSuchElementException("No rooms found");
         return roomList;

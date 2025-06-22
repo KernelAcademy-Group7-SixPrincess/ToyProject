@@ -26,7 +26,7 @@ public class RoomController {
 
     @GetMapping("/rooms")
     public List<Room> getRooms(@RequestParam long accId) {
-        return roomService.findAllRoomsByAccId(accId);
+        return roomService.findRoomsByAccId(accId);
     }
 
     @PutMapping("/room")
