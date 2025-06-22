@@ -30,7 +30,7 @@ public class Room {
     /**
      * 객실 타입 이름
      */
-    private final String typeName;
+    private final String typeCodeName;
     /**
      * 객실 상태 코드유형 ID
      */
@@ -42,7 +42,7 @@ public class Room {
     /**
      * 객실 상태 이름
      */
-    private final String statusName;
+    private final String statusCodeName;
     /**
      * 객실 대표 이미지 ID
      */

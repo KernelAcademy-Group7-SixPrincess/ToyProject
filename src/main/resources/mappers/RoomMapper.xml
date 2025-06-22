@@ -38,11 +38,11 @@
             r.id,
             r.acc_id,
 
-            r.type_code_type_id,
+            r.type_code_id,
             r.type_code_code,
             tc.code_name AS type_code_name,
 
-            r.status_code_type_id,
+            r.status_code_id,
             r.status_code_code,
             sc.code_name AS status_code_name,
 
@@ -60,11 +60,11 @@
 
         FROM room r
                  LEFT JOIN code tc
-                           ON r.type_code_type_id = tc.code_type_id
+                           ON r.type_code_id = tc.code_type_id
                                AND r.type_code_code = tc.code
 
                  LEFT JOIN code sc
-                           ON r.status_code_type_id = sc.code_type_id
+                           ON r.status_code_id = sc.code_type_id
                                AND r.status_code_code = sc.code
 
         WHERE r.id = #{id}
@@ -76,11 +76,11 @@
             r.id,
             r.acc_id,
 
-            r.type_code_type_id,
+            r.type_code_id,
             r.type_code_code,
             tc.code_name AS type_code_name,
 
-            r.status_code_type_id,
+            r.status_code_id,
             r.status_code_code,
             sc.code_name AS status_code_name,
 
@@ -98,11 +98,11 @@
 
         FROM room r
              LEFT JOIN code tc
-                   ON r.type_code_type_id = tc.code_type_id
+                   ON r.type_code_id = tc.code_type_id
                        AND r.type_code_code = tc.code
 
              LEFT JOIN code sc
-                   ON r.status_code_type_id = sc.code_type_id
+                   ON r.status_code_id = sc.code_type_id
                        AND r.status_code_code = sc.code
 
         WHERE r.acc_id = #{accId}
