@@ -14,7 +14,7 @@
   <!-- EasyMDE 마크다운 에디터 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
 <body class="board qna">
-
+<%@ include file="../../common/header.jsp" %>
 
 <main>
   <section aria-labelledby="write-title">
@@ -40,7 +40,7 @@
   </section>
 </main>
 
-<%@ include file="../common/footer.jsp" %>
+<%@ include file="../../common/footer.jsp" %>
 
 
 
