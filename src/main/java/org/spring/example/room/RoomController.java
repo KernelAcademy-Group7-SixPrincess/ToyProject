@@ -19,8 +19,13 @@ public class RoomController {
         roomService.createRoom(room);
     }
 
-    @GetMapping("/room")
-    public Room getRoom(@RequestParam long roomId) {
+    @GetMapping("/rooms")
+    public List<Room> getAllRooms() {
+        return roomService.findAllRooms();
+    }
+
+    @GetMapping("/rooms{roomId}")
+    public Room getRoomByRoomId(@PathVariable long roomId) {
         return roomService.findRoomByRoomId(roomId);
     }
 

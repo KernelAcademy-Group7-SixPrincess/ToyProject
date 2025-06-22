@@ -13,6 +13,13 @@ public interface RoomMapper {
     void createRoom(Room room);
 
     /**
+     * 전체 객실 조회 메서드 <br>
+     * 일단 만들긴 했으나 쓸 일이 없을 것 같음
+     * @return 전체 객실 리스트
+     */
+    List<Room> findAllRooms();
+
+    /**
      * 객실 조회 메서드
      * @param id 객실의 키값(long)으로 해당 객실 정보를 반환
      * @return 해당 객실 정보(RoomDto)

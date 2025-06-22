@@ -34,6 +34,11 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public List<Room> findAllRooms() {
+        return roomMapper.findAllRooms();
+    }
+
+    @Override
     public void updateRoomByRoom(Room room) {
         roomMapper.updateRoomByRoom(room);
     }

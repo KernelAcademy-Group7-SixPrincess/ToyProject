@@ -48,6 +48,30 @@ public class RoomServiceTest {
                 .build();
     }
 
+    @Transactional
+    @Rollback
+    @Test
+    public void findAllRoomsTest() {
+        //Given
+        Room room = null;
+        List<Room> predicateRoomList = new ArrayList<>();
+        for(int i = 0; i < 10; i++) {
+            room = createTestRoom();
+            roomService.createRoom(room);
+            predicateRoomList.add(room);
+        }
+
+        //When
+        List<Room> roomList = roomService.findAllRooms();
+
+        //Then
+        assertThat(roomList).isNotNull();
+        assertThat(roomList.size()).isEqualTo(10);
+
+        assertThat(predicateRoomList).usingRecursiveComparison()
+                .ignoringFields("createdAt", "updatedAt").isEqualTo(roomList);
+    }
+
     /**
      * 객실 조회 Test <br>
      * 객실 생성 후 DB 에서 조회 확인 <br>
@@ -56,7 +80,7 @@ public class RoomServiceTest {
     @Transactional
     @Rollback
     @Test
-    public void findRoomById() {
+    public void findRoomByIdTest() {
         //Given
         Room room = createTestRoom();
         roomService.createRoom(room);
@@ -99,7 +123,7 @@ public class RoomServiceTest {
     @Transactional
     @Rollback
     @Test
-    public void findAllRoomsByAccId() {
+    public void findAllRoomsByAccIdTest() {
         //Given
         Room room = null;
         List<Room> predicateRoomList = new ArrayList<>();
@@ -148,7 +172,7 @@ public class RoomServiceTest {
     @Transactional
     @Rollback
     @Test
-    public void deleteRoomByRoomId() {
+    public void deleteRoomByRoomIdTest() {
         //Given
         Room room = createTestRoom();
         roomService.createRoom(room);

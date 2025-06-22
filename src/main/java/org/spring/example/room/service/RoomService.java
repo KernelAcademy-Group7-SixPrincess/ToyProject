@@ -8,6 +8,7 @@ public interface RoomService {
     void createRoom(Room room);
     Room findRoomByRoomId(long roomId);
     List<Room> findRoomsByAccId(long accId);
+    List<Room> findAllRooms();
     void updateRoomByRoom(Room room);
     void deleteRoomByRoomId(long roomId);
 }
