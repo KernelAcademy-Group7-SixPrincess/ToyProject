@@ -10,7 +10,9 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/main.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/board.css" />
-</head>
+
+  <!-- EasyMDE 마크다운 에디터 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
 <body class="board notice">
 <header class="site-header">
   <nav class="nav" aria-label="메인 메뉴">
@@ -41,9 +43,9 @@
         </div>
         <ul class="nav__menu-lists">
           <li><a href="/">국내숙소</a></li>
-          <li><a href="/notice">공지사항</a></li>
-          <li><a href="/faq">자주묻는질문</a></li>
-          <li><a href="/qna">고객문의</a></li>
+          <li><a href="/board/notice">공지사항</a></li>
+          <li><a href="/board/faq">자주묻는질문</a></li>
+          <li><a href="/board/qna">고객문의</a></li>
         </ul>
       </div>
 
@@ -53,9 +55,9 @@
         </div>
         <ul class="nav__menu-lists">
           <li><a href="/">국내숙소</a></li>
-          <li><a href="/notice">공지사항</a></li>
-          <li><a href="/faq">자주묻는질문</a></li>
-          <li><a href="/qna">고객문의</a></li>
+          <li><a href="/board/notice">공지사항</a></li>
+          <li><a href="/board/faq">자주묻는질문</a></li>
+          <li><a href="/board/qna">고객문의</a></li>
         </ul>
       </div>
     </div>
@@ -102,7 +104,7 @@
   <section aria-labelledby="write-title">
     <h1 id="write-title" class="write-title board-title">게시판 글쓰기</h1>
 
-    <form action="/notice/submit" method="post" class="write-form">
+    <form action="/board/notice/submit" method="post" class="write-form">
       <div class="form-group">
         <label for="title">제목</label>
         <input type="text" id="title" name="title" required />
@@ -110,7 +112,7 @@
 
       <div class="form-group">
         <label for="content">내용</label>
-        <textarea id="content" name="content" rows="10" required></textarea>
+        <textarea id="content" name="content" rows="10"></textarea>
       </div>
 
       <div class="form-group form-check">
@@ -120,7 +122,7 @@
 
       <div class="form-actions">
         <button type="submit" class="submit-btn">작성 완료</button>
-        <a href="/notice" class="cancel-link" role="button">취소</a>
+        <a href="/board/notice" class="cancel-link" role="button">취소</a>
       </div>
     </form>
   </section>
@@ -183,6 +185,9 @@
 
 
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/easyMDE.js"></script>
+
 <script>
   const buttons = document.querySelectorAll(".accordion-trigger");
 

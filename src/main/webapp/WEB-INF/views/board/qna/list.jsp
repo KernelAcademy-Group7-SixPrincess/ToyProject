@@ -1,11 +1,11 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>자주묻는질문</title>
+    <title>고객 문의</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/reset.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/setting.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" />
@@ -42,9 +42,9 @@
                 </div>
                 <ul class="nav__menu-lists">
                     <li><a href="/">국내숙소</a></li>
-                    <li><a href="/notice">공지사항</a></li>
-                    <li><a href="/faq">자주묻는질문</a></li>
-                    <li><a href="/qna">고객문의</a></li>
+                    <li><a href="/board/notice">공지사항</a></li>
+                    <li><a href="/board/faq">자주묻는질문</a></li>
+                    <li><a href="/board/qna">고객문의</a></li>
                 </ul>
             </div>
 
@@ -54,9 +54,9 @@
                 </div>
                 <ul class="nav__menu-lists">
                     <li><a href="/">국내숙소</a></li>
-                    <li><a href="/notice">공지사항</a></li>
-                    <li><a href="/faq">자주묻는질문</a></li>
-                    <li><a href="/qna">고객문의</a></li>
+                    <li><a href="/board/notice">공지사항</a></li>
+                    <li><a href="/board/faq">자주묻는질문</a></li>
+                    <li><a href="/board/qna">고객문의</a></li>
                 </ul>
             </div>
         </div>
@@ -103,29 +103,48 @@
     <section aria-labelledby="qna-title">
         <h1 id="qna-title" class="qna-title board-title">고객 문의</h1>
 
-        <ul class="accordion" role="region" aria-labelledby="qna-title">
-            <li class="accordion-item">
-                <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="faq1" id="accordion-header-1">
-                    <span>Q</span>
-                    예약을 취소하고 싶어요.
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="accordion-icon rotate"><path d="M5.406 12.98L4 11.573l4.594-4.986a1.978 1.978 0 012.812 0c.518.52 2.05 2.19 4.594 5.007l-1.392 1.401L10 7.975 5.406 12.98z" fill=""></path></svg>
-                </button>
-
-                <div id="faq1" role="region" class="accordion-panel" aria-labelledby="accordion-header-1">
-                    <p>예약취소는 앱/웹 > 내정보 > 예약/구매내역에서 직접 가능합니다. 예약/결제 진행 당시 안내된 취소/환불 규정에 따라 처리되며, 취소수수료가 발생할 경우 취소수수료를 차감한 금액으로 환불 처리됩니다. 일부 숙소에 한해 취소가 가능한 시점이나 앱/웹에서 취소가 불가할 수 있으니 이 경우에는 고객행복센터로 요청해 주시길 바랍니다.</p>
-                </div>
+        <ul class="board-list notice-list" role="list" aria-label="고객 문의 목록">
+            <li class="board-item notice-item notice-header">
+                <span>NO</span>
+                <span>제목</span>
+                <span>작성일</span>
+                <span>답변여부</span>
             </li>
+            <c:forEach var="post" items="${normalPosts}">
+                <li class="board-item notice-item">
+                    <span class="no">${post.postId}</span>
+                    <span class="title">
+                        <a href="/board/qna/${post.postId}">
+                                ${post.title}
+                        </a>
+                    </span>
+                    <span class="date">${post.formattedDate}</span>
+                    <span class="answer">답변 대기</span>
+                </li>
+            </c:forEach>
+
         </ul>
 
-<%--        <c:if test="${sessionScope.userRole == 'CUSTOMER'}">--%>
-            <!-- 고객용 글쓰기 버튼 -->
-            <button>글쓰기</button>
-<%--        </c:if>--%>
+        <a href="/board/qna/write" class="write-btn" role="button">
+            <span aria-hidden="true">✏️</span>
+            <span>글쓰기</span>
+        </a>
 
-<%--        <c:if test="${sessionScope.userRole == 'ADMIN'}">--%>
-            <!-- 관리자용 답글 기능 -->
-            <button>답글 작성</button>
-<%--        </c:if>--%>
+        <nav aria-label="페이지 이동">
+            <ul class="pagination">
+                <c:if test="${currentPage > 1}">
+                    <li><a href="?page=${currentPage - 1}">&laquo; 이전</a></li>
+                </c:if>
+                <c:forEach var="i" begin="1" end="${totalPages}">
+                    <li class="${i == currentPage ? 'active' : ''}">
+                        <a href="?page=${i}">${i}</a>
+                    </li>
+                </c:forEach>
+                <c:if test="${currentPage < totalPages}">
+                    <li><a href="?page=${currentPage + 1}">다음 &raquo;</a></li>
+                </c:if>
+            </ul>
+        </nav>
     </section>
 </main>
 
@@ -184,6 +203,38 @@
     </section>
 </footer>
 
+
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<script>
+    const buttons = document.querySelectorAll(".accordion-trigger");
+
+    buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const panel = document.getElementById(btn.getAttribute("aria-controls"));
+            const isExpanded = btn.getAttribute("aria-expanded") === "true";
+
+            if (isExpanded) {
+                // 닫기
+                btn.setAttribute("aria-expanded", "false");
+                panel.style.height = panel.scrollHeight + "px";
+                requestAnimationFrame(() => {
+                    panel.style.height = "0";
+                });
+            } else {
+                // 열기
+                btn.setAttribute("aria-expanded", "true");
+                panel.style.height = panel.scrollHeight + "px";
+
+                panel.addEventListener(
+                    "transitionend",
+                    function handler() {
+                        panel.style.height = "auto";
+                        panel.removeEventListener("transitionend", handler);
+                    }
+                );
+            }
+        });
+    });
+</script>
 </body>
 </html>

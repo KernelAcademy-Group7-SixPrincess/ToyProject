@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>공지사항 - 글 수정하기</title>
+    <title>고객 문의 - 글 수정하기</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/reset.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/setting.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" />
@@ -14,7 +14,7 @@
     <!-- EasyMDE 마크다운 에디터 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
 </head>
-<body class="board notice">
+<body class="board qna">
 <header class="site-header">
     <nav class="nav" aria-label="메인 메뉴">
         <div class="nav__logo">
@@ -105,7 +105,7 @@
     <section aria-labelledby="write-title">
         <h1 id="write-title" class="write-title board-title">수정하기</h1>
 
-        <form action="/board/notice/${post.postId}/edit" method="post" class="write-form">
+        <form action="/board/qna/${post.postId}/edit" method="post" class="write-form">
             <div class="form-group">
                 <label for="title">제목</label>
                 <input type="text" id="title" name="title" value="${post.title}" required />
@@ -116,14 +116,9 @@
                 <textarea id="content" name="content" rows="10">${post.content}</textarea>
             </div>
 
-            <div class="form-group form-check">
-                <input type="checkbox" id="pinned" name="pinned" value="true" />
-                <label for="pinned">공지 상단 고정</label>
-            </div>
-
             <div class="form-actions">
                 <button type="submit" class="submit-btn">수정 완료</button>
-                <a href="/board/notice" class="cancel-link" role="button">취소</a>
+                <a href="/board/qna" class="cancel-link" role="button">취소</a>
             </div>
         </form>
     </section>

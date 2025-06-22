@@ -34,4 +34,10 @@ public interface PostMapper {
 
     // 글 삭제 (soft delete)
     int softDelete(PostDto postDto);
+
+
+    // 키워드 검색
+    List<PostDto> searchPostsByKeyword(@Param("boardId") int boardId,
+                                       @Param("keyword") String keyword);
+
 }

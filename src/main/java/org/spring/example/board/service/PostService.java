@@ -58,4 +58,9 @@ public class PostService {
     public int softDelete(PostDto postDto) {
         return postMapper.softDelete(postDto);
     }
+
+    // 키워드 검색 (FAQ 게시판 기능)
+    public List<PostDto> searchPostsByKeyword(int boardId, String keyword) {
+        return postMapper.searchPostsByKeyword(boardId, keyword);
+    }
 }

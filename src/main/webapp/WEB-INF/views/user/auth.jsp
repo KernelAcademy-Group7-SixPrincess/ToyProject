@@ -40,9 +40,9 @@
                 </div>
                 <ul class="nav__menu-lists">
                     <li><a href="/">국내숙소</a></li>
-                    <li><a href="/notice">공지사항</a></li>
-                    <li><a href="/faq">자주묻는질문</a></li>
-                    <li><a href="/qna">고객문의</a></li>
+                    <li><a href="/board/notice">공지사항</a></li>
+                    <li><a href="/board/faq">자주묻는질문</a></li>
+                    <li><a href="/board/qna">고객문의</a></li>
                 </ul>
             </div>
 
@@ -52,9 +52,9 @@
                 </div>
                 <ul class="nav__menu-lists">
                     <li><a href="/">국내숙소</a></li>
-                    <li><a href="/notice">공지사항</a></li>
-                    <li><a href="/faq">자주묻는질문</a></li>
-                    <li><a href="/qna">고객문의</a></li>
+                    <li><a href="/board/notice">공지사항</a></li>
+                    <li><a href="/board/faq">자주묻는질문</a></li>
+                    <li><a href="/board/qna">고객문의</a></li>
                 </ul>
             </div>
         </div>

@@ -105,4 +105,14 @@
         WHERE post_id = #{postId}
     </update>
 
+    <!-- 키워드 검색 -->
+    <select id="searchPostsByKeyword" parameterType="map" resultType="PostDto">
+        SELECT *
+        FROM post
+        WHERE board_id = #{boardId}
+          AND (title LIKE CONCAT('%', #{keyword}, '%')
+            OR content LIKE CONCAT('%', #{keyword}, '%'))
+        ORDER BY created_at DESC
+    </select>
+
 </mapper>

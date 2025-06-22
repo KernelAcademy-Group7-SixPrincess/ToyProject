@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>자주묻는질문</title>
+    <title>공지사항</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/reset.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/setting.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" />
@@ -42,9 +42,9 @@
                 </div>
                 <ul class="nav__menu-lists">
                     <li><a href="/">국내숙소</a></li>
-                    <li><a href="/notice">공지사항</a></li>
-                    <li><a href="/faq">자주묻는질문</a></li>
-                    <li><a href="/qna">고객문의</a></li>
+                    <li><a href="/board/notice">공지사항</a></li>
+                    <li><a href="/board/faq">자주묻는질문</a></li>
+                    <li><a href="/board/qna">고객문의</a></li>
                 </ul>
             </div>
 
@@ -54,9 +54,9 @@
                 </div>
                 <ul class="nav__menu-lists">
                     <li><a href="/">국내숙소</a></li>
-                    <li><a href="/notice">공지사항</a></li>
-                    <li><a href="/faq">자주묻는질문</a></li>
-                    <li><a href="/qna">고객문의</a></li>
+                    <li><a href="/board/notice">공지사항</a></li>
+                    <li><a href="/board/faq">자주묻는질문</a></li>
+                    <li><a href="/board/qna">고객문의</a></li>
                 </ul>
             </div>
         </div>
@@ -103,17 +103,17 @@
     <section aria-labelledby="notice-title">
         <h1 id="notice-title" class="notice-title board-title">공지사항</h1>
 
-        <ul class="notice-list pinned" role="list" aria-label="고정된 공지사항 목록">
-            <li class="notice-item notice-header">
+        <ul class="board-list notice-list pinned" role="list" aria-label="고정된 공지사항 목록">
+            <li class="board-item notice-item notice-header">
                 <span>NO</span>
                 <span>제목</span>
                 <span>작성일</span>
             </li>
             <c:forEach var="post" items="${pinnedPosts}">
-                <li class="notice-item">
+                <li class="board-item notice-item">
                     <span class="no">${post.postId}</span>
                     <span class="title">
-                        <a href="/notice/${post.postId}">
+                        <a href="/board/notice/${post.postId}">
                             <strong>[공지]</strong>
                             ${post.title}
                         </a>
@@ -123,12 +123,12 @@
             </c:forEach>
         </ul>
 
-        <ul class="notice-list" role="list" aria-label="공지사항 목록">
+        <ul class="board-list notice-list" role="list" aria-label="공지사항 목록">
             <c:forEach var="post" items="${normalPosts}">
-                <li class="notice-item">
+                <li class="board-item notice-item">
                     <span class="no">${post.postId}</span>
                     <span class="title">
-                        <a href="/notice/${post.postId}">
+                        <a href="/board/notice/${post.postId}">
                                 ${post.title}
                         </a>
                     </span>
@@ -138,7 +138,7 @@
 
         </ul>
 
-        <a href="/notice/write" class="write-btn" role="button">
+        <a href="/board/notice/write" class="write-btn" role="button">
             <span aria-hidden="true">✏️</span>
             <span>글쓰기</span>
         </a>
