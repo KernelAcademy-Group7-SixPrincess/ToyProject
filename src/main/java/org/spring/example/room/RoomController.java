@@ -14,7 +14,7 @@ public class RoomController {
 
     private final RoomService roomService;
 
-    @PostMapping("/room")
+    @PostMapping("/rooms")
     public void createRoom(Room room) {
         roomService.createRoom(room);
     }
@@ -30,19 +30,28 @@ public class RoomController {
     }
 
     @GetMapping("/rooms")
-    public List<Room> getRooms(@RequestParam long accId) {
+    public List<Room> getRoomsByAccId(@RequestParam long accId) {
         return roomService.findRoomsByAccId(accId);
     }
 
-    @PutMapping("/room")
-    public void updateRoom(Room room) {
+    @PutMapping("/room{roomId}")
+    public void updateRoom(@PathVariable long roomId, @RequestBody Room room) {
+        if(room == null)
+            throw new IllegalArgumentException("Room is null");
+        if(roomId != room.getId())
+            throw new IllegalArgumentException("Invalid room id");
         roomService.updateRoomByRoom(room);
     }
 
-    @DeleteMapping("/room")
-    public void deleteRoom(@RequestParam long roomId) {
+    @DeleteMapping("/room{roomId}")
+    public void deleteRoom(@PathVariable long roomId, @RequestBody Room room) {
+        if(room == null)
+            throw new IllegalArgumentException("Room is null");
+        if(roomId != room.getId())
+            throw new IllegalArgumentException("Invalid room id");
         roomService.deleteRoomByRoomId(roomId);
     }
+
 
 
 }
