@@ -6,79 +6,79 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
 @Builder
 @NoArgsConstructor(force = true)
+@AllArgsConstructor
 public class Room {
     /**
      * 객실 ID(BIGINT) <br>
      * NOT NULL
      */
-    private final long id;
+    private Long id;
     /**
      * 숙소 ID
      */
-    private final long accId;
+    private long accId;
     /**
      * 객실 타입 코드유형 ID
      */
-    private final String typeCodeId;
+    private String typeCodeId;
     /**
      * 객실 타입 코드
      */
-    private final int typeCodeCode;
+    private int typeCodeCode;
     /**
      * 객실 타입 이름
      */
-    private final String typeCodeName;
+    private String typeCodeName;
     /**
      * 객실 상태 코드유형 ID
      */
-    private final String statusCodeId;
+    private String statusCodeId;
     /**
      * 객실 상태 코드
      */
-    private final int statusCodeCode;
+    private int statusCodeCode;
     /**
      * 객실 상태 이름
      */
-    private final String statusCodeName;
+    private String statusCodeName;
     /**
      * 객실 대표 이미지 ID
      */
-    private final long mainImageId;
+    private long mainImageId;
     /**
      * 객실 이름
      */
-    private final String name;
+    private String name;
     /**
      * 객실 정보
      */
-    private final String info;
+    private String info;
     /**
      * 객실 추가 정보
      */
-    private final String addInfo;
+    private String addInfo;
     /**
      * 객실 크기
      */
-    private final int size;
+    private int size;
     /**
      * 객실 방 수
      */
-    private final int roomCnt;
+    private int roomCnt;
     /**
      * 객실 층 수
      */
-    private final int floor;
+    private int floor;
     /**
      * 객실 기준 인원
      */
-    private final int capacity;
+    private int capacity;
     /**
      * 객실 최대 인원
      */
-    private final int maxCapacity;
-    private final LocalDateTime createdAt;
-    private final LocalDateTime updatedAt;
+    private int maxCapacity;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

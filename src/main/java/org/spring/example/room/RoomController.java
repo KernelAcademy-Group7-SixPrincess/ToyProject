@@ -1,6 +1,7 @@
 package org.spring.example.room;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.example.common.dto.APIResponse;
 import org.spring.example.room.dto.Room;
 import org.spring.example.room.service.RoomService;
 import org.springframework.web.bind.annotation.*;

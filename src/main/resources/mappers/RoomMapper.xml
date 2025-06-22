@@ -27,9 +27,9 @@
     </resultMap>
 
     <insert id="createRoom" parameterType="Room" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO room(type_code_id, status_code_id, type_code_code, status_code_code,
+        INSERT INTO room(acc_id, type_code_id, status_code_id, type_code_code, status_code_code,
                          main_image_id, name, info, add_info, size, room_cnt, floor, capacity, max_capacity)
-        VALUES(#{typeCodeId}, #{statusCodeId}, #{typeCodeCode}, #{statusCodeCode}, #{mainImageId},
+        VALUES(#{accId}, #{typeCodeId}, #{statusCodeId}, #{typeCodeCode}, #{statusCodeCode}, #{mainImageId},
                #{name}, #{info}, #{addInfo}, #{size}, #{roomCnt}, #{floor}, #{capacity}, #{maxCapacity})
     </insert>
 
