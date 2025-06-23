@@ -5,7 +5,7 @@
 
 <mapper namespace="org.spring.example.mapper.RoomMapper">
     <resultMap id="RoomResultMap" type="Room">
-        <id property="id" column="id"/>
+        <id property="id" column="room_id"/>
             <result property="accId" column="acc_id"/>
             <result property="typeCodeId" column="type_code_id"/>
             <result property="typeCodeCode" column="type_code_code"/>
@@ -35,7 +35,7 @@
 
     <select id="findAllRooms" resultMap="RoomResultMap">
         SELECT
-            r.id,
+            r.room_id,
             r.acc_id,
 
             r.type_code_id,
@@ -69,7 +69,7 @@
 
     <select id="findRoomById" parameterType="long" resultMap="RoomResultMap">
         SELECT
-            r.id,
+            r.room_id,
             r.acc_id,
 
             r.type_code_id,
@@ -107,7 +107,7 @@
 
     <select id="findRoomsByAccId" parameterType="long" resultMap="RoomResultMap">
         SELECT
-            r.id,
+            r.room_id,
             r.acc_id,
 
             r.type_code_id,
@@ -144,7 +144,7 @@
 
     <select id="findRoomsByAccIdAndStatus" resultMap="RoomResultMap">
         SELECT
-            r.id,
+            r.room_id,
             r.acc_id,
 
             r.type_code_id,
@@ -205,7 +205,7 @@
     <delete id="deleteRoomByRoomId" parameterType="long">
         DELETE
         FROM room
-        WHERE id = #{roomId}
+        WHERE room_id = #{roomId}
     </delete>
 
 </mapper>

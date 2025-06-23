@@ -6,7 +6,7 @@
 <mapper namespace="org.spring.example.mapper.ReservationMapper">
     <select id="canReserve" resultType="int">
   <![CDATA[
-        SELECT COUNT(id)
+        SELECT COUNT(reservation_id)
         FROM reservation
         WHERE room_id = #{roomId}
           AND check_in < #{checkOut}
