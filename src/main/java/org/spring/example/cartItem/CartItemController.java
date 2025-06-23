@@ -20,8 +20,8 @@ public class CartItemController {
     }
 
     @GetMapping
-    public List<CartItemDto> getCartItemsByCartId(@PathVariable long userId, @PathVariable String cartId) {
-        return cartItemService.getCartItemsByCartId(Long.parseLong(cartId));
+    public List<CartItemDto> getCartItemsByCartId(@PathVariable long userId, @PathVariable long cartId) {
+        return cartItemService.getCartItemsByCartId(cartId);
     }
 
     @DeleteMapping("/{cartItemId}")
