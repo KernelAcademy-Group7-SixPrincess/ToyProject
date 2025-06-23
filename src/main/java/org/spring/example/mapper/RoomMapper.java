@@ -1,6 +1,5 @@
-package org.spring.example.room.mapper;
+package org.spring.example.mapper;
 
-import org.apache.ibatis.annotations.Param;
 import org.spring.example.common.dto.SearchDto;
 import org.spring.example.room.dto.Room;
 

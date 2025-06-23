@@ -30,12 +30,12 @@ public class RoomController {
         return roomService.findRoomByRoomId(roomId);
     }
 
-    @GetMapping("/rooms")
+    @GetMapping(value = "/rooms", params = "accId")
     public List<Room> getRoomsByAccId(@RequestParam long accId) {
         return roomService.findRoomsByAccId(accId);
     }
 
-    @GetMapping("/rooms")
+    @GetMapping(value = "/rooms", params = {"accId", "statusCodeId", "statusCodeCode"})
     public List<Room> getRoomsByAccIdAndStatus(
             @RequestParam long accId, @RequestParam String statusCodeId, @RequestParam int statusCodeCode) {
         SearchDto searchDto = SearchDto.builder()

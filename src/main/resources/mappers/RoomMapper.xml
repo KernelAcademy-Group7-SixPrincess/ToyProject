@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.spring.example.room.mapper.RoomMapper">
+<mapper namespace="org.spring.example.mapper.RoomMapper">
     <resultMap id="RoomResultMap" type="Room">
         <id property="id" column="id"/>
             <result property="accId" column="acc_id"/>
