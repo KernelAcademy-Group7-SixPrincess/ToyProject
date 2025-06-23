@@ -1,5 +1,7 @@
 package org.spring.example.room.mapper;
 
+import org.apache.ibatis.annotations.Param;
+import org.spring.example.common.dto.SearchDto;
 import org.spring.example.room.dto.Room;
 
 import java.util.List;
@@ -32,6 +34,12 @@ public interface RoomMapper {
      * @return 해당 숙소의 객실 전체 정보
      */
     List<Room> findRoomsByAccId(Long accId);
+
+    /**
+     * 해당 숙소의 객실을 상태 기반으로 조회하는 메서드
+     * @return 해당 숙소의 특정 상태 객실 리스트
+     */
+    List<Room> findRoomsByAccIdAndStatus(SearchDto searchDto);
 
     /**
      * 해당 객실 정보 갱신 메서드 <br>

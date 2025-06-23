@@ -1,6 +1,7 @@
 package org.spring.example.room.service;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.example.common.dto.SearchDto;
 import org.spring.example.room.dto.Room;
 import org.spring.example.room.mapper.RoomMapper;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,11 @@ public class RoomServiceImpl implements RoomService {
         List<Room> roomList = roomMapper.findRoomsByAccId(accId);
         if(roomList.isEmpty()) throw new NoSuchElementException("No rooms found");
         return roomList;
+    }
+
+    @Override
+    public List<Room> findRoomsByAccIdAndStatus(SearchDto searchDto) {
+        return roomMapper.findRoomsByAccIdAndStatus(searchDto);
     }
 
     @Override

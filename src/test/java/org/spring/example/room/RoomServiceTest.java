@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.spring.example.common.dto.SearchDto;
 import org.spring.example.room.dto.Room;
 import org.spring.example.room.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RunWith(SpringRunner.class)
@@ -159,6 +162,44 @@ public class RoomServiceTest {
 
         assertThat(predicateRoomList).usingRecursiveComparison()
                 .ignoringFields("createdAt", "updatedAt").isEqualTo(roomList);
+    }
+
+    @Transactional
+    @Rollback
+    @Test
+    public void findRoomsByAccIdAndStatusTest() {
+        //Given
+        Room room = null;
+        List<Room> predicateRoomList = new ArrayList<>();
+        // 1 5개, 2 5개 설정
+        for(int i = 0; i < 10; i++) {
+            room = createTestRoom();
+            room.setStatusCodeCode((i / 5) + 1);
+            roomService.createRoom(room);
+            predicateRoomList.add(room);
+        }
+
+        long accId = room.getAccId();
+        String statusCodeId= room.getStatusCodeId();
+        int statusCodeCode = 1;
+
+        // statusCodeCode가 1인 것만 필터
+        List<Room> expectedList = predicateRoomList.stream()
+                .filter(r -> r.getStatusCodeCode() == 1)
+                .collect(Collectors.toList());
+        SearchDto searchDto = SearchDto.builder().accId(accId).statusCodeId(statusCodeId)
+                .statusCodeCode(statusCodeCode).build();
+
+
+        //When
+        List<Room> roomList = roomService.findRoomsByAccIdAndStatus(searchDto);
+
+        //Then
+        assertThat(roomList).isNotNull();
+        assertThat(roomList.size()).isEqualTo(5);
+        assertThat(roomList).usingRecursiveComparison().ignoringFields("createdAt", "updatedAt")
+                .isEqualTo(expectedList);
+
     }
 
     /**

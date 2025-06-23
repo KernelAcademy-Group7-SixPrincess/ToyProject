@@ -2,6 +2,7 @@ package org.spring.example.room;
 
 import lombok.RequiredArgsConstructor;
 import org.spring.example.common.dto.APIResponse;
+import org.spring.example.common.dto.SearchDto;
 import org.spring.example.room.dto.Room;
 import org.spring.example.room.service.RoomService;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,16 @@ public class RoomController {
     @GetMapping("/rooms")
     public List<Room> getRoomsByAccId(@RequestParam long accId) {
         return roomService.findRoomsByAccId(accId);
+    }
+
+    @GetMapping("/rooms")
+    public List<Room> getRoomsByAccIdAndStatus(
+            @RequestParam long accId, @RequestParam String statusCodeId, @RequestParam int statusCodeCode) {
+        SearchDto searchDto = SearchDto.builder()
+                .accId(accId)
+                .statusCodeId(statusCodeId)
+                .statusCodeCode(statusCodeCode).build();
+        return roomService.findRoomsByAccIdAndStatus(searchDto);
     }
 
     @PutMapping("/room{roomId}")
