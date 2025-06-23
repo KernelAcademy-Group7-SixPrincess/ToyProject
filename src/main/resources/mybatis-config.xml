@@ -20,5 +20,7 @@
         <!-- 패키지 전체 등록 -->
         <package name="org.spring.example.room.dto"/>
         <package name="org.spring.example.board.dto"/>
+        <package name="org.spring.example.cart.dto"/>
+        <package name="org.spring.example.cartItem.dto"/>
     </typeAliases>
 </configuration>
