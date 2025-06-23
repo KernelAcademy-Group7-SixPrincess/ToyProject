@@ -10,22 +10,22 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/users/{userId}/carts/{cartId}/items")
+@RequestMapping("/carts")
 public class CartItemController {
     private final CartItemService cartItemService;
 
-    @PostMapping
-    public void createCartItem(@PathVariable long userId, @PathVariable long cartId, CartItemDto cartItemDto) {
+    @PostMapping("{cartId}/items")
+    public void createCartItem(CartItemDto cartItemDto) {
         cartItemService.createCartItem(cartItemDto);
     }
 
-    @GetMapping
-    public List<CartItemDto> getCartItemsByCartId(@PathVariable long userId, @PathVariable long cartId) {
+    @GetMapping("/{cartId}/items")
+    public List<CartItemDto> getCartItemsByCartId(@PathVariable long cartId) {
         return cartItemService.getCartItemsByCartId(cartId);
     }
 
-    @DeleteMapping("/{cartItemId}")
-    public void deleteCartItemByCartItemId(@PathVariable long userId, @PathVariable long cartId, @PathVariable long cartItemId) {
+    @DeleteMapping("/items/{cartItemId}")
+    public void deleteCartItemByCartItemId(@PathVariable long cartItemId) {
         cartItemService.deleteCartItemByCartItemId(cartItemId);
     }
 
