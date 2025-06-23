@@ -18,7 +18,7 @@ public class Room {
     /**
      * 숙소 ID
      */
-    private long accId;
+    private Long accId;
     /**
      * 객실 타입 코드유형 ID
      */
@@ -26,7 +26,7 @@ public class Room {
     /**
      * 객실 타입 코드
      */
-    private int typeCodeCode;
+    private Integer typeCodeCode;
     /**
      * 객실 타입 이름
      */
@@ -38,7 +38,7 @@ public class Room {
     /**
      * 객실 상태 코드
      */
-    private int statusCodeCode;
+    private Integer statusCodeCode;
     /**
      * 객실 상태 이름
      */
@@ -62,27 +62,27 @@ public class Room {
     /**
      * 객실 크기
      */
-    private int size;
+    private Integer size;
     /**
      * 객실 방 수
      */
-    private int roomCnt;
+    private Integer roomCnt;
     /**
      * 객실 층 수
      */
-    private int floor;
+    private Integer floor;
     /**
      * 객실 기준 인원
      */
-    private int capacity;
+    private Integer capacity;
     /**
      * 객실 최대 인원
      */
-    private int maxCapacity;
+    private Integer maxCapacity;
     /**
      * 객실 가격
      */
-    private int price;
+    private Integer price;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

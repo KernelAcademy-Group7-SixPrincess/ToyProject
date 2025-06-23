@@ -1,17 +1,19 @@
 package org.spring.example.cart.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
+import org.apache.ibatis.type.Alias;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
+@Alias("CartDto")
 public class CartDto {
-    private long id;
-    private long userId;
+    private Long cartId;
+    private Long userId;
     private String name;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
