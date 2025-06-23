@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="org.spring.example.review.ReviewBoardMapper">
+<select id="select" parameterType="int" resultType="ReviewBoardDto">
+    select
+            user_id,
+            acc_id,
+            rate,
+            comment,
+            like_cnt,
+            created_at,
+            updated_at
+    from  `review`
+    where id=#{id}
+</select>
+
+    <delete id="deleteAll">
+        DELETE FROM review
+    </delete>
+
+    <delete id="delete" parameterType="map">
+        DELETE FROM review WHERE id = #{id} and user_id =#{user_id}
+    </delete>
+
+    <insert id="insert" parameterType="ReviewBoardDto">
+        INSERT INTO review
+        ( id, user_id, acc_id, rate, comment, like_cnt, created_at, updated_at)
+        VALUES
+            (#{id},#{user_id},#{acc_id},#{rate},#{comment},#{like_cnt},#{created_at},#{updated_at})
+    </insert>
+        <select id="selectAll" resultType="ReviewBoardDto">
+            select id, user_id, acc_id, rate, comment, like_cnt, created_at, updated_at
+            from review
+            order by created_at, updated_at, id desc
+        </select>
+
+    <sql id="selectFromReview">
+        select  id, user_id, acc_id, rate, comment, like_cnt, created_at, updated_at
+        from review
+    </sql>
+
+
+    <select id="selectPage" parameterType="map" resultType="ReviewBoardDto">
+        <include refid="selectFromReview"/>
+        order by  created_at, updated_at, id desc
+        limit #{offset},#{pageSize}
+</select>
+
+    <update id="update" parameterType="ReviewBoardDto">
+        UPDATE review
+        SET 
+            userId =#{userId},
+            accId=#{accId},
+            rate=#{rate},
+            comment=#{comment},
+            likeCnt=#{likeCnt},
+            createdAt=#{createdAt}
+            updatedAt=#{updatedAt}
+        where id=#{id}
+    </update>
+    <select id="count" resultType="int">
+        SELECT COUNT(*)
+        FROM review
+    </select>
+
+</mapper>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="org.spring.example.review.ReviewUserMapper">
+
+    <resultMap id="reviewUserResultMap" type="org.spring.example.review.ReviewUserDto">
+        <id property="id" column="id"/>
+        <result property="codeTypeId" column="code_type_id"/>
+        <result property="code" column="code"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="email" column="email"/>
+        <result property="birth" column="birth"/>
+        <result property="phone" column="phone"/>
+        <result property="nickname" column="nickname"/>
+        <result property="signupAt" column="signup_at"/>
+        <result property="status" column="status"/>
+        <result property="pointBalance" column="point_balance"/>
+        <result property="deletedAt" column="deleted_at"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <select id="selectUserById" parameterType="java.math.BigInteger" resultMap="reviewUserResultMap">
+        SELECT *
+        FROM `user`
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectUserByEmail" parameterType="string" resultMap="reviewUserResultMap">
+        SELECT *
+        FROM `user`
+        WHERE email = #{email}
+    </select>
+
+    <insert id="insertUser" parameterType="org.spring.example.review.ReviewUserDto"
+            useGeneratedKeys="true" keyProperty="id"> INSERT INTO `user` (
+        code_type_id, code, password, name, gender, email, birth, phone, nickname, signup_at, status, point_balance, created_at, updated_at
+    ) VALUES (
+                 #{codeTypeId}, #{code}, #{password}, #{name}, #{gender}, #{email}, #{birth}, #{phone}, #{nickname}, NOW(), #{status}, #{pointBalance}, NOW(), NOW()
+             )
+    </insert>
+
+    <update id="updateUser" parameterType="org.spring.example.review.ReviewUserDto">
+        UPDATE `user`
+        SET
+            code_type_id = #{codeTypeId},
+            code = #{code},
+            password = #{password},
+            name = #{name},
+            gender = #{gender},
+            email = #{email},
+            birth = #{birth},
+            phone = #{phone},
+            nickname = #{nickname},
+            status = #{status},
+            point_balance = #{pointBalance},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <select id="countUsers" resultType="int">
+        SELECT COUNT(*)
+        FROM `user`
+    </select>
+
+    <update id="softDeleteUser" parameterType="map">
+        UPDATE `user`
+        SET
+            status = #{status},
+            deleted_at = #{deletedAt},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteAllUsers">
+        DELETE FROM `user`
+    </delete>
+
+    <select id="selectAllUsers" resultMap="reviewUserResultMap">
+        SELECT *
+        FROM `user`
+        ORDER BY id ASC
+    </select>
+
+</mapper>

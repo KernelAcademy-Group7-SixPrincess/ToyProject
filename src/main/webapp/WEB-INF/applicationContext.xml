@@ -11,24 +11,31 @@
            http://mybatis.org/schema/mybatis-spring
            http://mybatis.org/schema/mybatis-spring.xsd">
 
-    <!-- @Component, @Repository 등 자동 스캔 -->
-    <context:component-scan base-package="org.spring.example.room.mapper"/>
 
     <!-- DB 연결 설정 -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/spring?serverTimezone=UTC"/>
-        <property name="username" value="사용자 아이디"/>
-        <property name="password" value="사용자 비밀번호"/>
+        <property name="username" value="root"/>
+        <property name="password" value="789456"/>
     </bean>
 
     <!-- MyBatis 설정 -->
+
+
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
+
         <property name="mapperLocations" value="classpath:mappers/*.xml"/>
+        <property name="typeAliasesPackage" value="org.spring.example.review"/>
     </bean>
 
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+          <constructor-arg index ="0"    ref="sqlSessionFactory"/>
+</bean>
+
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="org.spring.example.room.mapper"/>
+
+        <property name="basePackage" value="org.spring.example.review.mapper"/>
     </bean>
 </beans>
