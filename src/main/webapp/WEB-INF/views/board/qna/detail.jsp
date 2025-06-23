@@ -33,6 +33,7 @@
 
 
   <%-- 답변 보여주는 부분(수정 필요함) --%>
+  <c:forEach var="answer" items="${commentList}">
   <article aria-labelledby="qna-title" class="board-detail qna-detail">
     <header>
       <h2 id="qna-title" class="board-title qna-title">답변입니다.</h2>
@@ -43,6 +44,7 @@
       <p class="board-meta qna-meta">답변자: ${answer.writerName} | <time>${answer.formattedDate}</time></p>
     </section>
   </article>
+  </c:forEach>
 
 
   <%-- 글 조작 영역 --%>
