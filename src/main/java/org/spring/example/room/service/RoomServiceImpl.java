@@ -40,6 +40,11 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public List<Room> findRoomsByAccIdAndStatusWithPrice(SearchDto searchDto) {
+        return roomMapper.findRoomsByAccIdAndStatusWithPrice(searchDto);
+    }
+
+    @Override
     public List<Room> findAllRooms() {
         return roomMapper.findAllRooms();
     }

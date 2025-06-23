@@ -10,6 +10,7 @@ public interface RoomService {
     Room findRoomByRoomId(long roomId);
     List<Room> findRoomsByAccId(long accId);
     List<Room> findRoomsByAccIdAndStatus(SearchDto searchDto);
+    List<Room> findRoomsByAccIdAndStatusWithPrice(SearchDto searchDto);
     List<Room> findAllRooms();
     void updateRoomByRoom(Room room);
     void deleteRoomByRoomId(long roomId);

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 /**
  * 검색 시 필요한 조건들을 담은 Dto <br>
  * accId : 숙소의 ID <br>
@@ -14,8 +16,13 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class SearchDto {
-    private long accId;
+    // 숙소의 객실 리스트 조회시 필요한 파라미터
+    private Long accId;
     private String statusCodeId;
-    private int statusCodeCode;
+    private Integer statusCodeCode;
 
+    // 검색 시 필요한 파라미터
+    private LocalDate checkIn;
+    private LocalDate checkOut;
+    private Integer personal;
 }

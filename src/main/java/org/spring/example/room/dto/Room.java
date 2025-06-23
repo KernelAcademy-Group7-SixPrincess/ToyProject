@@ -46,7 +46,7 @@ public class Room {
     /**
      * 객실 대표 이미지 ID
      */
-    private long mainImageId;
+    private String mainImageId;
     /**
      * 객실 이름
      */
@@ -79,6 +79,10 @@ public class Room {
      * 객실 최대 인원
      */
     private int maxCapacity;
+    /**
+     * 객실 가격
+     */
+    private int price;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

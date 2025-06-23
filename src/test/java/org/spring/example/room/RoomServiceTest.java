@@ -40,7 +40,7 @@ public class RoomServiceTest {
                 .statusCodeId("ROOM_STATUS")
                 .statusCodeCode(1)
                 .statusCodeName("AVAILABLE")
-                .mainImageId(5001L)
+                .mainImageId("28e6b4fc-f434-422c-8e57-03c428d53237")
                 .name("101호")
                 .info("깔끔한 방입니다")
                 .addInfo("세탁기 있음")

@@ -41,6 +41,13 @@ public interface RoomMapper {
     List<Room> findRoomsByAccIdAndStatus(SearchDto searchDto);
 
     /**
+     * 해당 숙소의 객실을 상태 기반으로 조회하고 가격을 포함해 반환하는 메서드
+     * @param searchDto 검색 조건
+     * @return 가격을 포함한 객실 정보
+     */
+    List<Room> findRoomsByAccIdAndStatusWithPrice(SearchDto searchDto);
+
+    /**
      * 해당 객실 정보 갱신 메서드 <br>
      * null 값은 업데이트 하지 않고 기존 값 유지 <br>
      * @param room 갱신 할 객체 정보

@@ -35,13 +35,10 @@ public class RoomController {
         return roomService.findRoomsByAccId(accId);
     }
 
-    @GetMapping(value = "/rooms", params = {"accId", "statusCodeId", "statusCodeCode"})
-    public List<Room> getRoomsByAccIdAndStatus(
-            @RequestParam long accId, @RequestParam String statusCodeId, @RequestParam int statusCodeCode) {
-        SearchDto searchDto = SearchDto.builder()
-                .accId(accId)
-                .statusCodeId(statusCodeId)
-                .statusCodeCode(statusCodeCode).build();
+    @GetMapping(value = "/rooms/search")
+    public List<Room> getRoomsByAccIdAndStatus(SearchDto searchDto) {
+        if(searchDto.getCheckIn() == null)
+            return roomService.findRoomsByAccIdAndStatusWithPrice(searchDto);
         return roomService.findRoomsByAccIdAndStatus(searchDto);
     }
 
