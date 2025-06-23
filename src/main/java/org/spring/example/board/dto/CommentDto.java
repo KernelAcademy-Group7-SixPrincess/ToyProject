@@ -5,11 +5,15 @@ import java.time.LocalDateTime;
 public class CommentDto {
     private int commentId;
     private int postId;
-    private long user_id;
+    private long userId;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String writerName;
 
+    public String getWriterName() { return writerName; }
+
+    public void setWriterName(String writerName) { this.writerName = writerName; }
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
@@ -35,12 +39,12 @@ public class CommentDto {
         this.content = content;
     }
 
-    public long getUser_id() {
-        return user_id;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public int getPostId() {
