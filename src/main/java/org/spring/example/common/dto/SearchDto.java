@@ -21,7 +21,11 @@ public class SearchDto {
     private String statusCodeId;
     private Integer statusCodeCode;
 
+    // 예약 여부 확인에 필요한 파라미터
+    private Long roomId;
+
     // 검색 시 필요한 파라미터
+    private String keyWord;
     private LocalDate checkIn;
     private LocalDate checkOut;
     private Integer personal;
