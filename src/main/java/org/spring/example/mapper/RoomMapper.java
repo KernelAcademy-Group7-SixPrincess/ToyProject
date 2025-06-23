@@ -22,10 +22,10 @@ public interface RoomMapper {
 
     /**
      * 객실 조회 메서드
-     * @param id 객실의 키값(long)으로 해당 객실 정보를 반환
+     * @param roomId 객실의 키값(long)으로 해당 객실 정보를 반환
      * @return 해당 객실 정보(RoomDto)
      */
-    Room findRoomById(Long id);
+    Room findRoomById(Long roomId);
 
     /**
      * 해당 숙소의 전체 객실 조회 메서드

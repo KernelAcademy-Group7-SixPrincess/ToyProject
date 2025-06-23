@@ -5,28 +5,28 @@
 
 <mapper namespace="org.spring.example.mapper.RoomMapper">
     <resultMap id="RoomResultMap" type="Room">
-        <id property="id" column="room_id"/>
-            <result property="accId" column="acc_id"/>
-            <result property="typeCodeId" column="type_code_id"/>
-            <result property="typeCodeCode" column="type_code_code"/>
-            <result property="typeCodeName" column="type_code_name"/>
-            <result property="statusCodeId" column="status_code_id"/>
-            <result property="statusCodeCode" column="status_code_code"/>
-            <result property="statusCodeName" column="status_code_name"/>
-            <result property="mainImageId" column="main_image_id"/>
-            <result property="name" column="name"/>
-            <result property="info" column="info"/>
-            <result property="addInfo" column="add_info"/>
-            <result property="size" column="size"/>
-            <result property="roomCnt" column="room_cnt"/>
-            <result property="floor" column="floor"/>
-            <result property="capacity" column="capacity"/>
-            <result property="maxCapacity" column="max_capacity"/>
-            <result property="createdAt" column="created_at"/>
-            <result property="updatedAt" column="updated_at"/>
+        <id property="roomId" column="room_id"/>
+        <result property="accId" column="acc_id"/>
+        <result property="typeCodeId" column="type_code_id"/>
+        <result property="typeCodeCode" column="type_code_code"/>
+        <result property="typeCodeName" column="type_code_name"/>
+        <result property="statusCodeId" column="status_code_id"/>
+        <result property="statusCodeCode" column="status_code_code"/>
+        <result property="statusCodeName" column="status_code_name"/>
+        <result property="mainImageId" column="main_image_id"/>
+        <result property="name" column="name"/>
+        <result property="info" column="info"/>
+        <result property="addInfo" column="add_info"/>
+        <result property="size" column="size"/>
+        <result property="roomCnt" column="room_cnt"/>
+        <result property="floor" column="floor"/>
+        <result property="capacity" column="capacity"/>
+        <result property="maxCapacity" column="max_capacity"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
     </resultMap>
 
-    <insert id="createRoom" parameterType="Room" useGeneratedKeys="true" keyProperty="id">
+    <insert id="createRoom" parameterType="Room" useGeneratedKeys="true" keyProperty="roomId">
         INSERT INTO room(acc_id, type_code_id, status_code_id, type_code_code, status_code_code,
                          main_image_id, name, info, add_info, size, room_cnt, floor, capacity, max_capacity)
         VALUES(#{accId}, #{typeCodeId}, #{statusCodeId}, #{typeCodeCode}, #{statusCodeCode}, #{mainImageId},
@@ -101,7 +101,7 @@
                            ON r.status_code_id = sc.code_type_id
                                AND r.status_code_code = sc.code
 
-        WHERE r.id = #{id}
+        WHERE r.room_id = #{roomId}
 
     </select>
 
@@ -199,7 +199,7 @@
             <if test="capacity != null">capacity = #{capacity},</if>
             <if test="maxCapacity != null">max_capacity = #{maxCapacity},</if>
         </set>
-        WHERE room_id = #{id}
+        WHERE room_id = #{roomId}
     </update>
 
     <delete id="deleteRoomByRoomId" parameterType="long">

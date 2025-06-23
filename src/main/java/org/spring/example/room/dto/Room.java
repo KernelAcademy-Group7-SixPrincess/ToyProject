@@ -14,7 +14,7 @@ public class Room {
      * 객실 ID(BIGINT) <br>
      * NOT NULL
      */
-    private Long id;
+    private Long roomId;
     /**
      * 숙소 ID
      */

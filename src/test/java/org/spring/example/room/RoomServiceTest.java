@@ -102,14 +102,14 @@ public class RoomServiceTest {
         //Given
         Room room = createTestRoom();
         roomService.createRoom(room);
-        long roomId = room.getId();
+        long roomId = room.getRoomId();
 
         //When
         Room resultRoom = roomService.findRoomByRoomId(roomId);
 
         //Then
         assertThat(resultRoom).isNotNull();
-        assertThat(resultRoom.getId()).isEqualTo(roomId);
+        assertThat(resultRoom.getRoomId()).isEqualTo(roomId);
         assertThat(resultRoom.getAccId()).isEqualTo(room.getAccId());
         assertThat(resultRoom.getTypeCodeId()).isEqualTo(room.getTypeCodeId());
     }
@@ -127,7 +127,7 @@ public class RoomServiceTest {
 
         // When
         roomService.createRoom(room);
-        Room savedRoom = roomService.findRoomByRoomId(room.getId());
+        Room savedRoom = roomService.findRoomByRoomId(room.getRoomId());
 
         // Then
         assertThat(savedRoom).isNotNull();
@@ -215,7 +215,7 @@ public class RoomServiceTest {
         //When
         room.setAccId(2L);
         roomService.updateRoomByRoom(room);
-        Room updatedRoom = roomService.findRoomByRoomId(room.getId());
+        Room updatedRoom = roomService.findRoomByRoomId(room.getRoomId());
 
         //Then
         assertThat(updatedRoom).isNotNull();
@@ -234,8 +234,8 @@ public class RoomServiceTest {
         roomService.createRoom(room);
 
         //When
-        roomService.deleteRoomByRoomId(room.getId());
-        Room deletedRoom = roomService.findRoomByRoomId(room.getId());
+        roomService.deleteRoomByRoomId(room.getRoomId());
+        Room deletedRoom = roomService.findRoomByRoomId(room.getRoomId());
 
         //Then
         assertThat(deletedRoom).isNull();

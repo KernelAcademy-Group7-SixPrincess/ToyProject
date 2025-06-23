@@ -46,7 +46,7 @@ public class RoomController {
     public void updateRoom(@PathVariable long roomId, @RequestBody Room room) {
         if(room == null)
             throw new IllegalArgumentException("Room is null");
-        if(roomId != room.getId())
+        if(roomId != room.getRoomId())
             throw new IllegalArgumentException("Invalid room id");
         roomService.updateRoomByRoom(room);
     }
@@ -55,7 +55,7 @@ public class RoomController {
     public void deleteRoom(@PathVariable long roomId, @RequestBody Room room) {
         if(room == null)
             throw new IllegalArgumentException("Room is null");
-        if(roomId != room.getId())
+        if(roomId != room.getRoomId())
             throw new IllegalArgumentException("Invalid room id");
         roomService.deleteRoomByRoomId(roomId);
     }
