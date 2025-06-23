@@ -199,7 +199,7 @@
             <if test="capacity != null">capacity = #{capacity},</if>
             <if test="maxCapacity != null">max_capacity = #{maxCapacity},</if>
         </set>
-        WHERE id = #{id}
+        WHERE room_id = #{id}
     </update>
 
     <delete id="deleteRoomByRoomId" parameterType="long">
