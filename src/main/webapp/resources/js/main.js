@@ -5,16 +5,34 @@ navBtn.addEventListener("click", () => {
     guestNavMenu.hidden = !guestNavMenu.hidden;
 });
 
+const accordionBtn = document.querySelectorAll(".accordion-trigger");
 
-const swiper = new Swiper(".swiper", {
-    loop: true,
-    slidesPerView: 6,
-    slidesPerGroup: 6,
-    spaceBetween: 24,
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
+accordionBtn.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        const panel = document.getElementById(btn.getAttribute("aria-controls"));
+        const isExpanded = btn.getAttribute("aria-expanded") === "true";
+        const accordionIcon = btn.querySelector(".accordion-icon");
+
+        if (isExpanded) {
+            // 닫기
+            btn.setAttribute("aria-expanded", "false");
+            panel.style.height = panel.scrollHeight + "px";
+            requestAnimationFrame(() => {
+                panel.style.height = "0";
+            });
+
+            accordionIcon.classList.add("rotate");
+        } else {
+            // 열기
+            btn.setAttribute("aria-expanded", "true");
+            panel.style.height = panel.scrollHeight + "px";
+
+            panel.addEventListener("transitionend", function handler() {
+                panel.style.height = "auto";
+                panel.removeEventListener("transitionend", handler);
+            });
+
+            accordionIcon.classList.remove("rotate");
+        }
+    });
 });
-
-console.log(swiper)

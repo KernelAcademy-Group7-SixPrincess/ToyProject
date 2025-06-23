@@ -1,6 +1,5 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Tomcat 9.0.105" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.105" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="21" nameIsGenerated="true">
-    <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
     <option name="UPDATING_POLICY" value="restart-server" />
     <deployment>
       <artifact name="Spring:war exploded">
@@ -20,9 +19,6 @@
     <RunnerSettings RunnerId="AppServerDebuggerRunner">
       <option name="DEBUG_PORT" value="64817" />
     </RunnerSettings>
-    <RunnerSettings RunnerId="Debug">
-      <option name="DEBUG_PORT" value="50184" />
-    </RunnerSettings>
     <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="AppServerDebuggerRunner">
       <option name="USE_ENV_VARIABLES" value="true" />
       <STARTUP>
@@ -39,21 +35,6 @@
       </SHUTDOWN>
     </ConfigurationWrapper>
     <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
-      <option name="USE_ENV_VARIABLES" value="true" />
-      <STARTUP>
-        <option name="USE_DEFAULT" value="true" />
-        <option name="SCRIPT" value="" />
-        <option name="VM_PARAMETERS" value="" />
-        <option name="PROGRAM_PARAMETERS" value="" />
-      </STARTUP>
-      <SHUTDOWN>
-        <option name="USE_DEFAULT" value="true" />
-        <option name="SCRIPT" value="" />
-        <option name="VM_PARAMETERS" value="" />
-        <option name="PROGRAM_PARAMETERS" value="" />
-      </SHUTDOWN>
-    </ConfigurationWrapper>
-    <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
       <option name="USE_ENV_VARIABLES" value="true" />
       <STARTUP>
         <option name="USE_DEFAULT" value="true" />
