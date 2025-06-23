@@ -30,7 +30,7 @@ public class CartController {
 
     @PutMapping("/carts/{cartId}")
     public void updateCart(@PathVariable long userId, @PathVariable long cartId, @RequestParam String name) {
-        CartDto cartDto = CartDto.builder().id(cartId).userId(userId).name(name).build();
+        CartDto cartDto = CartDto.builder().cartId(cartId).userId(userId).name(name).build();
         cartService.updateCartByCartDto(cartDto);
     }
 

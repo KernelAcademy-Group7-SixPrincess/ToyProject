@@ -1,14 +1,12 @@
-package org.spring.example.cart.service;
+package org.spring.example.mapper;
 
 import org.spring.example.cart.dto.CartDto;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface CartService {
-    void createCartByCartDto(CartDto cartDto);
+public interface CartMapper {
+    void createCart(CartDto cartDto);
     List<CartDto> getCartListByUserId(long userId);
     void updateCartByCartDto(CartDto cartDto);
     void deleteCartByCartId(long cratId);
-
 }
