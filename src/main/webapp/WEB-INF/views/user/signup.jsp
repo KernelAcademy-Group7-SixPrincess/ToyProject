@@ -20,7 +20,7 @@
         <p class="signup_desc">가입을 위해 필수 정보를 입력해 주세요.</p>
     </section>
 
-    <form action="/user/login" method="post" aria-labelledby="form-title">
+    <form action="/user/signok" method="post" aria-labelledby="form-title">
         <fieldset>
             <legend class="visually-hidden" id="form-title">회원가입 폼</legend>
 
@@ -57,7 +57,7 @@
                     <span aria-hidden="true" class="required"></span>
                 </label>
                 <input type="password" id="confirmPassword" name="confirmPassword" placeholder="위 비밀번호와 동일하게 입력" required aria-required="true" />
-                <span id="confirmPasswordError" class="error_msg">비밀번호가 일치하지 않습니다.</span>
+                <span id="confirmPasswordError" class="error_msg" style="display: none">비밀번호가 일치하지 않습니다.</span>
             </div>
 
             <div class="form-group">
@@ -186,6 +186,31 @@
         }
 
         form.addEventListener("input", () => {
+            const pwInput = form.querySelector("[name='password']");
+            const cpwInput = form.querySelector("[name='confirmPassword']");
+            const pw = pwInput.value;
+            const cpw = cpwInput.value;
+            const confirmPasswordError = document.getElementById("confirmPasswordError");
+
+
+            // 비밀번호 불일치 시 메시지 보여주기
+            if (cpw !== "" && pw !== cpw) {
+                confirmPasswordError.style.display = "block";
+                cpwInput.classList.add("input-error");
+            } else {
+                confirmPasswordError.style.display = "none";
+                cpwInput.classList.remove("input-error");
+            }
+
+            // 제출 버튼 활성화 여부 판단
+            if (isFormValid()) {
+                submitBtn.disabled = false;
+                submitBtn.classList.add("active");
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.classList.remove("active");
+            }
+
             if (isFormValid()) {
                 submitBtn.disabled = false;
                 submitBtn.classList.add("active");  // ✅ 버튼 활성화 시 스타일 클래스 추가

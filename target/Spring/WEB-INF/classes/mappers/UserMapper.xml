@@ -14,7 +14,7 @@
                     c.id, c.code
                 FROM code c
                 WHERE c.code_name = #{job}
-                  AND c.code_state = 'Y'
+                  AND c.is_used = TRUE
     </insert>
 
     <select id="loginCheck" resultType="int"
@@ -22,6 +22,15 @@
         SELECT COUNT(*)
         FROM user
         WHERE email = #{email} AND password = #{password}
+    </select>
+
+    <select id="getUserInfo" resultType="org.spring.example.user.dto.UserinfoDto"
+            parameterType="String">
+        SELECT id, password, name, gender, email, birth_date, phone, nickname,
+               signup_at, user_status, point_balance, deleted_at, updated_at,
+               code_type_id, code
+        FROM user
+        WHERE email = #{email}
     </select>
 
 </mapper>

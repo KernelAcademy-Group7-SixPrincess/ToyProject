@@ -1,7 +1,7 @@
 package org.spring.example.user.service;
 
 import org.spring.example.user.dao.UserDao;
-import org.spring.example.user.domain.User;
+import org.spring.example.user.dto.UserinfoDto;
 import org.spring.example.user.dto.UserloginDto;
 import org.spring.example.user.dto.UsersignupDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public int login(UserloginDto dto){
         return userDao.loginCheck(dto);
+    }
+
+    @Override
+    public UserinfoDto getUserinfo(String email){
+        return userDao.getUserInfo(email);
     }
 
 }

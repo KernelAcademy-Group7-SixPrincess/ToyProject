@@ -63,6 +63,8 @@
   border-radius: 8px;
   border-width: 1.5px;
   border-color: rgb(235 235 235 / 1);
+  cursor: pointer;
+  user-select: none;
 }
 
 .nav__actions.user:hover {
@@ -321,4 +323,6 @@ footer p {
 .footer-bottom a:hover {
   text-decoration: underline;
 }
+
+
 /* 전체 푸터 배경 및 기본 레이아웃 */
