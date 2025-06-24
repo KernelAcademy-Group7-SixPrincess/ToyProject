@@ -63,7 +63,7 @@
             <div class="swiper">
                 <ul class="swiper-wrapper">
                     <li class="swiper-slide">
-                        <a href="/">
+                        <a href="/jeju">
                             <img
                                     alt="제주도 여행"
                                     sizes="100vw"

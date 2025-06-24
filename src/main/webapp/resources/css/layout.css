@@ -185,6 +185,11 @@
   background-color: rgb(245 245 245);
 }
 
+.btn-wrap {
+  display: flex;
+  align-items: center;
+}
+
 .nav__menu-btn {
   width: 40px;
   font-size: 24px;

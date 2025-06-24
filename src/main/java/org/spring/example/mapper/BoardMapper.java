@@ -1,4 +1,4 @@
-package org.spring.example.board.mapper;
+package org.spring.example.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.spring.example.board.dto.BoardDto;
@@ -9,7 +9,7 @@ import java.util.List;
 public interface BoardMapper {
     List<BoardDto> selectAllBoards();
 
-    BoardDto selectById(int boardId);
+    BoardDto selectById(long boardId);
 
     int insert(BoardDto boardDto);
 

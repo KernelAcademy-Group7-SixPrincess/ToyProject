@@ -125,6 +125,19 @@
       <artifactId>lombok</artifactId>
       <version>1.18.38</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/jakarta.annotation/jakarta.annotation-api -->
+    <dependency>
+      <groupId>jakarta.annotation</groupId>
+      <artifactId>jakarta.annotation-api</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>4.0.0-M1</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <finalName>Spring</finalName>

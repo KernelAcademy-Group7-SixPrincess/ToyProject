@@ -21,74 +21,76 @@
       </a>
     </div>
 
-    <div class="nav__actions guest">
-      <a href="/user/auth" class="site-header__auth-link">로그인/회원가입</a>
+    <div class="nav__actions">
+      <div class="btn-wrap guest">
+        <a href="/user/auth" class="site-header__auth-link">로그인/회원가입</a>
 
-      <button class="nav__menu-btn" aria-label="메뉴 열기" aria-controls="menu" aria-expanded="false">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="rgb(51, 51, 51)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-          <path d="M2 4h16v2H2V4zM2 14h16v2H2v-2zM18 9H2v2h16V9z" fill=""></path>
-        </svg>
-      </button>
+        <button class="nav__menu-btn" aria-label="메뉴 열기" aria-controls="menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="rgb(51, 51, 51)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <path d="M2 4h16v2H2V4zM2 14h16v2H2v-2zM18 9H2v2h16V9z" fill=""></path>
+          </svg>
+        </button>
 
-      <div class="nav__content-wrap guest" id="menu" hidden>
-        <div class="guest-panel">
-          <a href="/user/auth" class="auth-link">로그인/회원가입</a>
-        </div>
-        <ul class="nav__menu-lists">
-          <li><a href="/">국내숙소</a></li>
-          <li><a href="/board/notice">공지사항</a></li>
-          <li><a href="/board/faq">자주묻는질문</a></li>
-          <li><a href="/board/qna">고객문의</a></li>
-        </ul>
-      </div>
-
-      <div class="nav__content-wrap user" id="menu" hidden>
-        <div class="guest-panel">
-          <a href="/user/auth" class="auth-link">로그인/회원가입</a>
-        </div>
-        <ul class="nav__menu-lists">
-          <li><a href="/">국내숙소</a></li>
-          <li><a href="/board/notice">공지사항</a></li>
-          <li><a href="/board/faq">자주묻는질문</a></li>
-          <li><a href="/board/qna">고객문의</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <!--
-    <div class="nav__actions user">
-      <a href="/login/auth.html" class="">
-        <div class="user__name-wrap">
-          <img alt="프로필 이미지" srcset="https://www.yeogi.com/_next/image?url=https%3A%2F%2Fimage.goodchoice.kr%2Fprofile%2Fico%2Fico_21.png&w=64&q=75, https://www.yeogi.com/_next/image?url=https%3A%2F%2Fimage.goodchoice.kr%2Fprofile%2Fico%2Fico_21.png&w=64&q=75" src="https://www.yeogi.com/_next/image?url=https%3A%2F%2Fimage.goodchoice.kr%2Fprofile%2Fico%2Fico_21.png&w=64&q=75" width="26" height="26" decoding="async" data-nimg="1" loading="lazy" style="color: transparent" />
-          <h2 class="nickname">고구마달랭이</h2>
-        </div>
-      </a>
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="rgb(51, 51, 51)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-        <path d="M2 4h16v2H2V4zM2 14h16v2H2v-2zM18 9H2v2h16V9z" fill=""></path>
-      </svg>
-
-      <div class="nav__content-wrap guest" id="menu" hidden>
-        <div class="guest-panel">
-          <a href="/login/auth" class="auth-link">로그인/회원가입</a>
-        </div>
-        <ul class="nav__menu-lists">
+        <div class="nav__content-wrap guest" id="menu" hidden>
+          <div class="guest-panel">
+            <a href="/user/auth" class="auth-link">로그인/회원가입</a>
+          </div>
+          <ul class="nav__menu-lists">
             <li><a href="/">국내숙소</a></li>
-            <li><a href="/notice">공지사항</a></li>
-            <li><a href="/faq">자주묻는질문</a></li>
-            <li><a href="/qna">고객문의</a></li>
-        </ul>
+            <li><a href="/board/notice">공지사항</a></li>
+            <li><a href="/board/faq">자주묻는질문</a></li>
+            <li><a href="/board/qna">고객문의</a></li>
+          </ul>
+        </div>
+
+        <div class="nav__content-wrap user" id="menu" hidden>
+          <div class="guest-panel">
+            <a href="/user/auth" class="auth-link">로그인/회원가입</a>
+          </div>
+          <ul class="nav__menu-lists">
+            <li><a href="/">국내숙소</a></li>
+            <li><a href="/board/notice">공지사항</a></li>
+            <li><a href="/board/faq">자주묻는질문</a></li>
+            <li><a href="/board/qna">고객문의</a></li>
+          </ul>
+        </div>
       </div>
 
-      <div class="nav__content-wrap user" id="menu">
-        <div class="guest-panel">
-          <a href="/login/auth" class="auth-link">로그인/회원가입</a>
-        </div>
-        <ul class="nav__menu-lists">
-          <li><a href="/">국내숙소</a></li>
-          <li><a href="/">고객센터</a></li>
-        </ul>
-      </div>
+<%--      <div class="btn-wrap user">--%>
+<%--        <a href="/login/auth.html" class="">--%>
+<%--          <div class="user__name-wrap">--%>
+<%--            <img alt="프로필 이미지" srcset="https://www.yeogi.com/_next/image?url=https%3A%2F%2Fimage.goodchoice.kr%2Fprofile%2Fico%2Fico_21.png&w=64&q=75, https://www.yeogi.com/_next/image?url=https%3A%2F%2Fimage.goodchoice.kr%2Fprofile%2Fico%2Fico_21.png&w=64&q=75" src="https://www.yeogi.com/_next/image?url=https%3A%2F%2Fimage.goodchoice.kr%2Fprofile%2Fico%2Fico_21.png&w=64&q=75" width="26" height="26" decoding="async" data-nimg="1" loading="lazy" style="color: transparent" />--%>
+<%--            <h2 class="nickname">고구마달랭이</h2>--%>
+<%--          </div>--%>
+<%--        </a>--%>
+<%--        <svg width="20" height="20" viewBox="0 0 20 20" fill="rgb(51, 51, 51)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">--%>
+<%--          <path d="M2 4h16v2H2V4zM2 14h16v2H2v-2zM18 9H2v2h16V9z" fill=""></path>--%>
+<%--        </svg>--%>
+
+<%--        <div class="nav__content-wrap guest" id="menu" hidden>--%>
+<%--          <div class="guest-panel">--%>
+<%--            <a href="/login/auth" class="auth-link">로그인/회원가입</a>--%>
+<%--          </div>--%>
+<%--          <ul class="nav__menu-lists">--%>
+<%--            <li><a href="/">국내숙소</a></li>--%>
+<%--            <li><a href="/notice">공지사항</a></li>--%>
+<%--            <li><a href="/faq">자주묻는질문</a></li>--%>
+<%--            <li><a href="/qna">고객문의</a></li>--%>
+<%--          </ul>--%>
+<%--        </div>--%>
+
+<%--        <div class="nav__content-wrap user" id="menu">--%>
+<%--          <div class="guest-panel">--%>
+<%--            <a href="/login/auth" class="auth-link">로그인/회원가입</a>--%>
+<%--          </div>--%>
+<%--          <ul class="nav__menu-lists">--%>
+<%--            <li><a href="/">국내숙소</a></li>--%>
+<%--            <li><a href="/">고객센터</a></li>--%>
+<%--          </ul>--%>
+<%--        </div>--%>
+<%--      </div>--%>
     </div>
-    -->
+
+
   </nav>
 </header>
