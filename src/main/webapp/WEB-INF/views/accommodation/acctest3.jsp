@@ -81,6 +81,18 @@
             margin-bottom: 6px;
             line-height: 1.5;
         }
+        .acc-extra-info h3, .acc-facility-info h3 {
+            font-size: 1.1rem;   /* h2보다는 작게 */
+            font-weight: 700;    /* 굵게 */
+            margin-top: 1em;
+            margin-bottom: 0.3em;
+        }
+
+        .acc-extra-info p, .acc-facility-info p {
+            margin-left: 1em; /* 들여쓰기 */
+            line-height: 2.0;
+        }
+
     </style>
 </head>
 
@@ -177,30 +189,82 @@
         <p><%= acc.getDescription() != null ? acc.getDescription() : "상세 설명이 없습니다." %></p>
     </section>
 
+    <%!
+        public String formatWithBullet(String input) {
+            if (input == null || input.trim().isEmpty()) return "없음";
+
+            String[] lines = input.split("\\n");
+            StringBuilder sb = new StringBuilder();
+
+            for (String line : lines) {
+                line = line.trim();
+                if (line.isEmpty()) continue;
+
+                // [로 시작하는 경우: 줄바꿈을 추가하고 ⦁ 안붙임
+                if (line.startsWith("[")) {
+                    sb.append("<br>").append(line);
+                } else if (line.startsWith("(") || line.equalsIgnoreCase("null")) {
+                    sb.append(line);
+                } else {
+                    sb.append("&nbsp;&nbsp;⦁ ").append(line);
+                }
+
+                sb.append("<br>");
+            }
+
+            return sb.toString();
+        }
+    %>
+
     <!-- 추가 정보 -->
     <section class="acc-extra-info">
         <h2>추가 정보</h2>
-        <ul>
-            <li>인원 추가 정보: <%= acc.getAddPeopleInfo() != null ? acc.getAddPeopleInfo() : "없음" %></li>
-            <li>조식 정보: <%= acc.getBreakfastInfo() != null ? acc.getBreakfastInfo() : "없음" %></li>
-            <li>취사 가능 여부: <%= acc.getCookInfo() != null ? acc.getCookInfo() : "없음" %></li>
-            <li>취소 및 환불 정보: <%= acc.getCancelRefundInfo() != null ? acc.getCancelRefundInfo() : "없음" %></li>
-            <li>기타 정보: <%= acc.getEtcInfo() != null ? acc.getEtcInfo() : "없음" %></li>
-        </ul>
+        <div class="subsection">
+            <h3>인원 추가 정보</h3>
+            <p><%= formatWithBullet(acc.getAddPeopleInfo()) %></p>
+        </div>
+        <div class="subsection">
+            <h3>조식 정보</h3>
+            <p><%= formatWithBullet(acc.getBreakfastInfo()) %></p>
+        </div>
+        <div class="subsection">
+            <h3>취사 가능 여부</h3>
+            <p><%= formatWithBullet(acc.getCookInfo()) %></p>
+        </div>
+        <div class="subsection">
+            <h3>취소 및 환불 정보</h3>
+            <p><%= formatWithBullet(acc.getCancelRefundInfo()) %></p>
+        </div>
+        <div class="subsection">
+            <h3>기타 정보</h3>
+            <p><%= formatWithBullet(acc.getEtcInfo()) %></p>
+        </div>
     </section>
 
     <!-- 편의 시설 정보 -->
     <section class="acc-facility-info">
         <h2>편의 시설</h2>
-        <ul>
-            <li>지하철 정보: <%= acc.getSubwayInfo() != null ? acc.getSubwayInfo() : "정보 없음" %></li>
-            <li>객실 시설: <%= acc.getRoomFacilityInfo() != null ? acc.getRoomFacilityInfo() : "정보 없음" %></li>
-            <li>전면 시설: <%= acc.getFrontFacilityInfo() != null ? acc.getFrontFacilityInfo() : "정보 없음" %></li>
-            <li>주차 정보: <%= acc.getParkingInfo() != null ? acc.getParkingInfo() : "정보 없음" %></li>
-            <li>추가 안내: <%= acc.getExtraNotice() != null ? acc.getExtraNotice() : "없음" %></li>
-        </ul>
+        <div class="subsection">
+            <h3>지하철 정보</h3>
+            <p><%= formatWithBullet(acc.getSubwayInfo()) %></p>
+        </div>
+        <div class="subsection">
+            <h3>객실 시설</h3>
+            <p><%= formatWithBullet(acc.getRoomFacilityInfo()) %></p>
+        </div>
+        <div class="subsection">
+            <h3>전면 시설</h3>
+            <p><%= formatWithBullet(acc.getFrontFacilityInfo()) %></p>
+        </div>
+        <div class="subsection">
+            <h3>주차 정보</h3>
+            <p><%= formatWithBullet(acc.getParkingInfo()) %></p>
+        </div>
+        <div class="subsection">
+            <h3>추가 안내</h3>
+            <p><%= formatWithBullet(acc.getExtraNotice()) %></p>
+        </div>
     </section>
-
 </div>
 
 <%
