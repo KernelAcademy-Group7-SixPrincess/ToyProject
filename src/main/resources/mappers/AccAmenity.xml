@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.spring.example.accAmenity.mapper.AccAmenityMapper">
+
+    <select id="findByAccId" parameterType="long" resultType="org.spring.example.accAmenity.domain.AccAmenity">
+        SELECT * FROM acc_amenity WHERE acc_id = #{accId}
+    </select>
+
+    <select id="findByAmenityId" parameterType="long" resultType="org.spring.example.accAmenity.domain.AccAmenity">
+        SELECT * FROM acc_amenity WHERE amenity_id = #{amenityId}
+    </select>
+
+    <insert id="insert" parameterType="org.spring.example.accAmenity.domain.AccAmenity">
+        INSERT INTO acc_amenity (acc_id, amenity_id)
+        VALUES (#{accId}, #{amenityId})
+    </insert>
+
+    <delete id="delete" parameterType="org.spring.example.accAmenity.domain.AccAmenity">
+        DELETE FROM acc_amenity WHERE acc_id = #{accId} AND amenity_id = #{amenityId}
+    </delete>
+
+    <delete id="deleteByAccId" parameterType="long">
+        DELETE FROM acc_amenity WHERE acc_id = #{accId}
+    </delete>
+
+</mapper>
