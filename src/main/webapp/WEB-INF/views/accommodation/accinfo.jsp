@@ -71,7 +71,8 @@
             border-bottom: 2px solid #f56a00;
             padding-bottom: 5px;
             margin-bottom: 10px;
-            font-size: 1.3em;
+            font-size: 1.4em;
+            color: #007bff;
         }
         section ul {
             list-style-type: disc;
@@ -91,6 +92,52 @@
         .acc-extra-info p, .acc-facility-info p {
             margin-left: 1em; /* 들여쓰기 */
             line-height: 2.0;
+        }
+
+        /* 버튼 */
+        .seller-info-btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        /* 모달 배경 */
+        .modal {
+            display: none; /* 처음엔 숨김 */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        /* 모달 창 내용 */
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        /* 닫기 버튼 */
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: black;
         }
 
     </style>
@@ -165,28 +212,14 @@
         <p class="acc-address"><%= acc.getAddress() %></p>
 
         <div class="acc-rating">
-            <span>⭐ <%= acc.getAvgrate() %> / 5.0</span>
+            <span>⭐ <%= acc.getAvgrate() %> / 10.0</span>
             <span>(<%= acc.getReviewerCnt() %>명 평가)</span>
         </div>
-
-        <div class="acc-contact">
-            <p>전화: <%= acc.getTel() != null ? acc.getTel() : "정보없음" %></p>
-            <p>이메일: <%= acc.getEmail() != null ? acc.getEmail() : "정보없음" %></p>
-        </div>
-    </section>
 
     <!-- 체크인 / 체크아웃 시간 -->
     <section class="acc-checkin-checkout">
         <p>체크인: <%= acc.getCheckInTime() != null ? acc.getCheckInTime() : "정보없음" %></p>
         <p>체크아웃: <%= acc.getCheckOutTime() != null ? acc.getCheckOutTime() : "정보없음" %></p>
-    </section>
-
-    <!-- 숙소 소개 및 상세 설명 -->
-    <section class="acc-description">
-        <h2>숙소 소개</h2>
-        <p><%= acc.getAccIntro() != null ? acc.getAccIntro() : "소개 정보가 없습니다." %></p>
-        <h2>상세 설명</h2>
-        <p><%= acc.getDescription() != null ? acc.getDescription() : "상세 설명이 없습니다." %></p>
     </section>
 
     <%!
@@ -203,7 +236,7 @@
                 // [로 시작하는 경우: 줄바꿈을 추가하고 ⦁ 안붙임
                 if (line.startsWith("[")) {
                     sb.append("<br>").append(line);
-                } else if (line.startsWith("(") || line.equalsIgnoreCase("null")) {
+                } else if (line.startsWith("&nbsp;&nbsp;(") || line.equalsIgnoreCase("null")) {
                     sb.append(line);
                 } else {
                     sb.append("&nbsp;&nbsp;⦁ ").append(line);
@@ -216,55 +249,136 @@
         }
     %>
 
-    <!-- 추가 정보 -->
+    <%
+        boolean hasExtraInfo =
+                (acc.getAddPeopleInfo() != null && !acc.getAddPeopleInfo().trim().isEmpty()) ||
+                        (acc.getBreakfastInfo() != null && !acc.getBreakfastInfo().trim().isEmpty()) ||
+                        (acc.getCookInfo() != null && !acc.getCookInfo().trim().isEmpty()) ||
+                        (acc.getCancelRefundInfo() != null && !acc.getCancelRefundInfo().trim().isEmpty()) ||
+                        (acc.getEtcInfo() != null && !acc.getEtcInfo().trim().isEmpty());
+
+        boolean hasFacilityInfo =
+                (acc.getSubwayInfo() != null && !acc.getSubwayInfo().trim().isEmpty()) ||
+                        (acc.getRoomFacilityInfo() != null && !acc.getRoomFacilityInfo().trim().isEmpty()) ||
+                        (acc.getFrontFacilityInfo() != null && !acc.getFrontFacilityInfo().trim().isEmpty()) ||
+                        (acc.getParkingInfo() != null && !acc.getParkingInfo().trim().isEmpty()) ||
+                        (acc.getExtraNotice() != null && !acc.getExtraNotice().trim().isEmpty());
+    %>
+
+
+    <% if (hasExtraInfo) { %>
     <section class="acc-extra-info">
         <h2>추가 정보</h2>
+        <% if (acc.getAddPeopleInfo() != null && !acc.getAddPeopleInfo().trim().isEmpty()) { %>
         <div class="subsection">
             <h3>인원 추가 정보</h3>
             <p><%= formatWithBullet(acc.getAddPeopleInfo()) %></p>
         </div>
+        <% } %>
+        <% if (acc.getBreakfastInfo() != null && !acc.getBreakfastInfo().trim().isEmpty()) { %>
         <div class="subsection">
             <h3>조식 정보</h3>
             <p><%= formatWithBullet(acc.getBreakfastInfo()) %></p>
         </div>
+        <% } %>
+        <% if (acc.getCookInfo() != null && !acc.getCookInfo().trim().isEmpty()) { %>
         <div class="subsection">
             <h3>취사 가능 여부</h3>
             <p><%= formatWithBullet(acc.getCookInfo()) %></p>
         </div>
+        <% } %>
+        <% if (acc.getCancelRefundInfo() != null && !acc.getCancelRefundInfo().trim().isEmpty()) { %>
         <div class="subsection">
             <h3>취소 및 환불 정보</h3>
             <p><%= formatWithBullet(acc.getCancelRefundInfo()) %></p>
         </div>
+        <% } %>
+        <% if (acc.getEtcInfo() != null && !acc.getEtcInfo().trim().isEmpty()) { %>
         <div class="subsection">
             <h3>기타 정보</h3>
             <p><%= formatWithBullet(acc.getEtcInfo()) %></p>
         </div>
+        <% } %>
     </section>
+    <% } %>
 
-    <!-- 편의 시설 정보 -->
+    <% if (hasFacilityInfo) { %>
     <section class="acc-facility-info">
         <h2>편의 시설</h2>
+        <% if (acc.getSubwayInfo() != null && !acc.getSubwayInfo().trim().isEmpty()) { %>
         <div class="subsection">
             <h3>지하철 정보</h3>
             <p><%= formatWithBullet(acc.getSubwayInfo()) %></p>
         </div>
+        <% } %>
+        <% if (acc.getRoomFacilityInfo() != null && !acc.getRoomFacilityInfo().trim().isEmpty()) { %>
         <div class="subsection">
             <h3>객실 시설</h3>
             <p><%= formatWithBullet(acc.getRoomFacilityInfo()) %></p>
         </div>
+        <% } %>
+        <% if (acc.getFrontFacilityInfo() != null && !acc.getFrontFacilityInfo().trim().isEmpty()) { %>
         <div class="subsection">
             <h3>전면 시설</h3>
             <p><%= formatWithBullet(acc.getFrontFacilityInfo()) %></p>
         </div>
+        <% } %>
+        <% if (acc.getParkingInfo() != null && !acc.getParkingInfo().trim().isEmpty()) { %>
         <div class="subsection">
             <h3>주차 정보</h3>
             <p><%= formatWithBullet(acc.getParkingInfo()) %></p>
         </div>
+        <% } %>
+        <% if (acc.getExtraNotice() != null && !acc.getExtraNotice().trim().isEmpty()) { %>
         <div class="subsection">
             <h3>추가 안내</h3>
             <p><%= formatWithBullet(acc.getExtraNotice()) %></p>
         </div>
+        <% } %>
     </section>
+    <% } %>
+
+    <!-- 판매자 정보 버튼 -->
+    <div class="seller-info-btn-wrapper">
+        <button id="openSellerModal" class="seller-info-btn">판매자 정보 보기</button>
+    </div>
+
+    <!-- 모달 창 -->
+    <div id="sellerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>판매자 정보</h2>
+            <ul>
+                <li><strong>상호명:</strong> <%= acc.getBusinessName() %></li>
+                <li><strong>대표자명:</strong> <%= acc.getHostName() %></li>
+                <li><strong>전화번호:</strong> <%= acc.getTel()%></li>
+                <li><strong>이메일:</strong> <%= acc.getEmail()%></li>
+                <li><strong>사업자번호:</strong> <%= acc.getLicenseNum() %></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const modal = document.getElementById("sellerModal");
+            const btn = document.getElementById("openSellerModal");
+            const closeBtn = document.querySelector(".close-btn");
+
+            btn.onclick = function () {
+                modal.style.display = "block";
+            }
+
+            closeBtn.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            }
+        });
+    </script>
+
 </div>
 
 <%
