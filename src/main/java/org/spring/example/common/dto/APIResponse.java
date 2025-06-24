@@ -1,4 +1,4 @@
-package org.spring.example.common;
+package org.spring.example.common.dto;
 
 import lombok.Builder;
 import lombok.Getter;

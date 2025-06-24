@@ -1,7 +1,7 @@
 package org.spring.example.board.service;
 
 import org.spring.example.board.dto.PostDto;
-import org.spring.example.board.mapper.PostMapper;
+import org.spring.example.mapper.PostMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
