@@ -140,7 +140,7 @@
             <div class="swiper">
                 <ul class="swiper-wrapper">
                     <li class="swiper-slide">
-                        <a href="${pageContext.request.contextPath}/acctest?region=jeju">
+                        <a href="${pageContext.request.contextPath}/acctest2?region=jeju">
                             <img
                                     alt="제주도 여행"
                                     sizes="100vw"
@@ -155,7 +155,7 @@
                         </a>
                     </li>
                     <li class="swiper-slide">
-                        <a href="${pageContext.request.contextPath}/acctest?region=seoul">
+                        <a href="${pageContext.request.contextPath}/acctest2?region=seoul">
                             <img
                                     alt="서울 여행"
                                     sizes="100vw"
