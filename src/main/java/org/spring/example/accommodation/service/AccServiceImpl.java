@@ -42,4 +42,24 @@ public class AccServiceImpl implements AccService {
     public List<Acc> searchByKeyword(String keyword) {
         return accMapper.searchByKeyword(keyword);
     }
+
+    @Override
+    public List<Acc> getByType(int typeCode) {
+        return accMapper.findByType(typeCode);
+    }
+
+    @Override
+    public int addAcc(Acc acc) {
+        return accMapper.insert(acc);
+    }
+
+    @Override
+    public int updateAcc(Acc acc) {
+        return accMapper.update(acc);
+    }
+
+    @Override
+    public int deleteAcc(Long accId) {
+        return accMapper.delete(accId);
+    }
 }
