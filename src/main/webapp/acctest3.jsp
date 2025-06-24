@@ -1,0 +1,213 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="org.spring.example.accommodation.domain.Acc" %>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>숙소 목록</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/reset.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/setting.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/main.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <style>
+        /* 공통 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        /* 상세페이지 컨테이너 */
+        .acc-detail-container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        /* 메인 이미지 */
+        .acc-main-image img {
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            max-height: 450px;
+        }
+
+        /* 기본정보 */
+        .acc-info-section {
+            margin-top: 20px;
+        }
+        .acc-name {
+            font-size: 2em;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .acc-address {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .acc-rating span {
+            font-weight: 600;
+            margin-right: 12px;
+            color: #f56a00;
+        }
+        .acc-contact p {
+            margin: 2px 0;
+            font-size: 14px;
+        }
+
+        /* 섹션 공통 */
+        section {
+            margin-top: 25px;
+        }
+        section h2 {
+            border-bottom: 2px solid #f56a00;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        section ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        section ul li {
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body class="acc">
+<header class="site-header">
+    <nav class="nav" aria-label="메인 메뉴">
+        <div class="nav__logo">
+            <a href="/" class="nav__logo-link" aria-label="홈으로 이동">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 106 18" class="logo-svg" role="img" aria-hidden="true" focusable="false">
+                    <title>사이트 로고</title>
+                    <path
+                            d="M94.8 18V6.7c0-.4-.3-.8-.8-.8-.4 0-.8.3-.8.8V18h-5.1V5.9C88.1 2.6 90.8 0 94 0s5.9 2.6 5.9 5.9V18h-5.1zm-9.5-5.1h1.8V18H76.9c-2.3 0-4.1-1.8-4.1-4.1V4.1c0-2.3 1.8-4.1 4.1-4.1h10.2v5.1h-1.8v7.8zm-4.5 0V5.1H79c-.6 0-1 .5-1 1v5.7c0 .6.5 1 1 1l1.8.1zM19.4 3.3v-.7c0-1.4 1.1-2.6 2.5-2.6s2.5 1.2 2.5 2.6V18h-5.1v-3.3h-3.5c-1.6 2-4.1 3.3-6.9 3.3C4 18 0 14 0 9s4-9 8.9-9c2.8 0 5.3 1.3 6.9 3.3h3.6zM17.8 8c0 .3.1.7.1 1s0 .7-.1 1h1.6V8h-1.6zm-8.9 5.1c2.3 0 4.1-1.8 4.1-4.1s-1.8-4.1-4.1-4.1S4.8 6.7 4.8 9s1.9 4.1 4.1 4.1zM38.3 1.2c.7.7 1.2 1.8 1.2 2.9V18h-5.1V6.2c0-.6-.5-1-1-1h-5.6c-1.4 0-2.5-1.2-2.5-2.6S26.4 0 27.8 0h7.6c1.1 0 2.2.5 2.9 1.2zM43.1 0c1.4 0 2.5 1.2 2.5 2.6V18h-5.1V2.6c0-1.4 1.1-2.6 2.6-2.6zm23.1 6.4V2.6c0-1.4 1.1-2.6 2.5-2.6s2.5 1.2 2.5 2.6V18h-5.1v-6.4h-1.9c-1.1 3.7-4.5 6.4-8.5 6.4-4.9 0-8.9-4-8.9-9s4-9 8.9-9c4 0 7.4 2.7 8.5 6.4h2zm-10.4 6.7c2.3 0 4.1-1.8 4.1-4.1S58 4.9 55.8 4.9 51.7 6.7 51.7 9s1.8 4.1 4.1 4.1zm47.6 4.9c-1.4 0-2.5-1.2-2.5-2.6s1.1-2.6 2.5-2.6 2.5 1.2 2.5 2.6-1.1 2.6-2.5 2.6z"
+                            fill=""
+                    ></path>
+                </svg>
+            </a>
+        </div>
+        <div class="nav__actions guest">
+            <a href="/user/auth" class="site-header__auth-link">로그인/회원가입</a>
+
+            <button class="nav__menu-btn" aria-label="메뉴 열기" aria-controls="menu" aria-expanded="false">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="rgb(51, 51, 51)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <path d="M2 4h16v2H2V4zM2 14h16v2H2v-2zM18 9H2v2h16V9z" fill=""></path>
+                </svg>
+            </button>
+
+            <div class="nav__content-wrap guest" id="menu" hidden>
+                <div class="guest-panel">
+                    <a href="/user/auth" class="auth-link">로그인/회원가입</a>
+                </div>
+                <ul class="nav__menu-lists">
+                    <li><a href="/">국내숙소</a></li>
+                    <li><a href="/board">고객센터</a></li>
+                </ul>
+            </div>
+
+            <div class="nav__content-wrap user" id="menu" hidden>
+                <div class="guest-panel">
+                    <a href="/user/auth" class="auth-link">로그인/회원가입</a>
+                </div>
+                <ul class="nav__menu-lists">
+                    <li><a href="/">국내숙소</a></li>
+                    <li><a href="/board">고객센터</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+<%
+    Acc acc = (Acc) request.getAttribute("acc");
+    if (acc == null) {
+%>
+<p>숙소 정보를 불러올 수 없습니다.</p>
+<%
+} else {
+%>
+
+<div class="acc-detail-container">
+
+    <!-- 숙소 메인 이미지 -->
+    <div class="acc-main-image">
+        <img src="<%= acc.getMainImageUrl() %>" alt="<%= acc.getName() %>" />
+    </div>
+
+    <!-- 숙소 기본 정보 -->
+    <section class="acc-info-section">
+        <h1 class="acc-name"><%= acc.getName() %></h1>
+        <p class="acc-address"><%= acc.getAddress() %></p>
+
+        <div class="acc-rating">
+            <span>⭐ <%= acc.getAvgrate() %> / 5.0</span>
+            <span>(<%= acc.getReviewerCnt() %>명 평가)</span>
+        </div>
+
+        <div class="acc-contact">
+            <p>전화: <%= acc.getTel() != null ? acc.getTel() : "정보없음" %></p>
+            <p>이메일: <%= acc.getEmail() != null ? acc.getEmail() : "정보없음" %></p>
+        </div>
+    </section>
+
+    <!-- 체크인 / 체크아웃 시간 -->
+    <section class="acc-checkin-checkout">
+        <p>체크인: <%= acc.getCheckInTime() != null ? acc.getCheckInTime() : "정보없음" %></p>
+        <p>체크아웃: <%= acc.getCheckOutTime() != null ? acc.getCheckOutTime() : "정보없음" %></p>
+    </section>
+
+    <!-- 숙소 소개 및 상세 설명 -->
+    <section class="acc-description">
+        <h2>숙소 소개</h2>
+        <p><%= acc.getAccIntro() != null ? acc.getAccIntro() : "소개 정보가 없습니다." %></p>
+        <h2>상세 설명</h2>
+        <p><%= acc.getDescription() != null ? acc.getDescription() : "상세 설명이 없습니다." %></p>
+    </section>
+
+    <!-- 추가 정보 -->
+    <section class="acc-extra-info">
+        <h2>추가 정보</h2>
+        <ul>
+            <li>인원 추가 정보: <%= acc.getAddPeopleInfo() != null ? acc.getAddPeopleInfo() : "없음" %></li>
+            <li>조식 정보: <%= acc.getBreakfastInfo() != null ? acc.getBreakfastInfo() : "없음" %></li>
+            <li>취사 가능 여부: <%= acc.getCookInfo() != null ? acc.getCookInfo() : "없음" %></li>
+            <li>취소 및 환불 정보: <%= acc.getCancelRefundInfo() != null ? acc.getCancelRefundInfo() : "없음" %></li>
+            <li>기타 정보: <%= acc.getEtcInfo() != null ? acc.getEtcInfo() : "없음" %></li>
+        </ul>
+    </section>
+
+    <!-- 편의 시설 정보 -->
+    <section class="acc-facility-info">
+        <h2>편의 시설</h2>
+        <ul>
+            <li>지하철 정보: <%= acc.getSubwayInfo() != null ? acc.getSubwayInfo() : "정보 없음" %></li>
+            <li>객실 시설: <%= acc.getRoomFacilityInfo() != null ? acc.getRoomFacilityInfo() : "정보 없음" %></li>
+            <li>전면 시설: <%= acc.getFrontFacilityInfo() != null ? acc.getFrontFacilityInfo() : "정보 없음" %></li>
+            <li>주차 정보: <%= acc.getParkingInfo() != null ? acc.getParkingInfo() : "정보 없음" %></li>
+            <li>추가 안내: <%= acc.getExtraNotice() != null ? acc.getExtraNotice() : "없음" %></li>
+        </ul>
+    </section>
+
+</div>
+
+<%
+    }
+%>
+
+
+
+</body>
+</html>

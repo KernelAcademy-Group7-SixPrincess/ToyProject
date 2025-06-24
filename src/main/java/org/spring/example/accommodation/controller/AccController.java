@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -24,5 +24,13 @@ public class AccController {
         model.addAttribute("accList", accList);       // JSP에서 필터링에 사용
         return "accommodation/acctest2";
     }
+
+    @GetMapping("/acc/{region}/{accId}")
+    public String getAccDetail(@PathVariable Long accId, Model model) {
+        Acc acc = accService.getAccById(accId);
+        model.addAttribute("acc", acc); // JSP에서 ${acc} 혹은 request.getAttribute("acc")로 받음
+        return "accommodation/acctest3"; //
+    }
+
 }
 
