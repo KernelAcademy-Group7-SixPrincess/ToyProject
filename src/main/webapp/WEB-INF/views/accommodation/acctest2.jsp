@@ -137,11 +137,17 @@
 <%@ page import="org.spring.example.accommodation.domain.Acc" %>
 
 <%
+    String region = request.getParameter("region");
+    if(region == null) {
+        region = "";
+    }
+
     List<Acc> accList = (List<Acc>) request.getAttribute("accList");
+
     for (Acc acc : accList) {
         String sidoName = acc.getSidoName();
 
-        if ("제주특별자치도".equals(sidoName)) {
+        if ("jeju".equals(region) && "제주특별자치도".equals(sidoName)) {
 %>
 <!-- 제주 숙소 카드 렌더링 -->
 <div class="acc-card" onclick="location.href='/acc/jeju/<%= acc.getAccId() %>'">
@@ -153,7 +159,7 @@
     </div>
 </div>
 <%
-} else if ("서울특별시".equals(sidoName)) {
+} else if ("seoul".equals(region) && "서울특별시".equals(sidoName)) {
 %>
 <!-- 서울 숙소 카드 렌더링 -->
 <div class="acc-card" onclick="location.href='/acc/seoul/<%= acc.getAccId() %>'">
