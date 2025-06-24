@@ -16,13 +16,13 @@ import java.util.List;
 public class AccTest {
 
     @Autowired
-    private AccMapper AccMapper;
+    private AccMapper accMapper;
 
     @Test
     public void testFindAll() {
-        List<Acc> AccList = AccMapper.findAll();
-        for (Acc user : AccList) {
-            System.out.println(user.getUserId() + " - " + user.getName() + " - " + user.getAddress());
+        List<Acc> accList = accMapper.findAll();
+        for (Acc acc : accList) {
+            System.out.println(acc);
         }
     }
 }
