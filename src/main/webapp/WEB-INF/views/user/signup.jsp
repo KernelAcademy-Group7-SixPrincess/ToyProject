@@ -1,120 +1,210 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-  <title>회원가입</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body { background: #fff; font-family: 'Noto Sans KR', sans-serif; }
-    .form-container { max-width: 500px; margin: 50px auto; padding: 30px; border: 1px solid #ddd; border-radius: 10px; }
-    .form-title { font-size: 20px; font-weight: bold; margin-bottom: 20px; }
-  </style>
+    <meta charset="UTF-8" />
+    <title>회원가입 - 저기어때</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/reset.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/setting.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/login.css" />
 </head>
-<body>
-<div class="form-container">
-  <div class="form-title">필수 정보 입력</div>
-  <form action="/user/signok" method="post">
-
-    <!-- 이름 -->
-    <div class="mb-3">
-      <label class="form-label">이름 *</label>
-      <input type="text" name="name" class="form-control" placeholder="홍길동" required />
-    </div>
+<body class="signup">
+<%@ include file="../common/header.jsp" %>
 
 
-    <!-- 이메일 -->
-    <div class="mb-3">
-      <label class="form-label">이메일 *</label>
-      <input type="email" name="email" class="form-control" placeholder="abc@example.com" required />
-    </div>
+<main class="container">
+    <section aria-labelledby="signup-heading" class="signup__title-wrap">
+        <h2 class="signup_title heading_title">필수 정보 입력</h2>
+        <p class="signup_desc">가입을 위해 필수 정보를 입력해 주세요.</p>
+    </section>
 
-    <!-- 비밀번호 -->
-    <div class="mb-3">
-      <label class="form-label">비밀번호 *</label>
-      <input type="password" name="password" class="form-control" minlength="8" required />
-    </div>
+    <form action="/user/login" method="post" aria-labelledby="form-title">
+        <fieldset>
+            <legend class="visually-hidden" id="form-title">회원가입 폼</legend>
 
-    <!-- 비밀번호 확인 -->
-    <div class="mb-3">
-      <label class="form-label">비밀번호 확인 *</label>
-      <input type="password" name="confirmPassword" class="form-control" required />
-    </div>
+            <div class="form-group">
+                <label for="name">
+                    이름
+                    <span aria-hidden="true" class="required"></span>
+                </label>
+                <input type="text" id="name" name="name" placeholder="이름 입력" required aria-required="true" />
+                <span class="error_msg" role="alert" id="nameError">이름을 입력해주세요.</span>
+            </div>
 
-    <!-- 휴대폰 번호 -->
-    <div class="mb-3">
-      <label class="form-label">휴대폰 번호 *</label>
-      <input type="tel" name="phone" class="form-control" placeholder="010-1234-5678" pattern="^01[0-9]-\d{3,4}-\d{4}$" required />
-      <small class="text-muted">예: 010-1234-5678 형식으로 입력</small>
-    </div>
+            <div class="form-group">
+                <label for="email">
+                    이메일
+                    <span aria-hidden="true" class="required"></span>
+                </label>
+                <input type="email" id="email" name="email" placeholder="abc@gccompany.co.kr" required aria-required="true" />
+                <span class="error_msg" role="alert" id="emailError">올바른 형식의 이메일 주소를 입력해주세요.</span>
+            </div>
 
-<%--    <!-- 생년월일 -->--%>
-<%--    <div class="mb-3">--%>
-<%--      <label class="form-label">생년월일 *</label>--%>
-<%--      <div class="d-flex gap-2">--%>
-<%--        <select name="birthYear" class="form-select" required>--%>
-<%--          <option value="">년도</option>--%>
-<%--          <% for (int i = 2024; i >= 1940; i--) { %>--%>
-<%--          <option value="<%=i%>"><%=i%></option>--%>
-<%--          <% } %>--%>
-<%--        </select>--%>
-<%--        <select name="birthMonth" class="form-select" required>--%>
-<%--          <option value="">월</option>--%>
-<%--          <% for (int i = 1; i <= 12; i++) { %>--%>
-<%--          <option value="<%=i%>"><%=i%></option>--%>
-<%--          <% } %>--%>
-<%--        </select>--%>
-<%--        <select name="birthDay" class="form-select" required>--%>
-<%--          <option value="">일</option>--%>
-<%--          <% for (int i = 1; i <= 31; i++) { %>--%>
-<%--          <option value="<%=i%>"><%=i%></option>--%>
-<%--          <% } %>--%>
-<%--        </select>--%>
-<%--      </div>--%>
-<%--    </div>--%>
+            <div class="form-group">
+                <label for="password">
+                    비밀번호
+                    <span aria-hidden="true" class="required"></span>
+                </label>
+                <input type="password" id="password" name="password" placeholder="최소 8자 이상" required aria-required="true" minlength="8" />
+                <span class="error_msg" id="passwordError">영문,숫자,특수문자 중 2가지 이상을 조합해주세요.</span>
+            </div>
 
-    <!-- 생년월일 -->
-    <div class="mb-3">
-      <label class="form-label">생년월일 *</label>
-      <input type="date" name="birth" class="form-control" required />
-    </div>
+            <div class="form-group">
+                <label for="confirmPassword">
+                    비밀번호 확인
+                    <span aria-hidden="true" class="required"></span>
+                </label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="위 비밀번호와 동일하게 입력" required aria-required="true" />
+                <span id="confirmPasswordError" class="error_msg">비밀번호가 일치하지 않습니다.</span>
+            </div>
 
-    <!-- 성별 -->
-    <div class="mb-3">
-      <label class="form-label">성별 *</label><br/>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="gender" value="F" required>
-        <label class="form-check-label">여자</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="gender" value="M">
-        <label class="form-check-label">남자</label>
-      </div>
-    </div>
+            <div class="form-group">
+                <label for="phone">
+                    휴대폰 번호
+                    <span aria-hidden="true" class="required"></span>
+                </label>
+                <input type="text" id="phone" name="phone" placeholder="010-1234-5678" required aria-required="true" />
+                <span class="error_msg" id="phoneError">휴대폰 번호를 정확히 입력해주세요.</span>
+            </div>
 
-    <!-- 직업 -->
-    <div class="mb-3">
-      <label class="form-label">직업 *</label>
-      <select name="job" class="form-select" required>
-        <option value="">선택</option>
-        <option value="student">학생</option>
-        <option value="developer">개발자</option>
-        <option value="designer">디자이너</option>
-        <option value="teacher">교사</option>
-        <option value="etc">기타</option>
-      </select>
-    </div>
+<%--            <div class="form-group birth">--%>
+<%--                <label for="birthYear">--%>
+<%--                    생년월일--%>
+<%--                    <span aria-hidden="true" class="required"></span>--%>
+<%--                </label>--%>
+<%--                <div class="birth-select">--%>
+<%--                    <select id="birthYear" name="birthYear" required aria-label="년" aria-required="true">--%>
+<%--                        <option value="">년도</option>--%>
+<%--                    </select>--%>
+<%--                    <select id="birthMonth" name="birthMonth" required aria-label="월" aria-required="true">--%>
+<%--                        <option value="">월</option>--%>
+<%--                    </select>--%>
+<%--                    <select id="birthDay" name="birthDay" required aria-label="일" aria-required="true">--%>
+<%--                        <option value="">일</option>--%>
+<%--                    </select>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+            <div class="form-group">
+                <label for="birthDate">
+                    생년월일
+                    <span aria-hidden="true" class="required"></span>
+                </label>
+                <input type="date"
+                       id="birthDate"
+                       name="birth"
+                       placeholder="연도-월-일"
+                       required aria-required="true"
+                       min="1900-01-01"
+                       class="custom-input" />
+                <span class="error_msg" id="birthDateError">생년월일은 오늘 이전 날짜여야 합니다.</span>
+            </div>
 
-    <!-- 닉네임 -->
-    <div class="mb-3">
-      <label class="form-label">닉네임 *</label>
-      <input type="text" name="nickname" class="form-control" required />
-    </div>
+            <script>
+                const today = new Date().toISOString().split("T")[0];
+                document.getElementById("birthDate").setAttribute("max", today);
+            </script>
 
-    <!-- 제출 -->
-    <div class="d-grid">
-      <button type="submit" class="btn btn-primary">가입하기</button>
-    </div>
-  </form>
-</div>
+
+
+            <div class="form-group gender">
+                <label for="gender">
+                    성별
+                    <span aria-hidden="true" class="required"></span>
+                </label>
+                <div class="radio-wrap">
+                    <label for="genderFemale">
+                        <input type="radio" id="genderFemale" name="gender" value="F" required aria-required="true" />
+                        여자
+                    </label>
+                    <label for="genderMale">
+                        <input type="radio" id="genderMale" name="gender" value="M" />
+                        남자
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="job">
+                    직업
+                    <span aria-hidden="true" class="required"></span>
+                </label>
+                <select id="job" name="job" required aria-required="true">
+                    <option value="">선택</option>
+                    <option value="학생">학생</option>
+                    <option value="개발자">개발자</option>
+                    <option value="디자이너">디자이너</option>
+                    <option value="교사">교사</option>
+                    <option value="기타">기타</option>
+                </select>
+                <span class="error_msg" id="jobError">직업을 선택해주세요.</span>
+            </div>
+
+            <div class="form-group nickname">
+                <label for="nickname">
+                    닉네임
+                    <span aria-hidden="true" class="required"></span>
+                </label>
+                <div class="nickname-wrap">
+                    <input type="text" id="nickname" name="nickname" placeholder="닉네임 입력 (특수문자 불가)" required aria-required="true" />
+                </div>
+                <span class="error_msg" id="nicknameError">닉네임은 한글, 영문, 숫자 2~14자로 작성하세요.</span>
+            </div>
+
+            <button type="submit" class="submit_btn" disabled>확인</button>
+        </fieldset>
+    </form>
+
+    <script>
+        const form = document.querySelector("form");
+        const submitBtn = document.querySelector(".submit_btn");
+
+        const requiredFields = [
+            "name", "email", "password", "confirmPassword",
+            "phone", "birth", "gender", "job", "nickname"
+        ];
+
+        function isFormValid() {
+            for (let field of requiredFields) {
+                const input = form.querySelector(`[name="${field}"]`);
+                if (!input) continue;
+
+                if (input.type === "radio") {
+                    const checked = form.querySelectorAll(`[name="${field}"]:checked`);
+                    if (checked.length === 0) return false;
+                } else {
+                    if (!input.value || input.value.trim() === "") return false;
+                }
+            }
+
+            const pw = form.querySelector("[name='password']").value;
+            const cpw = form.querySelector("[name='confirmPassword']").value;
+            if (pw !== cpw) return false;
+
+            return true;
+        }
+
+        form.addEventListener("input", () => {
+            if (isFormValid()) {
+                submitBtn.disabled = false;
+                submitBtn.classList.add("active");  // ✅ 버튼 활성화 시 스타일 클래스 추가
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.classList.remove("active");  // ✅ 비활성화 시 제거
+            }
+        });
+    </script>
+
+
+</main>
+
+
+<%@ include file="../common/footer.jsp" %>
+
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/resources/js/auth-validation/validationUtils.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/resources/js/auth-validation/signupValidation.js"></script>
+
 </body>
 </html>

@@ -5,6 +5,8 @@
   Time: 오후 10:25
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <header class="site-header">
   <nav class="nav" aria-label="메인 메뉴">
     <div class="nav__logo">
@@ -20,7 +22,7 @@
     </div>
 
     <div class="nav__actions guest">
-      <a href="/login/auth" class="site-header__auth-link">로그인/회원가입</a>
+      <a href="/user/auth" class="site-header__auth-link">로그인/회원가입</a>
 
       <button class="nav__menu-btn" aria-label="메뉴 열기" aria-controls="menu" aria-expanded="false">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="rgb(51, 51, 51)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
@@ -30,21 +32,25 @@
 
       <div class="nav__content-wrap guest" id="menu" hidden>
         <div class="guest-panel">
-          <a href="/login/auth" class="auth-link">로그인/회원가입</a>
+          <a href="/user/auth" class="auth-link">로그인/회원가입</a>
         </div>
         <ul class="nav__menu-lists">
           <li><a href="/">국내숙소</a></li>
-          <li><a href="/board">고객센터</a></li>
+          <li><a href="/board/notice">공지사항</a></li>
+          <li><a href="/board/faq">자주묻는질문</a></li>
+          <li><a href="/board/qna">고객문의</a></li>
         </ul>
       </div>
 
       <div class="nav__content-wrap user" id="menu" hidden>
         <div class="guest-panel">
-          <a href="/login/auth" class="auth-link">로그인/회원가입</a>
+          <a href="/user/auth" class="auth-link">로그인/회원가입</a>
         </div>
         <ul class="nav__menu-lists">
           <li><a href="/">국내숙소</a></li>
-          <li><a href="/board">고객센터</a></li>
+          <li><a href="/board/notice">공지사항</a></li>
+          <li><a href="/board/faq">자주묻는질문</a></li>
+          <li><a href="/board/qna">고객문의</a></li>
         </ul>
       </div>
     </div>
@@ -66,8 +72,10 @@
           <a href="/login/auth" class="auth-link">로그인/회원가입</a>
         </div>
         <ul class="nav__menu-lists">
-          <li><a href="/">국내숙소</a></li>
-          <li><a href="/">고객센터</a></li>
+            <li><a href="/">국내숙소</a></li>
+            <li><a href="/notice">공지사항</a></li>
+            <li><a href="/faq">자주묻는질문</a></li>
+            <li><a href="/qna">고객문의</a></li>
         </ul>
       </div>
 

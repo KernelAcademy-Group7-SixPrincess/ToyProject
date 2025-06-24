@@ -1,4 +1,40 @@
+/* 공통 */
+label {
+  display: flex;
+  margin-bottom: 4px;
+  line-height: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #707070;
+}
+
+.required {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #f94239;
+}
+
+input[type="email"],
+input[type="password"] {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  padding: 0 18px;
+  background-color: transparent;
+  border: none !important;
+  font-size: 16px !important;
+  font-weight: 200;
+  line-height: normal;
+  outline: none;
+  background-color: #f5f5f5;
+  border: 1.5px solid #f5f5f5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
 /* 로그인 */
+
 .login .auth-logo {
   display: flex;
   justify-content: center;
@@ -78,40 +114,6 @@
   font-size: 24px;
 }
 
-.auth .label {
-  display: flex;
-  margin-bottom: 4px;
-  line-height: 16px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #707070;
-}
-
-.auth .required {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #f94239;
-}
-
-.auth input[type="email"],
-.auth input[type="password"] {
-  display: flex;
-  width: 100%;
-  height: 48px;
-  padding: 0 18px;
-  background-color: transparent;
-  border: none !important;
-  font-size: 16px !important;
-  font-weight: 200;
-  line-height: normal;
-  outline: none;
-  background-color: #f5f5f5;
-  border: 1.5px solid #f5f5f5;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 8px;
-}
-
 .auth .form-group {
   margin-bottom: 16px;
 }
@@ -183,3 +185,151 @@
   text-decoration: underline;
 }
 /* 로그인/회원가입 */
+
+/* 회원가입 */
+
+.signup .signup_title {
+  margin-top: 70px;
+  color: #333;
+  font-size: 24px;
+}
+
+.signup .signup_desc {
+  color: #999;
+  line-height: 24px;
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.signup .form-group {
+  margin-bottom: 16px;
+}
+
+.signup input[type="text"],
+.signup select {
+  display: inline-block;
+  width: 100%;
+  height: 48px;
+  padding: 0 18px;
+  font-size: 16px;
+  font-weight: 200;
+  background-color: #f5f5f5;
+  border: 1.5px solid #f5f5f5;
+  border-radius: 8px;
+}
+
+.signup select {
+  padding: 0 12px;
+}
+
+.signup .birth-select {
+  display: flex;
+  gap: 8px;
+}
+
+.signup input[type="date"] {
+  display: inline-block;
+  width: 100%;
+  height: 48px;
+  padding: 0 18px;
+  font-size: 16px;
+  font-weight: 200;
+  background-color: #f5f5f5;
+  border: 1.5px solid #f5f5f5;
+  border-radius: 8px;
+  color: #333;
+  box-sizing: border-box;
+}
+
+/* 브라우저별 아이콘 정리 (선택 사항) */
+.signup input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.5);
+  cursor: pointer;
+}
+
+
+.signup .radio-wrap {
+  display: flex;
+  gap: 120px;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.signup .radio-wrap label {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 18px;
+  font-size: 16px;
+  color: #000;
+}
+
+.signup .radio-wrap input {
+  width: 20px;
+  height: 20px;
+  margin: 0 8px 0 auto;
+}
+
+.signup .nickname-wrap {
+  display: flex;
+  gap: 8px;
+}
+
+.signup .nickname-wrap input[type="text"] {
+  flex: 1;
+}
+
+.signup .nickname-check {
+  background: #f5f5f5;
+  border: none;
+  border-radius: 8px;
+  padding: 0 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.signup .submit_btn {
+  width: 100%;
+  height: 56px;
+  margin-top: 24px;
+  background: #fafafa;
+  color: #d6d6d6;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  /*cursor: not-allowed;*/
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.signup .submit_btn:enabled {
+  background: #006ce0;
+  color: white;
+  cursor: pointer;
+}
+
+.auth .login_btn:enabled {
+  background-color: #006ce0 !important;
+  color: #fff !important;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 선택 */
+  opacity: 1;
+}
+
+
+input.error,
+select.error {
+  background-color: #fff5f5;
+  border: 1.5px solid #f94239 !important;
+}
+
+.error_msg {
+  display: none;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin-top: 4px;
+  white-space: pre-line;
+  color: #f94239;
+}
