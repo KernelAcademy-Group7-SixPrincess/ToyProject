@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.spring.example.user.dao.UserDao">
+
+    <insert id="signup" parameterType="org.spring.example.user.dto.UsersignupDto">
+                INSERT INTO `user` (
+                    password, name, gender, email, birth_date, phone, nickname, code_type_id, code
+                )
+                SELECT
+                    #{password}, #{name}, #{gender}, #{email}, #{birth}, #{phone}, #{nickname},
+                    c.id, c.code
+                FROM code c
+                WHERE c.code_name = #{job}
+                  AND c.code_state = 'Y'
+    </insert>
+
+    <select id="loginCheck" resultType="int"
+            parameterType="org.spring.example.user.dto.UserloginDto">
+        SELECT COUNT(*)
+        FROM user
+        WHERE email = #{email} AND password = #{password}
+    </select>
+
+</mapper>
+

@@ -1,0 +1,335 @@
+/* 공통 */
+label {
+  display: flex;
+  margin-bottom: 4px;
+  line-height: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #707070;
+}
+
+.required {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #f94239;
+}
+
+input[type="email"],
+input[type="password"] {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  padding: 0 18px;
+  background-color: transparent;
+  border: none !important;
+  font-size: 16px !important;
+  font-weight: 200;
+  line-height: normal;
+  outline: none;
+  background-color: #f5f5f5;
+  border: 1.5px solid #f5f5f5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+/* 로그인 */
+
+.login .auth-logo {
+  display: flex;
+  justify-content: center;
+  margin: 96px 0 48px;
+}
+
+.login .auth-logo .logo-svg {
+  width: 160px;
+  height: 26px;
+}
+
+.login .login__title-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 22px;
+  margin-bottom: 16px;
+}
+
+.login .login__title {
+  z-index: 1;
+  padding: 0 8px;
+  font-size: 15px;
+  font-weight: 400;
+  color: #8b8b8b;
+  background-color: #fff;
+}
+
+.login .login__title::before,
+.login .login__title::after {
+  content: "";
+  position: absolute;
+  top: 11px;
+  width: 35%;
+  height: 1px;
+  background-color: #ebebeb;
+}
+
+.login .login__title::before {
+  left: 0;
+}
+
+.login .login__title::after {
+  right: 0;
+}
+
+.login .join_btn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 52px;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  box-sizing: border-box;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.login .join_btn.email_btn {
+  background: #e3f0ff;
+  color: #1d8bff;
+}
+
+.login .join_btn.email_btn:hover {
+  background: #e7f1fc;
+}
+/* 로그인 */
+
+/* 로그인/회원가입 */
+.auth .email_title {
+  margin: 70px 0 25px;
+  color: #333;
+  font-size: 24px;
+}
+
+.auth .form-group {
+  margin-bottom: 16px;
+}
+
+.auth .login_btn {
+  width: 100%;
+  height: 56px;
+  padding: 0 20px;
+  background: #fafafa !important;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21px;
+  color: #d6d6d6;
+  border: none;
+  border-radius: 10px;
+  cursor: not-allowed;
+}
+
+.auth .form-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.auth .form-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+  vertical-align: top;
+}
+
+.auth .form-options a {
+  font-size: 14px;
+  font-weight: 600;
+  color: #999;
+  text-decoration: underline;
+}
+
+.auth .form-options a:hover {
+  color: #c2c2c2;
+}
+
+.auth .go-to-register {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 32px;
+}
+
+.auth .go-to-register p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0000007a;
+  line-height: 17px;
+  margin-bottom: 10px;
+}
+
+.auth .go-to-register a {
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.auth .go-to-register a:hover {
+  color: #707070;
+  text-decoration: underline;
+}
+/* 로그인/회원가입 */
+
+/* 회원가입 */
+
+.signup .signup_title {
+  margin-top: 70px;
+  color: #333;
+  font-size: 24px;
+}
+
+.signup .signup_desc {
+  color: #999;
+  line-height: 24px;
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.signup .form-group {
+  margin-bottom: 16px;
+}
+
+.signup input[type="text"],
+.signup select {
+  display: inline-block;
+  width: 100%;
+  height: 48px;
+  padding: 0 18px;
+  font-size: 16px;
+  font-weight: 200;
+  background-color: #f5f5f5;
+  border: 1.5px solid #f5f5f5;
+  border-radius: 8px;
+}
+
+.signup select {
+  padding: 0 12px;
+}
+
+.signup .birth-select {
+  display: flex;
+  gap: 8px;
+}
+
+.signup input[type="date"] {
+  display: inline-block;
+  width: 100%;
+  height: 48px;
+  padding: 0 18px;
+  font-size: 16px;
+  font-weight: 200;
+  background-color: #f5f5f5;
+  border: 1.5px solid #f5f5f5;
+  border-radius: 8px;
+  color: #333;
+  box-sizing: border-box;
+}
+
+/* 브라우저별 아이콘 정리 (선택 사항) */
+.signup input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.5);
+  cursor: pointer;
+}
+
+
+.signup .radio-wrap {
+  display: flex;
+  gap: 120px;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.signup .radio-wrap label {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 18px;
+  font-size: 16px;
+  color: #000;
+}
+
+.signup .radio-wrap input {
+  width: 20px;
+  height: 20px;
+  margin: 0 8px 0 auto;
+}
+
+.signup .nickname-wrap {
+  display: flex;
+  gap: 8px;
+}
+
+.signup .nickname-wrap input[type="text"] {
+  flex: 1;
+}
+
+.signup .nickname-check {
+  background: #f5f5f5;
+  border: none;
+  border-radius: 8px;
+  padding: 0 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.signup .submit_btn {
+  width: 100%;
+  height: 56px;
+  margin-top: 24px;
+  background: #fafafa;
+  color: #d6d6d6;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  /*cursor: not-allowed;*/
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.signup .submit_btn:enabled {
+  background: #006ce0;
+  color: white;
+  cursor: pointer;
+}
+
+.auth .login_btn:enabled {
+  background-color: #006ce0 !important;
+  color: #fff !important;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 선택 */
+  opacity: 1;
+}
+
+
+input.error,
+select.error {
+  background-color: #fff5f5;
+  border: 1.5px solid #f94239 !important;
+}
+
+.error_msg {
+  display: none;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin-top: 4px;
+  white-space: pre-line;
+  color: #f94239;
+}
