@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.spring.example.accommodation.mapper.AccMapper">
+<mapper namespace="org.spring.example.mapper.AccMapper">
 
     <resultMap id="accResultMap" type="org.spring.example.accommodation.domain.Acc">
         <id property="accId" column="acc_id"/>

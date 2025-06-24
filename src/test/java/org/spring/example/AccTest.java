@@ -2,9 +2,8 @@ package org.spring.example;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.spring.example.accommodation.mapper.AccMapper;
+import org.spring.example.mapper.AccMapper;
 import org.spring.example.accommodation.domain.Acc;
-import org.spring.example.accommodation.mapper.AccMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

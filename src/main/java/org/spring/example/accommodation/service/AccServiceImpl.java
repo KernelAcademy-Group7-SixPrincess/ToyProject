@@ -1,7 +1,7 @@
 package org.spring.example.accommodation.service;
 
 import org.spring.example.accommodation.domain.Acc;
-import org.spring.example.accommodation.mapper.AccMapper;
+import org.spring.example.mapper.AccMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
