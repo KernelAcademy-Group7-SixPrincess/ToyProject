@@ -5,6 +5,7 @@ import org.spring.example.cart.dto.CartDto;
 import org.spring.example.cart.service.CartService;
 import org.spring.example.room.dto.Room;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +25,10 @@ public class CartController {
     }
 
     @GetMapping("/carts")
-    public List<CartDto> getCartList(@PathVariable long userId) {
-        return cartService.getCartListByUserId(userId);
+    public String getCartList(@PathVariable long userId, Model model) {
+        List<CartDto> cartDtoList = cartService.getCartListByUserId(userId);
+        model.addAttribute("cartDtoList", cartDtoList);
+        return "cart/index";
     }
 
     @PutMapping("/carts/{cartId}")
