@@ -3,10 +3,209 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.spring.example.room.mapper.RoomMapper">
+<mapper namespace="org.spring.example.mapper.RoomMapper">
+    <resultMap id="RoomResultMap" type="Room">
+        <id property="roomId" column="room_id"/>
+        <result property="accId" column="acc_id"/>
+        <result property="typeCodeId" column="type_code_id"/>
+        <result property="typeCodeCode" column="type_code_code"/>
+        <result property="typeCodeName" column="type_code_name"/>
+        <result property="statusCodeId" column="status_code_id"/>
+        <result property="statusCodeCode" column="status_code_code"/>
+        <result property="statusCodeName" column="status_code_name"/>
+        <result property="mainImageId" column="main_image_id"/>
+        <result property="name" column="name"/>
+        <result property="info" column="info"/>
+        <result property="addInfo" column="add_info"/>
+        <result property="size" column="size"/>
+        <result property="roomCnt" column="room_cnt"/>
+        <result property="floor" column="floor"/>
+        <result property="capacity" column="capacity"/>
+        <result property="maxCapacity" column="max_capacity"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
 
-    <select id="findAll" resultType="org.spring.example.room.dto.RoomDto">
+    <insert id="createRoom" parameterType="Room" useGeneratedKeys="true" keyProperty="roomId">
+        INSERT INTO room(acc_id, type_code_id, status_code_id, type_code_code, status_code_code,
+                         main_image_id, name, info, add_info, size, room_cnt, floor, capacity, max_capacity)
+        VALUES(#{accId}, #{typeCodeId}, #{statusCodeId}, #{typeCodeCode}, #{statusCodeCode}, #{mainImageId},
+               #{name}, #{info}, #{addInfo}, #{size}, #{roomCnt}, #{floor}, #{capacity}, #{maxCapacity})
+    </insert>
+
+    <select id="findAllRooms" resultMap="RoomResultMap">
+        SELECT
+            r.room_id,
+            r.acc_id,
+
+            r.type_code_id,
+            r.type_code_code,
+            tc.code_name AS type_code_name,
+
+            r.status_code_id,
+            r.status_code_code,
+            sc.code_name AS status_code_name,
+
+            r.main_image_id,
+            r.name,
+            r.info,
+            r.add_info,
+            r.size,
+            r.room_cnt,
+            r.floor,
+            r.capacity,
+            r.max_capacity,
+            r.created_at,
+            r.updated_at
+        FROM room r
+                 LEFT JOIN code tc
+                           ON r.type_code_id = tc.code_type_id
+                               AND r.type_code_code = tc.code
+
+                 LEFT JOIN code sc
+                           ON r.status_code_id = sc.code_type_id
+                               AND r.status_code_code = sc.code
+    </select>
+
+    <select id="findRoomById" parameterType="long" resultMap="RoomResultMap">
+        SELECT
+            r.room_id,
+            r.acc_id,
+
+            r.type_code_id,
+            r.type_code_code,
+            tc.code_name AS type_code_name,
+
+            r.status_code_id,
+            r.status_code_code,
+            sc.code_name AS status_code_name,
+
+            r.main_image_id,
+            r.name,
+            r.info,
+            r.add_info,
+            r.size,
+            r.room_cnt,
+            r.floor,
+            r.capacity,
+            r.max_capacity,
+            r.created_at,
+            r.updated_at
+
+        FROM room r
+                 LEFT JOIN code tc
+                           ON r.type_code_id = tc.code_type_id
+                               AND r.type_code_code = tc.code
+
+                 LEFT JOIN code sc
+                           ON r.status_code_id = sc.code_type_id
+                               AND r.status_code_code = sc.code
+
+        WHERE r.room_id = #{roomId}
 
     </select>
+
+    <select id="findRoomsByAccId" parameterType="long" resultMap="RoomResultMap">
+        SELECT
+            r.room_id,
+            r.acc_id,
+
+            r.type_code_id,
+            r.type_code_code,
+            tc.code_name AS type_code_name,
+
+            r.status_code_id,
+            r.status_code_code,
+            sc.code_name AS status_code_name,
+
+            r.main_image_id,
+            r.name,
+            r.info,
+            r.add_info,
+            r.size,
+            r.room_cnt,
+            r.floor,
+            r.capacity,
+            r.max_capacity,
+            r.created_at,
+            r.updated_at
+
+        FROM room r
+             LEFT JOIN code tc
+                   ON r.type_code_id = tc.code_type_id
+                       AND r.type_code_code = tc.code
+
+             LEFT JOIN code sc
+                   ON r.status_code_id = sc.code_type_id
+                       AND r.status_code_code = sc.code
+
+        WHERE r.acc_id = #{accId}
+    </select>
+
+    <select id="findRoomsByAccIdAndStatus" resultMap="RoomResultMap">
+        SELECT
+            r.room_id,
+            r.acc_id,
+
+            r.type_code_id,
+            r.type_code_code,
+            tc.code_name AS type_code_name,
+
+            r.status_code_id,
+            r.status_code_code,
+            sc.code_name AS status_code_name,
+
+            r.main_image_id,
+            r.name,
+            r.info,
+            r.add_info,
+            r.size,
+            r.room_cnt,
+            r.floor,
+            r.capacity,
+            r.max_capacity,
+            r.created_at,
+            r.updated_at
+
+        FROM room r
+                 LEFT JOIN code tc
+                           ON r.type_code_id = tc.code_type_id
+                               AND r.type_code_code = tc.code
+
+                 LEFT JOIN code sc
+                           ON r.status_code_id = sc.code_type_id
+                               AND r.status_code_code = sc.code
+
+        WHERE r.acc_id = #{accId}
+        AND r.status_code_id = #{statusCodeId}
+        AND r.status_code_code = #{statusCodeCode}
+    </select>
+
+    <update id="updateRoomByRoom" parameterType="Room">
+        UPDATE room
+        <set>
+            <if test="accId != null">acc_id = #{accId},</if>
+            <if test="typeCodeId != null">type_code_id = #{typeCodeId},</if>
+            <if test="statusCodeId != null">status_code_id = #{statusCodeId},</if>
+            <if test="typeCodeCode != null">type_code_code = #{typeCodeCode},</if>
+            <if test="statusCodeCode != null">status_code_code = #{statusCodeCode},</if>
+            <if test="mainImageId != null">main_image_id = #{mainImageId},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="info != null">info = #{info},</if>
+            <if test="addInfo != null">add_info = #{addInfo},</if>
+            <if test="size != null">size = #{size},</if>
+            <if test="roomCnt != null">room_cnt = #{roomCnt},</if>
+            <if test="floor != null">floor = #{floor},</if>
+            <if test="capacity != null">capacity = #{capacity},</if>
+            <if test="maxCapacity != null">max_capacity = #{maxCapacity},</if>
+        </set>
+        WHERE room_id = #{roomId}
+    </update>
+
+    <delete id="deleteRoomByRoomId" parameterType="long">
+        DELETE
+        FROM room
+        WHERE room_id = #{roomId}
+    </delete>
 
 </mapper>

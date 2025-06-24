@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.spring.example.mapper.AccMapper">
+
+    <resultMap id="accResultMap" type="org.spring.example.accommodation.domain.Acc">
+        <id property="accId" column="acc_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="regionId" column="region_id"/>
+        <result property="typeCodeId" column="type_code_id"/>
+        <result property="typeCodeCode" column="type_code_code"/>
+        <result property="gradeCodeId" column="grade_code_id"/>
+        <result property="gradeCodeCode" column="grade_code_code"/>
+        <result property="mainImageUrl" column="main_image_url"/>
+        <result property="name" column="name"/>
+        <result property="address" column="address"/>
+        <result property="accIntro" column="acc_intro"/>
+        <result property="avgrate" column="avgrate"/>
+        <result property="reviewerCnt" column="reviewer_cnt"/>
+        <result property="checkInTime" column="check_in_time"/>
+        <result property="checkOutTime" column="check_out_time"/>
+        <result property="businessName" column="business_name"/>
+        <result property="hostName" column="host_name"/>
+        <result property="tel" column="tel"/>
+        <result property="email" column="email"/>
+        <result property="licenseNum" column="license_num"/>
+        <result property="info" column="info"/>
+        <result property="addPeopleInfo" column="add_people_info"/>
+        <result property="breakfastInfo" column="breakfast_info"/>
+        <result property="cookInfo" column="cook_info"/>
+        <result property="cancelRefundInfo" column="cancel_refund_info"/>
+        <result property="etcInfo" column="etc_info"/>
+        <result property="description" column="description"/>
+        <result property="subwayInfo" column="subway_info"/>
+        <result property="roomFacilityInfo" column="room_facility_info"/>
+        <result property="frontFacilityInfo" column="front_facility_info"/>
+        <result property="extraNotice" column="extra_notice"/>
+        <result property="parkingInfo" column="parking_info"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="sidoName" column="sido_name"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="accResultMap">
+        SELECT a.*, r.sido_name
+        FROM acc a
+                 LEFT JOIN region r ON a.region_id = r.id
+        WHERE a.deleted_at IS NULL
+        ORDER BY a.acc_id DESC
+    </select>
+
+    <select id="findById" resultMap="accResultMap" parameterType="long">
+        SELECT a.*, r.sido_name
+        FROM acc a
+                 LEFT JOIN region r ON a.region_id = r.id
+        WHERE a.acc_id = #{accId}
+          AND a.deleted_at IS NULL
+    </select>
+
+    <select id="findByRegionAndType" resultMap="accResultMap" parameterType="map">
+        SELECT a.*, r.sido_name
+        FROM acc a
+        LEFT JOIN region r ON a.region_id = r.id
+        WHERE a.deleted_at IS NULL
+        <if test="region != null">
+            AND a.address LIKE CONCAT('%', #{region}, '%')
+        </if>
+        <if test="typeCode != null">
+            AND a.type_code_code = #{typeCode}
+        </if>
+        ORDER BY a.acc_id DESC
+    </select>
+
+    <select id="findTopRated" resultMap="accResultMap" parameterType="int">
+        SELECT a.*, r.sido_name
+        FROM acc a
+                 LEFT JOIN region r ON a.acc_id = r.id
+        WHERE a.deleted_at IS NULL
+        ORDER BY a.avgrate DESC
+            LIMIT #{limit}
+    </select>
+
+    <select id="findByType" resultMap="accResultMap" parameterType="int">
+        SELECT a.*, r.sido_name
+        FROM acc a
+                 LEFT JOIN region r ON a.region_id = r.id
+        WHERE a.type_code_code = #{typeCode}
+          AND a.deleted_at IS NULL
+    </select>
+
+    <select id="searchByKeyword" resultMap="accResultMap" parameterType="string">
+        SELECT a.*, r.sido_name
+        FROM acc a
+                 LEFT JOIN region r ON a.region_id = r.id
+        WHERE a.deleted_at IS NULL
+          AND (a.name LIKE CONCAT('%', #{keyword}, '%')
+            OR a.address LIKE CONCAT('%', #{keyword}, '%')
+            OR a.acc_intro LIKE CONCAT('%', #{keyword}, '%'))
+        ORDER BY a.acc_id DESC
+    </select>
+
+    <insert id="insert" parameterType="org.spring.example.accommodation.domain.Acc">
+        INSERT INTO acc (
+            user_id, region_id, type_code_id, type_code_code,
+            grade_code_id, grade_code_code, main_image_url,
+            name, address, acc_intro, avgrate, reviewer_cnt,
+            check_in_time, check_out_time, business_name, host_name,
+            tel, email, license_num, info, add_people_info,
+            breakfast_info, cook_info, cancel_refund_info,
+            etc_info, description, subway_info, room_facility_info,
+            front_facility_info, extra_notice, parking_info,
+            created_at, updated_at
+        ) VALUES (
+                     #{userId}, #{regionId}, #{typeCodeId}, #{typeCodeCode},
+                     #{gradeCodeId}, #{gradeCodeCode}, #{mainImageUrl},
+                     #{name}, #{address}, #{accIntro}, #{avgrate}, #{reviewerCnt},
+                     #{checkInTime}, #{checkOutTime}, #{businessName}, #{hostName},
+                     #{tel}, #{email}, #{licenseNum}, #{info}, #{addPeopleInfo},
+                     #{breakfastInfo}, #{cookInfo}, #{cancelRefundInfo},
+                     #{etcInfo}, #{description}, #{subwayInfo}, #{roomFacilityInfo},
+                     #{frontFacilityInfo}, #{extraNotice}, #{parkingInfo},
+                     #{createdAt}, #{updatedAt}
+                 )
+    </insert>
+
+    <update id="update" parameterType="org.spring.example.accommodation.domain.Acc">
+        UPDATE acc
+        SET
+            region_id = #{regionId},
+            type_code_id = #{typeCodeId},
+            type_code_code = #{typeCodeCode},
+            grade_code_id = #{gradeCodeId},
+            grade_code_code = #{gradeCodeCode},
+            main_image_url = #{mainImageUrl},
+            name = #{name},
+            address = #{address},
+            acc_intro = #{accIntro},
+            avgrate = #{avgrate},
+            reviewer_cnt = #{reviewerCnt},
+            check_in_time = #{checkInTime},
+            check_out_time = #{checkOutTime},
+            business_name = #{businessName},
+            host_name = #{hostName},
+            tel = #{tel},
+            email = #{email},
+            license_num = #{licenseNum},
+            info = #{info},
+            add_people_info = #{addPeopleInfo},
+            breakfast_info = #{breakfastInfo},
+            cook_info = #{cookInfo},
+            cancel_refund_info = #{cancelRefundInfo},
+            etc_info = #{etcInfo},
+            description = #{description},
+            subway_info = #{subwayInfo},
+            room_facility_info = #{roomFacilityInfo},
+            front_facility_info = #{frontFacilityInfo},
+            extra_notice = #{extraNotice},
+            parking_info = #{parkingInfo},
+            updated_at = #{updatedAt}
+        WHERE acc_id = #{accId}
+    </update>
+
+    <update id="delete" parameterType="long">
+        UPDATE acc
+        SET deleted_at = NOW()
+        WHERE acc_id = #{accId}
+    </update>
+
+
+</mapper>

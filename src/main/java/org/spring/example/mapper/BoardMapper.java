@@ -1,4 +1,4 @@
-package org.spring.example.board.mapper;
+package org.spring.example.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.spring.example.board.dto.BoardDto;
