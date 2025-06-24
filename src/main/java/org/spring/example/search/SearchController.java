@@ -27,6 +27,6 @@ public class SearchController {
         // 예약 가능한 객실 ID 리스트 조회
 //        List<Integer> canReserveList = reservationService.canReserve()
 
-        return null;
+        return "search/search";
     }
 }
