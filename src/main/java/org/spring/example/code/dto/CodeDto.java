@@ -1,9 +1,8 @@
-package org.spring.example.code;
+package org.spring.example.code.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 
 /**
