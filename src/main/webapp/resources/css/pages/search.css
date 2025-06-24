@@ -1,14 +1,16 @@
 #search-page {
     display: flex;
     flex-direction: row;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
     padding: 24px;
-    background-color: #f9f9f9;
 }
 
 .filters-container {
     display: flex;
+    flex: 2;
     flex-wrap: wrap;
-    gap: 16px;
     margin-bottom: 32px;
     position: sticky;
 }
@@ -20,17 +22,17 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-.filter-category .title {
+.filter-section .title {
     font-size: 1.125rem;
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
 }
 
 .gc-radio-group {
     gap: 12px;
 }
 .gc-radio {
-    display: flex; align-items: center; cursor: pointer;
+    display: flex; align-items: center; cursor: pointer; margin-bottom: 10px;
 }
 .radio-btn {
     width: 18px;
@@ -57,7 +59,7 @@
 }
 
 #cards-container {
-    flex: 1;
+    flex: 8;
     display: grid;
     /*grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));*/
     grid-template-columns: 1fr;
@@ -91,3 +93,43 @@
 .details { font-size: 0.875rem; color: #666; flex: 1; }
 .price-section { display: flex; justify-content: space-between; align-items: baseline; margin-top: 12px; }
 .price { font-size: 1.125rem; font-weight: 700; }
+
+
+
+
+
+
+/* header 안에서 form을 가로 중앙 정렬 */
+.header-search {
+    display: flex;
+    align-items: center;
+    margin-left: auto;    /* 오른쪽 공간 밀어내기 */
+    gap: 8px;
+}
+
+.search-input {
+    width: 240px;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #1d8bff;
+}
+
+.search-btn {
+    background: #1d8bff;
+    border: none;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.search-btn:hover {
+    background: #005ecb;
+}
