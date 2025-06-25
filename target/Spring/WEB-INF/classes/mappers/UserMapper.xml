@@ -12,7 +12,7 @@
                 )
                 SELECT
                     #{password}, #{name}, #{gender}, #{email}, #{birth}, #{phone}, #{nickname},
-                    c.id, c.code
+                    c.code_type_id, c.code
                 FROM code c
                 WHERE c.code_name = #{job}
                   AND c.is_used = TRUE
