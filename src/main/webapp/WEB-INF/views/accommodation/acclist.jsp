@@ -135,23 +135,13 @@
     </nav>
 </header>
 
-
-
 <%
-    String region = request.getParameter("region");
-    if(region == null) {
-        region = "";
-    }
-
     List<Acc> accList = (List<Acc>) request.getAttribute("accList");
-
-    for (Acc acc : accList) {
-        String sidoName = acc.getSidoName();
-
-        if ("jeju".equals(region) && "제주특별자치도".equals(sidoName)) {
+    String region = (String) request.getAttribute("region");
 %>
-<!-- 제주 숙소 카드 렌더링 -->
-<div class="acc-card" onclick="location.href='/acc/jeju/<%= acc.getAccId() %>'">
+
+<% for (Acc acc : accList) { %>
+<div class="acc-card" onclick="location.href='/acc/<%= region %>/<%= acc.getAccId() %>'">
     <img src="<%= acc.getMainImageUrl() %>" alt="숙소 이미지" class="acc-thumb">
     <div class="acc-info">
         <h3 class="acc-title"><%= acc.getName() %></h3>
@@ -159,22 +149,7 @@
         <p class="acc-score">⭐ <%= acc.getAvgrate() %> / <%= acc.getReviewerCnt() %>명 평가</p>
     </div>
 </div>
-<%
-} else if ("seoul".equals(region) && "서울특별시".equals(sidoName)) {
-%>
-<!-- 서울 숙소 카드 렌더링 -->
-<div class="acc-card" onclick="location.href='/acc/seoul/<%= acc.getAccId() %>'">
-    <img src="<%= acc.getMainImageUrl() %>" alt="숙소 이미지" class="acc-thumb">
-    <div class="acc-info">
-        <h3 class="acc-title"><%= acc.getName() %></h3>
-        <p class="acc-location"><%= acc.getAddress() %></p>
-        <p class="acc-score">⭐ <%= acc.getAvgrate() %> / <%= acc.getReviewerCnt() %>명 평가</p>
-    </div>
-</div>
-<%
-        }
-    }
-%>
+<% } %>
 
 
 </body>

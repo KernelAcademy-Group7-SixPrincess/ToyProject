@@ -93,7 +93,7 @@
                         </a>
                     </li>
                     <li class="swiper-slide">
-                        <a href="/">
+                        <a href="${pageContext.request.contextPath}/acclist?region=busan">
                             <img
                                     alt="부산 여행"
                                     sizes="100vw"
