@@ -33,5 +33,11 @@
         WHERE email = #{email}
     </select>
 
+    <select id="isEmailDuplicate" parameterType="String" resultType="int">
+        SELECT EXISTS (
+            SELECT 1 FROM user WHERE email = #{email}
+        )
+    </select>
+
 </mapper>
 

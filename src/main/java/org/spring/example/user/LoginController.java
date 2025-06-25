@@ -8,13 +8,12 @@ import org.spring.example.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class LoginController {
@@ -22,28 +21,40 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+//    로그인 선택 페이지
     @GetMapping("/user/auth")
     public String auth() {
         return "user/auth";
     }
 
+//    로그인 페이지
     @RequestMapping("/user/login")
     public String login() {
         return "user/login";
     }
 
+//    회원가입
     @GetMapping("/user/signup")
     public String signup() {
         return "user/signup";
     }
 
+//    회원가입 성공
     @PostMapping("/user/signup")
     public String signok(@ModelAttribute UsersignupDto dto) {
         userService.signup(dto);
-        System.out.println("signok");
         return "user/signupSuccess";
     }
 
+//    이메일 중복 체크
+@GetMapping("/user/check-email")
+@ResponseBody
+public String checkEmailDuplicate(@RequestParam("email") String email) {
+    boolean isDuplicate = userService.isEmailDuplicate(email);
+    return isDuplicate ? "duplicate" : "available";
+}
+
+//  로그인 결과 체크
     @PostMapping("/user/login")
     public String userlogincheck(@ModelAttribute UserloginDto userloginDto, @ModelAttribute UserinfoDto userinfoDto,  HttpSession session, Model model) {
         // 로그인 결과 확인
@@ -51,11 +62,9 @@ public class LoginController {
 
         if (loginUser == 1) {
             // 로그인 성공 → 세션에 저장
-//            String safeEmail = HtmlUtils.htmlEscape(dto.getEmail());
             UserinfoDto userinfo = userService.getUserinfo(userloginDto.getEmail());
-            model.addAttribute("usernickname", userinfo.getNickname());
             session.setAttribute("loginUser", userinfo);
-            return "redirect:/"; // or forward
+            return "redirect:/";
         } else {
             // 로그인 실패 → 다시 로그인 페이지로
 //            model.addAttribute("error", "이메일 또는 비밀번호가 올바르지 않습니다.");
@@ -63,6 +72,7 @@ public class LoginController {
         }
     }
 
+//    로그아웃
     @GetMapping("/user/logout")
     public String logout(HttpSession session) {
         session.invalidate();

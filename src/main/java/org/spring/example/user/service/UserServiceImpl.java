@@ -7,25 +7,38 @@ import org.spring.example.user.dto.UsersignupDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
 
+//    회원가입시 필요한 입력 정보
     @Override
     public void signup(UsersignupDto dto){
         userMapper.signup(dto);
     }
 
+//    로그인시 필요한 정보
     @Override
     public int login(UserloginDto dto){
         return userMapper.loginCheck(dto);
     }
 
+//    유저정보 조회
     @Override
     public UserinfoDto getUserinfo(String email){
         return userMapper.getUserInfo(email);
     }
+
+
+//    회원가입시 이메일 중복 검증
+    @Override
+    public boolean isEmailDuplicate(String email) {
+        return userMapper.isEmailDuplicate(email) == 1;
+    }
+
 
 }
