@@ -14,7 +14,7 @@
 
 <body class="index">
 
-<%@ include file="../common/header.jsp" %>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <main>
     <section class="kv" aria-label="여행 숙소 검색 섹션">
