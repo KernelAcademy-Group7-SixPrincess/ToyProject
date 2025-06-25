@@ -42,13 +42,13 @@
       <span class="error_msg" id="passwordError">8자 이상 입력해주세요.</span>
     </div>
 
-    <div class="form-options">
-      <label>
-        <input type="checkbox" name="rememberMe" />
-        로그인 유지
-      </label>
-      <a href="/reset-password">비밀번호 재설정</a>
-    </div>
+<%--    <div class="form-options">--%>
+<%--      <label>--%>
+<%--        <input type="checkbox" name="rememberMe" />--%>
+<%--        로그인 유지--%>
+<%--      </label>--%>
+<%--      <a href="/reset-password">비밀번호 재설정</a>--%>
+<%--    </div>--%>
 
     <button type="submit" class="login_btn submit_btn" disabled>로그인</button>
   </form>

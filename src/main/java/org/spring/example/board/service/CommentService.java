@@ -19,7 +19,15 @@ public class CommentService {
         commentMapper.insertComment(commentDto);
     }
 
-    public List<CommentDto> getCommentsByPostId(Long postId) {
+    public void updateComment(CommentDto commentDto) {
+        commentMapper.updateComment(commentDto);
+    }
+
+    public void deleteComment(CommentDto commentDto) {
+        commentMapper.deleteComment(commentDto);
+    }
+
+    public List<CommentDto> selectCommentsByPostId(Long postId) {
         return commentMapper.selectCommentsByPostId(postId);
     }
 }

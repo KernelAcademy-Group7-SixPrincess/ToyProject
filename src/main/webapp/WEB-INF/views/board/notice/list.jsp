@@ -54,10 +54,9 @@
 
         </ul>
 
-        <a href="/board/notice/write" class="write-btn" role="button">
-            <span aria-hidden="true">✏️</span>
-            <span>글쓰기</span>
-        </a>
+        <div class="faq-write-row">
+            <a href="/board/notice/write" class="write-btn" role="button">글쓰기</a>
+        </div>
 
         <nav aria-label="페이지 이동">
             <ul class="pagination">
