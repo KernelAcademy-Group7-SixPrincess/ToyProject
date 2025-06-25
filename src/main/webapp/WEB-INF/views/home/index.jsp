@@ -65,7 +65,7 @@
                     <li class="swiper-slide">
                         <a href="/jeju">
                             <img
-                                    alt="제주도 여행"
+                                    alt="제주특별자치도 여행"
                                     sizes="100vw"
                                     srcset="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_jeju_03_20231103163922.png 340w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_jeju_03_20231103163922.png 912w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_jeju_03_20231103163922.png 1200w"
                                     src="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_jeju_03_20231103163922.png"
@@ -74,13 +74,13 @@
                                     class="gc-curation-card-image absolute top-Spacing0 left-Spacing0 desktop:hover:bg-backgroundOverlayDarkInactive"
                                     loading="lazy"
                             />
-                            <span>제주도</span>
+                            <span>제주특별자치도</span>
                         </a>
                     </li>
                     <li class="swiper-slide">
                         <a href="/">
                             <img
-                                    alt="서울 여행"
+                                    alt="서울특별시 여행"
                                     sizes="100vw"
                                     srcset="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Seoul_03_20231103163936.png 340w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Seoul_03_20231103163936.png 912w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Seoul_03_20231103163936.png 1200w"
                                     src="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Seoul_03_20231103163936.png"
@@ -89,13 +89,13 @@
                                     class="gc-curation-card-image absolute top-Spacing0 left-Spacing0 desktop:hover:bg-backgroundOverlayDarkInactive"
                                     loading="lazy"
                             />
-                            <span>서울</span>
+                            <span>서울특별시</span>
                         </a>
                     </li>
                     <li class="swiper-slide">
                         <a href="/">
                             <img
-                                    alt="부산 여행"
+                                    alt="부산광역시 여행"
                                     sizes="100vw"
                                     srcset="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Busan_03_20231103163951.png 340w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Busan_03_20231103163951.png 912w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Busan_03_20231103163951.png 1200w"
                                     src="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Busan_03_20231103163951.png"
@@ -104,13 +104,13 @@
                                     class="gc-curation-card-image absolute top-Spacing0 left-Spacing0 desktop:hover:bg-backgroundOverlayDarkInactive"
                                     loading="lazy"
                             />
-                            <span>부산</span>
+                            <span>부산광역시</span>
                         </a>
                     </li>
                     <li class="swiper-slide">
                         <a href="/">
                             <img
-                                    alt="강릉 여행"
+                                    alt="강원특별자치도 여행"
                                     sizes="100vw"
                                     srcset="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Gangneung_03_20231103164004.png 340w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Gangneung_03_20231103164004.png 912w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Gangneung_03_20231103164004.png 1200w"
                                     src="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Gangneung_03_20231103164004.png"
@@ -119,13 +119,13 @@
                                     class="gc-curation-card-image absolute top-Spacing0 left-Spacing0 desktop:hover:bg-backgroundOverlayDarkInactive"
                                     loading="lazy"
                             />
-                            <span>강릉</span>
+                            <span>강원특별자치도</span>
                         </a>
                     </li>
                     <li class="swiper-slide">
                         <a href="/">
                             <img
-                                    alt="인천 여행"
+                                    alt="인천광역시 여행"
                                     sizes="100vw"
                                     srcset="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Incheon_03_20231103164014.png 340w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Incheon_03_20231103164014.png 912w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Incheon_03_20231103164014.png 1200w"
                                     src="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Incheon_03_20231103164014.png"
@@ -134,13 +134,13 @@
                                     class="gc-curation-card-image absolute top-Spacing0 left-Spacing0 desktop:hover:bg-backgroundOverlayDarkInactive"
                                     loading="lazy"
                             />
-                            <span>인천</span>
+                            <span>인천광역시</span>
                         </a>
                     </li>
                     <li class="swiper-slide">
                         <a href="/">
                             <img
-                                    alt="경주 여행"
+                                    alt="경상북도 여행"
                                     sizes="100vw"
                                     srcset="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Gyeongju_03_20231103164027.png 340w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Gyeongju_03_20231103164027.png 912w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Gyeongju_03_20231103164027.png 1200w"
                                     src="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Gyeongju_03_20231103164027.png"
@@ -149,13 +149,13 @@
                                     class="gc-curation-card-image absolute top-Spacing0 left-Spacing0 desktop:hover:bg-backgroundOverlayDarkInactive"
                                     loading="lazy"
                             />
-                            <span>경주</span>
+                            <span>경상북도</span>
                         </a>
                     </li>
                     <li class="swiper-slide">
                         <a href="/">
                             <img
-                                    alt="해운대 여행"
+                                    alt="경상남도 여행"
                                     sizes="100vw"
                                     srcset="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region__Haeundae_03_20231103164044.png 340w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region__Haeundae_03_20231103164044.png 912w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region__Haeundae_03_20231103164044.png 1200w"
                                     src="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region__Haeundae_03_20231103164044.png"
@@ -165,13 +165,13 @@
                                     loading="lazy"
                             />
 
-                            <span>해운대</span>
+                            <span>경상남도</span>
                         </a>
                     </li>
                     <li class="swiper-slide">
                         <a href="/">
                             <img
-                                    alt="가평 여행"
+                                    alt="경기도 여행"
                                     sizes="100vw"
                                     srcset="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region__Gapyeong_03_20231103164056.png 340w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region__Gapyeong_03_20231103164056.png 912w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region__Gapyeong_03_20231103164056.png 1200w"
                                     src="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region__Gapyeong_03_20231103164056.png"
@@ -180,13 +180,13 @@
                                     class="gc-curation-card-image absolute top-Spacing0 left-Spacing0 desktop:hover:bg-backgroundOverlayDarkInactive"
                                     loading="lazy"
                             />
-                            <span>가평</span>
+                            <span>경기도</span>
                         </a>
                     </li>
                     <li class="swiper-slide">
                         <a href="/">
                             <img
-                                    alt="여수 여행"
+                                    alt="전라남도 여행"
                                     sizes="100vw"
                                     srcset="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Yeo_su_03_20231103164109.png 340w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Yeo_su_03_20231103164109.png 912w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Yeo_su_03_20231103164109.png 1200w"
                                     src="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Yeo_su_03_20231103164109.png"
@@ -195,13 +195,13 @@
                                     class="gc-curation-card-image absolute top-Spacing0 left-Spacing0 desktop:hover:bg-backgroundOverlayDarkInactive"
                                     loading="lazy"
                             />
-                            <span>여수</span>
+                            <span>전라남도</span>
                         </a>
                     </li>
                     <li class="swiper-slide">
                         <a href="/">
                             <img
-                                    alt="속초 여행"
+                                    alt="대전광역시 여행"
                                     sizes="100vw"
                                     srcset="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Sokcho_02_20231117140152.png 340w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Sokcho_02_20231117140152.png 912w, https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Sokcho_02_20231117140152.png 1200w"
                                     src="https://image.goodchoice.kr/resize_360x360/exhibition/cms/Region_Sokcho_02_20231117140152.png"
@@ -210,7 +210,7 @@
                                     class="gc-curation-card-image absolute top-Spacing0 left-Spacing0 desktop:hover:bg-backgroundOverlayDarkInactive"
                                     loading="lazy"
                             />
-                            <span>속초</span>
+                            <span>대전광역시</span>
                         </a>
                     </li>
                 </ul>
