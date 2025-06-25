@@ -22,5 +22,6 @@
         <package name="org.spring.example.board.dto"/>
         <package name="org.spring.example.cart.dto"/>
         <package name="org.spring.example.cartItem.dto"/>
+        <package name="org.spring.example.code" />
     </typeAliases>
 </configuration>
