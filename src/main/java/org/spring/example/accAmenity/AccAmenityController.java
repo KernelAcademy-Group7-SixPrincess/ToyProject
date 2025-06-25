@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/acc-amenities")
+@RequestMapping("/amenities/acc")
 public class AccAmenityController {
 
     private final AccAmenityService accAmenityService;
@@ -20,7 +20,7 @@ public class AccAmenityController {
     }
 
     // 특정 숙소의 편의시설 목록 조회
-    @GetMapping("/acc/{accId}")
+    @GetMapping("/{accId}")
     public ResponseEntity<Map<String, Object>> findByAccId(@PathVariable Long accId) {
         List<AccAmenity> list = accAmenityService.findByAccId(accId);
 
