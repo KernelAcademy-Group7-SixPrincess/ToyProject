@@ -17,19 +17,18 @@ public class AccController {
     @Autowired
     private AccService accService;
 
-    // /acctest?region=jeju 로 들어왔을 때 동작
-    @GetMapping("/acctest2")
+    @GetMapping("/acclist")
     public String showAccByRegion(@RequestParam String region, Model model) {
         List<Acc> accList = accService.getAllAccs();  // 전체 숙소 목록 조회
         model.addAttribute("accList", accList);       // JSP에서 필터링에 사용
-        return "accommodation/acctest2";
+        return "accommodation/acclist";
     }
 
     @GetMapping("/acc/{region}/{accId}")
     public String getAccDetail(@PathVariable Long accId, Model model) {
-        Acc acc = accService.getAccById(accId);
+        Acc acc = accService.getAccByIdWithRooms(accId);
         model.addAttribute("acc", acc); // JSP에서 ${acc} 혹은 request.getAttribute("acc")로 받음
-        return "accommodation/acctest3"; //
+        return "accommodation/accinfo"; //
     }
 
 }

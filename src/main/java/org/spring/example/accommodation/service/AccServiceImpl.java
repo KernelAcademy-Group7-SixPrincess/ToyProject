@@ -15,16 +15,25 @@ public class AccServiceImpl implements AccService {
     @Autowired
     private AccMapper accMapper;
 
+    // 전체 숙소 조회
     @Override
     public List<Acc> getAllAccs() {
         return accMapper.findAll();
     }
 
+    // acc_id로 숙소 조회
     @Override
     public Acc getAccById(Long accId) {
         return accMapper.findById(accId);
     }
 
+    // acc_id로 숙소 + 객실 리스트 조회
+    @Override
+    public Acc getAccByIdWithRooms(Long accId) {
+        return accMapper.findByIdWithRooms(accId);
+    }
+
+    // 지역 + 타입으로 숙소 조회
     @Override
     public List<Acc> getByRegionAndType(String region, Integer typeCode) {
         Map<String, Object> params = new HashMap<>();
@@ -33,31 +42,37 @@ public class AccServiceImpl implements AccService {
         return accMapper.findByRegionAndType(params);
     }
 
+    // 평점 상위 N개 숙소
     @Override
     public List<Acc> getTopRated(int limit) {
         return accMapper.findTopRated(limit);
     }
 
+    // 키워드 검색
     @Override
     public List<Acc> searchByKeyword(String keyword) {
         return accMapper.searchByKeyword(keyword);
     }
 
+    // 타입 코드별 숙소 조회
     @Override
     public List<Acc> getByType(int typeCode) {
         return accMapper.findByType(typeCode);
     }
 
+    // 숙소 등록
     @Override
     public int addAcc(Acc acc) {
         return accMapper.insert(acc);
     }
 
+    // 숙소 수정
     @Override
     public int updateAcc(Acc acc) {
         return accMapper.update(acc);
     }
 
+    // 숙소 삭제 (soft delete)
     @Override
     public int deleteAcc(Long accId) {
         return accMapper.delete(accId);

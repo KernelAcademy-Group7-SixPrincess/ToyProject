@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="org.spring.example.accommodation.domain.Acc" %>
+<%@ page import="org.spring.example.room.dto.Room" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -95,15 +96,29 @@
         }
 
         /* 버튼 */
-        .seller-info-btn {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 5px;
-            font-size: 1rem;
+        .seller-info-list {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
             cursor: pointer;
+            font-size: 1rem;
+            background-color: white;
+            color: #333;
         }
+
+        .seller-info-list:hover {
+            background-color: #f5f5f5;
+        }
+
+        .seller-info-list .arrow {
+            color: #aaa;
+            font-size: 1.2rem;
+        }
+
 
         /* 모달 배경 */
         .modal {
@@ -139,6 +154,42 @@
         .close-btn:hover {
             color: black;
         }
+
+        .room-section {
+            margin-top: 40px;
+        }
+
+        .room-card {
+            display: flex;
+            background: #fdfdfd;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .room-image {
+            width: 160px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .room-details {
+            padding: 15px;
+            flex: 1;
+        }
+
+        .room-name {
+            font-size: 1.2em;
+            margin-bottom: 6px;
+        }
+
+        .room-info {
+            color: #666;
+            margin-bottom: 4px;
+        }
+
 
     </style>
 </head>
@@ -337,13 +388,46 @@
         <% } %>
     </section>
     <% } %>
+            <% if (acc.getRoomList() != null && !acc.getRoomList().isEmpty()) { %>
+        <section class="room-section">
+            <h2>객실 선택</h2>
+            <% for (Room room : acc.getRoomList()) { %>
+            <div class="room-card">
+                <img src="<%= room.getMainImageUrl() %>" alt="객실 이미지" class="room-image"/>
+                <div class="room-details">
+                    <h3 class="room-name"><%= room.getName() %></h3>
+                    <p>기준 <%= room.getCapacity() %>인 / 최대 <%= room.getMaxCapacity() %>인</p>
+                    <button class="detail-btn"
+                            data-name="<%= room.getName() %>"
+                            data-info="<%= room.getInfo() != null ? room.getInfo().replace("\"", "\\\"").replace("\n", "<br>") : "없음" %>">
+                            상세 정보
+                    </button>
+                </div>
+            </div>
+            <% } %>
+        </section>
+            <% } %>
 
-    <!-- 판매자 정보 버튼 -->
-    <div class="seller-info-btn-wrapper">
-        <button id="openSellerModal" class="seller-info-btn">판매자 정보 보기</button>
-    </div>
+        <%-- 객실 상세 모달 추가 --%>
+        <div id="roomDetailModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn room-close">&times;</span>
+                <h2 id="modalRoomName">객실명</h2>
 
-    <!-- 모달 창 -->
+                <h3>객실 정보</h3>
+                <p id="modalRoomInfo">없음</p>
+
+            </div>
+        </div>
+
+        <!-- 판매자 정보 버튼 -->
+        <div class="seller-info-list" onclick="document.getElementById('sellerModal').style.display='block'">
+            <span>판매자 정보</span>
+            <span class="arrow">&gt;</span>
+        </div>
+
+
+        <!-- 모달 창 -->
     <div id="sellerModal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
@@ -379,13 +463,37 @@
         });
     </script>
 
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const sellerModal = document.getElementById("sellerModal");
+                const roomModal = document.getElementById("roomDetailModal");
+
+                const sellerBtn = document.getElementById("openSellerModal");
+                const sellerCloseBtn = document.querySelector(".modal .close-btn");
+
+                sellerBtn.onclick = () => sellerModal.style.display = "block";
+                sellerCloseBtn.onclick = () => sellerModal.style.display = "none";
+
+                // 객실 상세정보 모달 로직
+                document.querySelectorAll('.detail-btn').forEach(button => {
+                    button.addEventListener('click', () => {
+                        document.getElementById('modalRoomName').innerText = button.dataset.name;
+                        document.getElementById('modalRoomInfo').innerHTML = button.dataset.info || '없음';
+                        roomModal.style.display = "block";
+                    });
+                });
+
+                document.querySelector('.room-close').onclick = () => roomModal.style.display = "none";
+
+                window.onclick = function (event) {
+                    if (event.target === sellerModal) sellerModal.style.display = "none";
+                    if (event.target === roomModal) roomModal.style.display = "none";
+                }
+            });
+        </script>
 </div>
+<% } %>
 
-<%
-    }
-%>
-
-
-
+</div>
 </body>
 </html>
