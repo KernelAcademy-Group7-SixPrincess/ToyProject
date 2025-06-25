@@ -15,7 +15,7 @@
             created_at,
             updated_at
     from  `review`
-    where id=#{id}
+    where review_id=#{reviewId}
 </select>
 
     <delete id="deleteAll">
@@ -23,31 +23,31 @@
     </delete>
 
     <delete id="delete" parameterType="map">
-        DELETE FROM review WHERE id = #{id} and user_id =#{user_id}
+        DELETE FROM review WHERE review_id = #{reviewId} and user_id = #{userId}
     </delete>
 
     <insert id="insert" parameterType="ReviewBoardDto">
         INSERT INTO review
-        ( id, user_id, acc_id, rate, comment, like_cnt, created_at, updated_at)
+        ( review_id, user_id, acc_id, rate, comment, like_cnt, created_at, updated_at)
         VALUES
-            (#{id},#{user_id},#{acc_id},#{rate},#{comment},#{like_cnt},#{created_at},#{updated_at})
+            (#{reviewId},#{userId},#{accId},#{rate},#{comment},#{likeCnt},#{createdAt},#{updatedAt})
     </insert>
         <select id="selectAll" resultType="ReviewBoardDto">
-            select id, user_id, acc_id, rate, comment, like_cnt, created_at, updated_at
+            select review_id, user_id, acc_id, rate, comment, like_cnt, created_at, updated_at
             from review
             order by created_at, updated_at, id desc
         </select>
 
     <sql id="selectFromReview">
-        select  id, user_id, acc_id, rate, comment, like_cnt, created_at, updated_at
+        select  review_id, user_id, acc_id, rate, comment, like_cnt, created_at, updated_at
         from review
     </sql>
 
 
     <select id="selectPage" parameterType="map" resultType="ReviewBoardDto">
         <include refid="selectFromReview"/>
-        order by  created_at, updated_at, id desc
-        limit #{offset},#{pageSize}
+        order by  created_at, updated_at, review_id desc
+
 </select>
 
     <update id="update" parameterType="ReviewBoardDto">
@@ -58,13 +58,18 @@
             rate=#{rate},
             comment=#{comment},
             likeCnt=#{likeCnt},
-            createdAt=#{createdAt}
-            updatedAt=#{updatedAt}
-        where id=#{id}
+            created_at=#{createdAt},
+            updated_at=#{updatedAt}
+        where review_id=#{reviewId}
     </update>
     <select id="count" resultType="int">
         SELECT COUNT(*)
         FROM review
     </select>
 
+    <select id="findByAccId" parameterType="long" resultType="org.spring.example.review.ReviewBoardDto">
+        SELECT * FROM review WHERE acc_id = #{accId}
+    </select>
+
 </mapper>
+

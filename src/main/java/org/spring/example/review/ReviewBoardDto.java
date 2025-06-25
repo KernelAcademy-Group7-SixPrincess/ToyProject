@@ -1,61 +1,58 @@
 package org.spring.example.review;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-import java.math.BigInteger;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class ReviewBoardDto {
-private BigInteger id;
-        private BigInteger userId;
-        private BigInteger accId;
+        private Long reviewId;
+        private Long userId;
+        private Long accId;
         private int rate;
         private String comment;
         private int likeCnt;
-        private Timestamp createdAt;
-        private Timestamp updatedAt;
+        private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
+        private List<ReviewReplyDto> replies;
 
         public ReviewBoardDto(){};
-        public ReviewBoardDto( BigInteger id, BigInteger userId,
-                               BigInteger accId,int rate,
-                               String comment,int likeCnt,
-                               Timestamp createdAt,Timestamp
-                                       updatedAt){
-            this.id=id;
+        public ReviewBoardDto(Long reviewId, Long userId,
+                              Long accId, int rate,
+                              String comment, int likeCnt,
+                              LocalDateTime createdAt, LocalDateTime
+                                       updatedAt, List<ReviewReplyDto> replies){
+            this.reviewId=reviewId;
             this.accId=accId;
             this.rate=rate;
             this.comment=comment;
             this.likeCnt=likeCnt;
             this.createdAt=createdAt;
             this.updatedAt=updatedAt;
+            this.replies=replies;
+        }
 
-         }
-
-    public BigInteger getId() {
-        return id;
+    public Long getReviewId() {
+        return reviewId;
     }
 
-    public void setId(BigInteger id) {
-        this.id = id;
+    public void setReviewId(Long reviewId) {
+        this.reviewId = reviewId;
     }
 
 
-    public BigInteger getUserId() {
+    public Long getUserId() {
             return userId;
     }
 
-    public void setUserId(BigInteger userId) {
+    public void setUserId(Long userId) {
             this.userId = userId;
     }
 
-    public BigInteger getAccId() {
+    public Long getAccId() {
             return accId;
     }
-    public void setAccId(BigInteger accId) {
+    public void setAccId(Long accId) {
             this.accId = accId;
     }
 
@@ -78,52 +75,42 @@ private BigInteger id;
      public void setLikeCnt(int likeCnt) {
             this.likeCnt = likeCnt;
      }
-     public Timestamp getCreatedAt() {
+     public LocalDateTime getCreatedAt() {
             return createdAt;
      }
-     public void setCreatedAt(Timestamp createdAt) {
+     public void setCreatedAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
      }
-     public Timestamp getUpdatedAt() {
+     public LocalDateTime getUpdatedAt() {
             return updatedAt;
      }
-     public void setUpdatedAt(Timestamp updatedAt) {
+     public void setUpdatedAt(LocalDateTime updatedAt) {
             this.updatedAt = updatedAt;
      }
 
-    @Override
-    public String toString() {
-        return "ReviewBoardDto{" +
-                "id=" + id +
-                ", user_id=" + userId +
-                ", acc_id=" + accId +
-                ", rate=" + rate +
-                ", comment='" + comment + '\'' +
-                ", like_cnt=" + likeCnt +
-                ", created_at=" + createdAt +
-                ", updated_at=" + updatedAt +
-                '}';
+    public List<ReviewReplyDto> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<ReviewReplyDto> replies) {
+        this.replies = replies;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         ReviewBoardDto that = (ReviewBoardDto) o;
-        return Objects.equals(id, that.id) && Objects.equals(userId, that.userId) && Objects.equals(accId, that.accId);
+        return Objects.equals(reviewId, that.reviewId) && Objects.equals(userId, that.userId) && Objects.equals(accId, that.accId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, accId);
+        return Objects.hash(reviewId, userId, accId);
     }
 
     public void setCreatedAt(Date date) {
     }
+
+
 }
-
-
-
-
-
-
 

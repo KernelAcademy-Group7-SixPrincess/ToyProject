@@ -1,10 +1,9 @@
 package org.spring.example.review;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +22,9 @@ public class ReviewBoardDaoImpl implements ReviewBoardDao {
         }
 
     @Override
-    public int delete(BigInteger id, BigInteger user_id) throws Exception{
+    public int delete(Long review_id, Long user_id) throws Exception{
         Map map=new HashMap();
-        map.put("id",id);
+        map.put("id",review_id);
         map.put("user_id",user_id);
         return session.delete(namespace +".delete",map);
     }
@@ -39,8 +38,8 @@ public class ReviewBoardDaoImpl implements ReviewBoardDao {
 
 
     @Override
-    public ReviewBoardDto select(BigInteger id) throws Exception {
-        return session.selectOne(namespace+".select", id);
+    public ReviewBoardDto select(Long review_id) throws Exception {
+        return session.selectOne(namespace+".select", review_id);
     }
 
     @Override
@@ -51,5 +50,8 @@ public class ReviewBoardDaoImpl implements ReviewBoardDao {
     public int update(ReviewBoardDto dto) throws Exception{
             return session.update(namespace +".update",dto);
     }
-
+    @Override
+    public List<ReviewBoardDto> findByAccId(@Param("accId") Long accId){
+            return session.selectList(namespace +".findByAccId",accId);
+    }
 }

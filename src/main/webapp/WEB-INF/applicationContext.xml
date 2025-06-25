@@ -13,21 +13,21 @@
 
     <!-- @Component, @Repository 등 자동 스캔 -->
 <!--    <context:component-scan base-package="org.spring.example.room.mapper"/>-->
-    <context:component-scan base-package="org.spring.example.board.mapper"/>
+    <context:component-scan base-package="org.spring.example"/>
 
     <!-- DB 연결 설정 -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/toyprojectdb?serverTimezone=UTC"/>
         <property name="username" value="root"/>
-        <property name="password" value=""/>
+        <property name="password" value="789456"/>
     </bean>
 
     <!-- MyBatis 설정 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath:mappers/*.xml"/>
-        <property name="typeAliasesPackage" value="org.spring.example.board.dto"/>
+        <property name="typeAliasesPackage" value="org.spring.example.review, org.spring.example.board.dto, org.spring.example.room.dto"/>
         <property name="configuration">
             <bean class="org.apache.ibatis.session.Configuration">
                 <property name="mapUnderscoreToCamelCase" value="true"/>
@@ -35,7 +35,12 @@
         </property>
     </bean>
 
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory" />
+    </bean>
+
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="org.spring.example.room.mapper, org.spring.example.board.mapper"/>
+        <property name="basePackage" value="org.spring.example.room.mapper, org.spring.example.board.mapper,
+        org.spring.example.review.ReviewBoardMapper"/>
     </bean>
 </beans>
