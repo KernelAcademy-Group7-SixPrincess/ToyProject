@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="org.spring.example.accommodation.domain.Acc" %>
 <%@ page import="org.spring.example.room.dto.Room" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -253,231 +256,178 @@
 </header>
 
 
-<%
-    Acc acc = (Acc) request.getAttribute("acc");
-    if (acc == null) {
-%>
-<p>숙소 정보를 불러올 수 없습니다.</p>
-<%
-} else {
-%>
+<c:choose>
+    <c:when test="${empty acc}">
+        <p>숙소 정보를 불러올 수 없습니다.</p>
+    </c:when>
+    <c:otherwise>
+        <div class="acc-detail-container">
 
-<div class="acc-detail-container">
-
-    <!-- 숙소 메인 이미지 -->
-    <div class="acc-main-image">
-        <img src="<%= acc.getMainImageUrl() %>" alt="<%= acc.getName() %>"/>
-    </div>
-
-    <!-- 숙소 기본 정보 -->
-    <section class="acc-info-section">
-        <h1 class="acc-name"><%= acc.getName() %>
-        </h1>
-        <p class="acc-address"><%= acc.getAddress() %>
-        </p>
-
-        <div class="acc-rating">
-            <span>⭐ <%= acc.getAvgrate() %> / 10.0</span>
-            <span>(<%= acc.getReviewerCnt() %>명 평가)</span>
-        </div>
-
-        <!-- 체크인 / 체크아웃 시간 -->
-        <section class="acc-checkin-checkout">
-            <p>체크인: <%= acc.getCheckInTime() != null ? acc.getCheckInTime() : "정보없음" %>
-            </p>
-            <p>체크아웃: <%= acc.getCheckOutTime() != null ? acc.getCheckOutTime() : "정보없음" %>
-            </p>
-        </section>
-
-            <%!
-        public String formatWithBullet(String input) {
-            if (input == null || input.trim().isEmpty()) return "없음";
-
-            String[] lines = input.split("\\n");
-            StringBuilder sb = new StringBuilder();
-
-            for (String line : lines) {
-                line = line.trim();
-                if (line.isEmpty()) continue;
-
-                // [로 시작하는 경우: 줄바꿈을 추가하고 ⦁ 안붙임
-                if (line.startsWith("[")) {
-                    sb.append("<br>").append(line);
-                } else if (line.startsWith("&nbsp;&nbsp;(") || line.equalsIgnoreCase("null")) {
-                    sb.append(line);
-                } else {
-                    sb.append("&nbsp;&nbsp;⦁ ").append(line);
-                }
-
-                sb.append("<br>");
-            }
-
-            return sb.toString();
-        }
-    %>
-
-            <%
-        boolean hasExtraInfo =
-                (acc.getAddPeopleInfo() != null && !acc.getAddPeopleInfo().trim().isEmpty()) ||
-                        (acc.getBreakfastInfo() != null && !acc.getBreakfastInfo().trim().isEmpty()) ||
-                        (acc.getCookInfo() != null && !acc.getCookInfo().trim().isEmpty()) ||
-                        (acc.getCancelRefundInfo() != null && !acc.getCancelRefundInfo().trim().isEmpty()) ||
-                        (acc.getEtcInfo() != null && !acc.getEtcInfo().trim().isEmpty());
-
-        boolean hasFacilityInfo =
-                (acc.getSubwayInfo() != null && !acc.getSubwayInfo().trim().isEmpty()) ||
-                        (acc.getRoomFacilityInfo() != null && !acc.getRoomFacilityInfo().trim().isEmpty()) ||
-                        (acc.getFrontFacilityInfo() != null && !acc.getFrontFacilityInfo().trim().isEmpty()) ||
-                        (acc.getParkingInfo() != null && !acc.getParkingInfo().trim().isEmpty()) ||
-                        (acc.getExtraNotice() != null && !acc.getExtraNotice().trim().isEmpty());
-    %>
-
-
-            <% if (hasExtraInfo) { %>
-        <section class="acc-extra-info">
-            <h2>추가 정보</h2>
-            <% if (acc.getAddPeopleInfo() != null && !acc.getAddPeopleInfo().trim().isEmpty()) { %>
-            <div class="subsection">
-                <h3>인원 추가 정보</h3>
-                <p><%= formatWithBullet(acc.getAddPeopleInfo()) %>
-                </p>
+            <div class="acc-main-image">
+                <img src="${acc.mainImageUrl}" alt="${acc.name}"/>
             </div>
-            <% } %>
-            <% if (acc.getBreakfastInfo() != null && !acc.getBreakfastInfo().trim().isEmpty()) { %>
-            <div class="subsection">
-                <h3>조식 정보</h3>
-                <p><%= formatWithBullet(acc.getBreakfastInfo()) %>
-                </p>
-            </div>
-            <% } %>
-            <% if (acc.getCookInfo() != null && !acc.getCookInfo().trim().isEmpty()) { %>
-            <div class="subsection">
-                <h3>취사 가능 여부</h3>
-                <p><%= formatWithBullet(acc.getCookInfo()) %>
-                </p>
-            </div>
-            <% } %>
-            <% if (acc.getCancelRefundInfo() != null && !acc.getCancelRefundInfo().trim().isEmpty()) { %>
-            <div class="subsection">
-                <h3>취소 및 환불 정보</h3>
-                <p><%= formatWithBullet(acc.getCancelRefundInfo()) %>
-                </p>
-            </div>
-            <% } %>
-            <% if (acc.getEtcInfo() != null && !acc.getEtcInfo().trim().isEmpty()) { %>
-            <div class="subsection">
-                <h3>기타 정보</h3>
-                <p><%= formatWithBullet(acc.getEtcInfo()) %>
-                </p>
-            </div>
-            <% } %>
-        </section>
-            <% } %>
 
-            <% if (hasFacilityInfo) { %>
-        <section class="acc-facility-info">
-            <h2>편의 시설</h2>
-            <% if (acc.getSubwayInfo() != null && !acc.getSubwayInfo().trim().isEmpty()) { %>
-            <div class="subsection">
-                <h3>지하철 정보</h3>
-                <p><%= formatWithBullet(acc.getSubwayInfo()) %>
-                </p>
-            </div>
-            <% } %>
-            <% if (acc.getRoomFacilityInfo() != null && !acc.getRoomFacilityInfo().trim().isEmpty()) { %>
-            <div class="subsection">
-                <h3>객실 시설</h3>
-                <p><%= formatWithBullet(acc.getRoomFacilityInfo()) %>
-                </p>
-            </div>
-            <% } %>
-            <% if (acc.getFrontFacilityInfo() != null && !acc.getFrontFacilityInfo().trim().isEmpty()) { %>
-            <div class="subsection">
-                <h3>전면 시설</h3>
-                <p><%= formatWithBullet(acc.getFrontFacilityInfo()) %>
-                </p>
-            </div>
-            <% } %>
-            <% if (acc.getParkingInfo() != null && !acc.getParkingInfo().trim().isEmpty()) { %>
-            <div class="subsection">
-                <h3>주차 정보</h3>
-                <p><%= formatWithBullet(acc.getParkingInfo()) %>
-                </p>
-            </div>
-            <% } %>
-            <% if (acc.getExtraNotice() != null && !acc.getExtraNotice().trim().isEmpty()) { %>
-            <div class="subsection">
-                <h3>추가 안내</h3>
-                <p><%= formatWithBullet(acc.getExtraNotice()) %>
-                </p>
-            </div>
-            <% } %>
-        </section>
-            <% } %>
+            <section class="acc-info-section">
+                <h1 class="acc-name">${acc.name}</h1>
+                <p class="acc-address">${acc.address}</p>
+                <div class="acc-rating">
+                    <span>⭐ ${acc.avgrate} / 10.0</span>
+                    <span>(${acc.reviewerCnt}명 평가)</span>
+                </div>
 
-        <!-- 객실 리스트 -->
-            <% if (acc.getRoomList() != null && !acc.getRoomList().isEmpty()) { %>
-            <section class="room-section">
-                <h2>객실 선택</h2>
-                <% for (Room room : acc.getRoomList()) { %>
-                <div class="room-card">
-                    <img src="<%= room.getMainImageUrl() %>" alt="객실 이미지" class="room-image"/>
-                    <div class="room-details">
-                        <h3 class="room-name"><%= room.getName() %></h3>
-                    <p>기준 <%= room.getCapacity() %>인 / 최대 <%= room.getMaxCapacity() %>인</p>
-                    <button class="detail-btn"
-                            data-name="<%= room.getName() %>"
-                            data-info="<%= room.getInfo() != null ? room.getInfo().replace("\"", "&quot;").replace("\n", "\\n") : "없음" %>"
-                            data-addinfo="<%= room.getAddInfo() != null ? room.getAddInfo().replace("\"", "&quot;").replace("\n", "\\n") : "없음" %>">
-                        상세 정보
-                    </button>
+                <section class="acc-checkin-checkout">
+                    <p>체크인: <c:out value="${acc.checkInTime != null ? acc.checkInTime : '정보없음'}"/></p>
+                    <p>체크아웃: <c:out value="${acc.checkOutTime != null ? acc.checkOutTime : '정보없음'}"/></p>
+                </section>
+
+                <!-- 기타 정보도 마찬가지로 EL로 표현 -->
+
+            </section>
+
+            <!-- 추가 정보 -->
+            <c:if test="${hasExtraInfo}">
+                <section class="acc-extra-info">
+                    <h2>추가 정보</h2>
+
+                    <c:if test="${not empty acc.addPeopleInfoFormatted}">
+                        <div class="subsection">
+                            <h3>인원 추가 정보</h3>
+                            <p><c:out value="${acc.addPeopleInfoFormatted}" escapeXml="false"/></p>
+                        </div>
+                    </c:if>
+
+                    <c:if test="${not empty acc.breakfastInfoFormatted}">
+                        <div class="subsection">
+                            <h3>조식 정보</h3>
+                            <p><c:out value="${acc.breakfastInfoFormatted}" escapeXml="false"/></p>
+                        </div>
+                    </c:if>
+
+                    <c:if test="${not empty acc.cookInfoFormatted}">
+                        <div class="subsection">
+                            <h3>취사 가능 여부</h3>
+                            <p><c:out value="${acc.cookInfoFormatted}" escapeXml="false"/></p>
+                        </div>
+                    </c:if>
+
+                    <c:if test="${not empty acc.cancelRefundInfoFormatted}">
+                        <div class="subsection">
+                            <h3>취소 및 환불 정보</h3>
+                            <p><c:out value="${acc.cancelRefundInfoFormatted}" escapeXml="false"/></p>
+                        </div>
+                    </c:if>
+
+                    <c:if test="${not empty acc.etcInfoFormatted}">
+                        <div class="subsection">
+                            <h3>기타 정보</h3>
+                            <p><c:out value="${acc.etcInfoFormatted}" escapeXml="false"/></p>
+                        </div>
+                    </c:if>
+                </section>
+            </c:if>
+
+            <!-- 편의 시설 -->
+            <c:if test="${hasFacilityInfo}">
+                <section class="acc-facility-info">
+                    <h2>편의 시설</h2>
+
+                    <c:if test="${not empty acc.subwayInfoFormatted}">
+                        <div class="subsection">
+                            <h3>지하철 정보</h3>
+                            <p><c:out value="${acc.subwayInfoFormatted}" escapeXml="false"/></p>
+                        </div>
+                    </c:if>
+
+                    <c:if test="${not empty acc.roomFacilityInfoFormatted}">
+                        <div class="subsection">
+                            <h3>객실 시설</h3>
+                            <p><c:out value="${acc.roomFacilityInfoFormatted}" escapeXml="false"/></p>
+                        </div>
+                    </c:if>
+
+                    <c:if test="${not empty acc.frontFacilityInfoFormatted}">
+                        <div class="subsection">
+                            <h3>프론트 및 그외 시설</h3>
+                            <p><c:out value="${acc.frontFacilityInfoFormatted}" escapeXml="false"/></p>
+                        </div>
+                    </c:if>
+
+                    <c:if test="${not empty acc.parkingInfoFormatted}">
+                        <div class="subsection">
+                            <h3>주차 정보</h3>
+                            <p><c:out value="${acc.parkingInfoFormatted}" escapeXml="false"/></p>
+                        </div>
+                    </c:if>
+
+                    <c:if test="${not empty acc.extraNoticeFormatted}">
+                        <div class="subsection">
+                            <h3>추가 안내</h3>
+                            <p><c:out value="${acc.extraNoticeFormatted}" escapeXml="false"/></p>
+                        </div>
+                    </c:if>
+                </section>
+            </c:if>
+
+            <!-- 객실 리스트 -->
+            <c:if test="${not empty acc.roomList}">
+                <section class="room-section">
+                    <h2>객실 선택</h2>
+                    <c:forEach var="room" items="${acc.roomList}">
+                        <div class="room-card">
+                            <img src="${room.mainImageUrl}" alt="객실 이미지" class="room-image"/>
+                            <div class="room-details">
+                                <h3 class="room-name"><c:out value="${room.name}"/></h3>
+                                <p>기준 ${room.capacity}인 / 최대 ${room.maxCapacity}인</p>
+                                <button class="detail-btn"
+                                        data-name="${room.name}"
+                                        data-info="${room.info}"
+                                        data-addinfo="${room.addInfo}">
+                                    상세 정보
+                                </button>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </section>
+            </c:if>
+
+
+            <!-- 객실 상세 모달 -->
+            <div id="roomDetailModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn room-close">&times;</span>
+                    <h2 id="modalRoomName">객실명</h2>
+
+                    <h3>객실 정보</h3>
+                    <p id="modalRoomInfo">없음</p>
+
+                    <br/>
+
+                    <h3>추가 정보</h3>
+                    <p id="modalRoomAddInfo">없음</p>
                 </div>
             </div>
-            <% } %>
-        </section>
-        <% } %>
 
-        <%-- 객실 상세 모달 추가 --%>
-        <div id="roomDetailModal" class="modal">
-            <div class="modal-content">
-                <span class="close-btn room-close">&times;</span>
-                <h2 id="modalRoomName">객실명</h2>
-
-                <h3>객실 정보</h3>
-                <p id="modalRoomInfo">없음</p>
-
-                <br>
-
-                <h3>추가 정보</h3>
-                <p id="modalRoomAddInfo">없음</p>
-
+            <!-- 판매자 정보 버튼 -->
+            <div id="openSellerModal" class="seller-info-list" tabindex="0" role="button" aria-pressed="false">
+                <span>판매자 정보</span>
+                <span class="arrow">&gt;</span>
             </div>
-        </div>
 
-        <!-- 판매자 정보 버튼 -->
-        <div id="openSellerModal" class="seller-info-list">
-            <span>판매자 정보</span>
-            <span class="arrow">&gt;</span>
-        </div>
-
-        <!-- 판매자 정보 모달 창 -->
-        <div id="sellerModal" class="modal">
-            <div class="modal-content">
-                <span class="close-btn seller-close">&times;</span>
-                <h2>판매자 정보</h2>
-                <ul>
-                    <li><strong>상호명:</strong> <%= acc.getBusinessName() %>
-                    </li>
-                    <li><strong>대표자명:</strong> <%= acc.getHostName() %>
-                    </li>
-                    <li><strong>전화번호:</strong> <%= acc.getTel()%>
-                    </li>
-                    <li><strong>이메일:</strong> <%= acc.getEmail()%>
-                    </li>
-                    <li><strong>사업자번호:</strong> <%= acc.getLicenseNum() %>
-                    </li>
-                </ul>
+            <!-- 판매자 정보 모달 -->
+            <div id="sellerModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn seller-close" role="button" aria-label="닫기">&times;</span>
+                    <h2>판매자 정보</h2>
+                    <ul>
+                        <li><strong>상호명:</strong> <c:out value="${acc.businessName}"/></li>
+                        <li><strong>대표자명:</strong> <c:out value="${acc.hostName}"/></li>
+                        <li><strong>전화번호:</strong> <c:out value="${acc.tel}"/></li>
+                        <li><strong>이메일:</strong> <c:out value="${acc.email}"/></li>
+                        <li><strong>사업자번호:</strong> <c:out value="${acc.licenseNum}"/></li>
+                    </ul>
+                </div>
             </div>
+
         </div>
 
         <script>
@@ -490,14 +440,16 @@
                 const roomCloseBtn = document.querySelector("#roomDetailModal .room-close");
 
                 // 판매자 모달 열기
-                if (sellerBtn && sellerModal) {
-                    sellerBtn.onclick = () => sellerModal.style.display = "block";
-                }
+                sellerBtn?.addEventListener('click', () => {
+                    sellerModal.style.display = "block";
+                    sellerBtn.setAttribute('aria-pressed', 'true');
+                });
 
                 // 판매자 모달 닫기
-                if (sellerCloseBtn && sellerModal) {
-                    sellerCloseBtn.onclick = () => sellerModal.style.display = "none";
-                }
+                sellerCloseBtn?.addEventListener('click', () => {
+                    sellerModal.style.display = "none";
+                    sellerBtn.setAttribute('aria-pressed', 'false');
+                });
 
                 // 객실 상세정보 모달 열기
                 document.querySelectorAll('.detail-btn').forEach(button => {
@@ -516,18 +468,24 @@
                 });
 
                 // 객실 모달 닫기
-                if (roomCloseBtn && roomModal) {
-                    roomCloseBtn.onclick = () => roomModal.style.display = "none";
-                }
+                roomCloseBtn?.addEventListener('click', () => {
+                    roomModal.style.display = "none";
+                });
 
                 // 바깥 클릭 시 모달 닫기
-                window.onclick = function (event) {
-                    if (event.target === sellerModal) sellerModal.style.display = "none";
-                    if (event.target === roomModal) roomModal.style.display = "none";
-                };
+                window.addEventListener('click', (event) => {
+                    if (event.target === sellerModal) {
+                        sellerModal.style.display = "none";
+                        sellerBtn.setAttribute('aria-pressed', 'false');
+                    }
+                    if (event.target === roomModal) {
+                        roomModal.style.display = "none";
+                    }
+                });
             });
         </script>
-<% } %>
-</div>
+
+    </c:otherwise>
+</c:choose>
 </body>
 </html>

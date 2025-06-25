@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="org.spring.example.accommodation.domain.Acc" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -135,21 +136,18 @@
     </nav>
 </header>
 
-<%
-    List<Acc> accList = (List<Acc>) request.getAttribute("accList");
-    String region = (String) request.getAttribute("region");
-%>
-
-<% for (Acc acc : accList) { %>
-<div class="acc-card" onclick="location.href='/acc/<%= region %>/<%= acc.getAccId() %>'">
-    <img src="<%= acc.getMainImageUrl() %>" alt="숙소 이미지" class="acc-thumb">
-    <div class="acc-info">
-        <h3 class="acc-title"><%= acc.getName() %></h3>
-        <p class="acc-location"><%= acc.getAddress() %></p>
-        <p class="acc-score">⭐ <%= acc.getAvgrate() %> / <%= acc.getReviewerCnt() %>명 평가</p>
-    </div>
+<div class="acc-list-container">
+    <c:forEach var="acc" items="${accList}">
+        <div class="acc-card" onclick="location.href='/acc/${region}/${acc.accId}'">
+            <img src="${acc.mainImageUrl}" alt="숙소 이미지" class="acc-thumb" />
+            <div class="acc-info">
+                <h3 class="acc-title">${acc.name}</h3>
+                <p class="acc-location">${acc.address}</p>
+                <p class="acc-score">⭐ ${acc.avgrate} / ${acc.reviewerCnt}명 평가</p>
+            </div>
+        </div>
+    </c:forEach>
 </div>
-<% } %>
 
 
 </body>

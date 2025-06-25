@@ -50,4 +50,16 @@ public class Acc {
     private LocalDateTime updatedAt;
     private String sidoName;
     private List<Room> roomList;
+
+    private String addPeopleInfoFormatted;
+    private String breakfastInfoFormatted;
+    private String cookInfoFormatted;
+    private String cancelRefundInfoFormatted;
+    private String etcInfoFormatted;
+
+    private String subwayInfoFormatted;
+    private String roomFacilityInfoFormatted;
+    private String frontFacilityInfoFormatted;
+    private String parkingInfoFormatted;
+    private String extraNoticeFormatted;
 }
