@@ -63,12 +63,17 @@
   border-radius: 8px;
   border-width: 1.5px;
   border-color: rgb(235 235 235 / 1);
-  cursor: pointer;
-  user-select: none;
 }
 
 .nav__actions.user:hover {
   background-color: rgb(245 245 245);
+}
+
+/*로그인 이후 버튼에 있는 닉네임이 블럭잡히게 하지 않기 위해 추가*/
+.nav__actions.user,
+.nav__actions.user * {
+  cursor: pointer;
+  user-select: none;
 }
 
 .nav__actions.user .user__name-wrap {
@@ -185,6 +190,11 @@
 
 .nav__menu-lists a:hover {
   background-color: rgb(245 245 245);
+}
+
+.btn-wrap {
+  display: flex;
+  align-items: center;
 }
 
 .nav__menu-btn {
@@ -323,6 +333,4 @@ footer p {
 .footer-bottom a:hover {
   text-decoration: underline;
 }
-
-
 /* 전체 푸터 배경 및 기본 레이아웃 */

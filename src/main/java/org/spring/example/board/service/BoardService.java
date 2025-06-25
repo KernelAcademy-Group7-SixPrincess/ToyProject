@@ -1,8 +1,7 @@
 package org.spring.example.board.service;
 
 import org.spring.example.board.dto.BoardDto;
-import org.spring.example.board.dto.PostDto;
-import org.spring.example.board.mapper.BoardMapper;
+import org.spring.example.mapper.BoardMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public class BoardService {
         return boardMapper.selectAllBoards();
     }
 
-    public BoardDto getBoardById(int boardId) {
+    public BoardDto getBoardById(long boardId) {
         return boardMapper.selectById(boardId);
     }
 

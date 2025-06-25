@@ -37,14 +37,14 @@ public class LoginController {
         return "user/signup";
     }
 
-    @PostMapping("/user/signok")
+    @PostMapping("/user/signup")
     public String signok(@ModelAttribute UsersignupDto dto) {
         userService.signup(dto);
         System.out.println("signok");
-        return "user/signok";
+        return "user/signupSuccess";
     }
 
-    @PostMapping("/user/logincheck")
+    @PostMapping("/user/login")
     public String userlogincheck(@ModelAttribute UserloginDto userloginDto, @ModelAttribute UserinfoDto userinfoDto,  HttpSession session, Model model) {
         // 로그인 결과 확인
         int loginUser = userService.login(userloginDto);

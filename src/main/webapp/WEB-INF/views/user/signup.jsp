@@ -20,10 +20,9 @@
         <p class="signup_desc">가입을 위해 필수 정보를 입력해 주세요.</p>
     </section>
 
-    <form action="/user/signok" method="post" aria-labelledby="form-title">
+    <form action="/user/signup" method="post" aria-labelledby="form-title">
         <fieldset>
             <legend class="visually-hidden" id="form-title">회원가입 폼</legend>
-
             <div class="form-group">
                 <label for="name">
                     이름
@@ -57,7 +56,7 @@
                     <span aria-hidden="true" class="required"></span>
                 </label>
                 <input type="password" id="confirmPassword" name="confirmPassword" placeholder="위 비밀번호와 동일하게 입력" required aria-required="true" />
-                <span id="confirmPasswordError" class="error_msg" style="display: none">비밀번호가 일치하지 않습니다.</span>
+                <span id="confirmPasswordError" class="error_msg">비밀번호가 일치하지 않습니다.</span>
             </div>
 
             <div class="form-group">
@@ -65,47 +64,26 @@
                     휴대폰 번호
                     <span aria-hidden="true" class="required"></span>
                 </label>
-                <input type="text" id="phone" name="phone" placeholder="010-1234-5678" required aria-required="true" />
+                <input type="text" id="phone" name="phone" placeholder="01012345678" required aria-required="true" />
                 <span class="error_msg" id="phoneError">휴대폰 번호를 정확히 입력해주세요.</span>
             </div>
 
-<%--            <div class="form-group birth">--%>
-<%--                <label for="birthYear">--%>
-<%--                    생년월일--%>
-<%--                    <span aria-hidden="true" class="required"></span>--%>
-<%--                </label>--%>
-<%--                <div class="birth-select">--%>
-<%--                    <select id="birthYear" name="birthYear" required aria-label="년" aria-required="true">--%>
-<%--                        <option value="">년도</option>--%>
-<%--                    </select>--%>
-<%--                    <select id="birthMonth" name="birthMonth" required aria-label="월" aria-required="true">--%>
-<%--                        <option value="">월</option>--%>
-<%--                    </select>--%>
-<%--                    <select id="birthDay" name="birthDay" required aria-label="일" aria-required="true">--%>
-<%--                        <option value="">일</option>--%>
-<%--                    </select>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-            <div class="form-group">
+            <div class="form-group birth">
                 <label for="birthDate">
                     생년월일
                     <span aria-hidden="true" class="required"></span>
                 </label>
-                <input type="date"
-                       id="birthDate"
-                       name="birth"
-                       placeholder="연도-월-일"
-                       required aria-required="true"
-                       min="1900-01-01"
-                       class="custom-input" />
-                <span class="error_msg" id="birthDateError">생년월일은 오늘 이전 날짜여야 합니다.</span>
+                <div class="birth-select">
+                    <input type="date"
+                           id="birthDate"
+                           name="birth"
+                           placeholder="연도-월-일"
+                           required
+                           min="1900-01-01"
+                           class="custom-input" />
+                </div>
+                <span class="error_msg" id="birthDateError">생년월일을 올바르게 입력해주세요.</span>
             </div>
-
-            <script>
-                const today = new Date().toISOString().split("T")[0];
-                document.getElementById("birthDate").setAttribute("max", today);
-            </script>
-
 
 
             <div class="form-group gender">
@@ -131,7 +109,7 @@
                     <span aria-hidden="true" class="required"></span>
                 </label>
                 <select id="job" name="job" required aria-required="true">
-                    <option value="">선택</option>
+                    <option value="">직업을 선택해주세요 (필수)</option>
                     <option value="학생">학생</option>
                     <option value="개발자">개발자</option>
                     <option value="디자이너">디자이너</option>
@@ -155,73 +133,6 @@
             <button type="submit" class="submit_btn" disabled>확인</button>
         </fieldset>
     </form>
-
-    <script>
-        const form = document.querySelector("form");
-        const submitBtn = document.querySelector(".submit_btn");
-
-        const requiredFields = [
-            "name", "email", "password", "confirmPassword",
-            "phone", "birth", "gender", "job", "nickname"
-        ];
-
-        function isFormValid() {
-            for (let field of requiredFields) {
-                const input = form.querySelector(`[name="${field}"]`);
-                if (!input) continue;
-
-                if (input.type === "radio") {
-                    const checked = form.querySelectorAll(`[name="${field}"]:checked`);
-                    if (checked.length === 0) return false;
-                } else {
-                    if (!input.value || input.value.trim() === "") return false;
-                }
-            }
-
-            const pw = form.querySelector("[name='password']").value;
-            const cpw = form.querySelector("[name='confirmPassword']").value;
-            if (pw !== cpw) return false;
-
-            return true;
-        }
-
-        form.addEventListener("input", () => {
-            const pwInput = form.querySelector("[name='password']");
-            const cpwInput = form.querySelector("[name='confirmPassword']");
-            const pw = pwInput.value;
-            const cpw = cpwInput.value;
-            const confirmPasswordError = document.getElementById("confirmPasswordError");
-
-
-            // 비밀번호 불일치 시 메시지 보여주기
-            if (cpw !== "" && pw !== cpw) {
-                confirmPasswordError.style.display = "block";
-                cpwInput.classList.add("input-error");
-            } else {
-                confirmPasswordError.style.display = "none";
-                cpwInput.classList.remove("input-error");
-            }
-
-            // 제출 버튼 활성화 여부 판단
-            if (isFormValid()) {
-                submitBtn.disabled = false;
-                submitBtn.classList.add("active");
-            } else {
-                submitBtn.disabled = true;
-                submitBtn.classList.remove("active");
-            }
-
-            if (isFormValid()) {
-                submitBtn.disabled = false;
-                submitBtn.classList.add("active");  // ✅ 버튼 활성화 시 스타일 클래스 추가
-            } else {
-                submitBtn.disabled = true;
-                submitBtn.classList.remove("active");  // ✅ 비활성화 시 제거
-            }
-        });
-    </script>
-
-
 </main>
 
 

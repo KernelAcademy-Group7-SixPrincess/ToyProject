@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.spring.example.user.dao.UserDao">
+<mapper namespace="org.spring.example.mapper.UserMapper">
 
     <insert id="signup" parameterType="org.spring.example.user.dto.UsersignupDto">
                 INSERT INTO `user` (

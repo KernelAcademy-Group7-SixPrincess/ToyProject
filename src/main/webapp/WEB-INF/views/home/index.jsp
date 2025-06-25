@@ -14,7 +14,7 @@
 
 <body class="index">
 
-<%@ include file="../common/header.jsp" %>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <main>
     <section class="kv" aria-label="여행 숙소 검색 섹션">
@@ -63,7 +63,7 @@
             <div class="swiper">
                 <ul class="swiper-wrapper">
                     <li class="swiper-slide">
-                        <a href="/">
+                        <a href="/jeju">
                             <img
                                     alt="제주도 여행"
                                     sizes="100vw"
