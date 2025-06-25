@@ -33,9 +33,11 @@ if (form) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const markdownTargets = document.querySelectorAll(".markdown-content");
-    markdownTargets.forEach(el => {
-        const rawText = el.innerText;
-        el.innerHTML = marked.parse(rawText);
+    const boardAnswers = document.querySelectorAll(".markdown-content");
+
+    boardAnswers.forEach(p => {
+        const rawText = p.innerText; // 마크다운 원문 (개행도 포함)
+        const html = marked.parse(rawText); // 마크다운 → HTML 변환
+        p.innerHTML = html; // 변환한 HTML로 대체
     });
 });

@@ -3,20 +3,46 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <mapper namespace="org.spring.example.review.ReviewBoardMapper">
-<select id="select" parameterType="int" resultType="ReviewBoardDto">
-    select
-            user_id,
-            acc_id,
-            rate,
-            comment,
-            like_cnt,
-            created_at,
-            updated_at
-    from  `review`
-    where review_id=#{reviewId}
-</select>
+
+    <resultMap id="reviewBoardResultMap" type="org.spring.example.review.ReviewBoardDto">
+        <id property="reviewId" column="review_id" />
+        <result property="accId" column="acc_id" />
+        <result property="userId" column="user_id" />
+        <result property="rate" column="rate" />
+        <result property="comment" column="comment" />
+        <result property="deleteYn" column="delete_yn" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedAt" column="updated_at" />
+        <result property="likeCnt" column="like_cnt" />
+        <result property="replyCnt" column="reply_cnt" />
+
+        <result property="accName" column="acc_name" />
+        <result property="accAddress" column="acc_address" />
+        <result property="accAvgrate" column="acc_avgrate" />
+        <result property="accReviewerCnt" column="acc_reviewer_cnt" />
+        <result property="accInfo" column="acc_info" />
+        <result property="accDescription" column="acc_description" />
+        <collection property="replies" ofType="org.spring.example.review.ReviewReplyDto">
+        </collection>
+    </resultMap>
+
+    <select id="select" parameterType="int" resultMap="reviewBoardResultMap">
+        SELECT
+            r.review_id, r.user_id, r.acc_id, r.rate, r.comment, r.like_cnt, r.created_at, r.updated_at,
+            a.name AS acc_name,
+            a.address AS acc_address,
+            a.avgrate AS acc_avgrate,
+            a.reviewer_cnt AS acc_reviewer_cnt,
+            a.info AS acc_info,
+            a.description AS acc_description
+        FROM
+            `review` r
+                JOIN
+            `acc` a ON r.acc_id = a.acc_id
+        WHERE
+            r.review_id = #{reviewId}
+    </select>
 
     <delete id="deleteAll">
         DELETE FROM review
@@ -26,50 +52,82 @@
         DELETE FROM review WHERE review_id = #{reviewId} and user_id = #{userId}
     </delete>
 
-    <insert id="insert" parameterType="ReviewBoardDto">
+    <insert id="insert" parameterType="org.spring.example.review.ReviewBoardDto">
         INSERT INTO review
         ( review_id, user_id, acc_id, rate, comment, like_cnt, created_at, updated_at)
         VALUES
             (#{reviewId},#{userId},#{accId},#{rate},#{comment},#{likeCnt},#{createdAt},#{updatedAt})
     </insert>
-        <select id="selectAll" resultType="ReviewBoardDto">
-            select review_id, user_id, acc_id, rate, comment, like_cnt, created_at, updated_at
-            from review
-            order by created_at, updated_at, id desc
-        </select>
 
-    <sql id="selectFromReview">
-        select  review_id, user_id, acc_id, rate, comment, like_cnt, created_at, updated_at
-        from review
-    </sql>
+    <select id="selectAll" resultMap="reviewBoardResultMap">
+        SELECT
+            r.review_id, r.user_id, r.acc_id, r.rate, r.comment, r.like_cnt, r.created_at, r.updated_at,
+            a.name AS acc_name,
+            a.address AS acc_address,
+            a.avgrate AS acc_avgrate,
+            a.reviewer_cnt AS acc_reviewer_cnt,
+            a.info AS acc_info,
+            a.description AS acc_description
+        FROM
+            `review` r
+                JOIN
+            `acc` a ON r.acc_id = a.acc_id
+        ORDER BY r.created_at DESC, r.updated_at DESC, r.review_id DESC
+    </select>
 
+    <select id="selectPage" parameterType="map" resultMap="reviewBoardResultMap">
+        SELECT
+        r.review_id, r.user_id, r.acc_id, r.rate, r.comment, r.like_cnt, r.created_at, r.updated_at,
+        a.name AS acc_name,
+        a.address AS acc_address,
+        a.avgrate AS acc_avgrate,
+        a.reviewer_cnt AS acc_reviewer_cnt,
+        a.info AS acc_info,
+        a.description AS acc_description
+        FROM
+        `review` r
+        JOIN
+        `acc` a ON r.acc_id = a.acc_id
+        ORDER BY r.created_at DESC, r.updated_at DESC, r.review_id DESC
+        <if test="offset != null and pageSize != null">
+            LIMIT #{offset}, #{pageSize}
+        </if>
+    </select>
 
-    <select id="selectPage" parameterType="map" resultType="ReviewBoardDto">
-        <include refid="selectFromReview"/>
-        order by  created_at, updated_at, review_id desc
-
-</select>
-
-    <update id="update" parameterType="ReviewBoardDto">
+    <update id="update" parameterType="org.spring.example.review.ReviewBoardDto">
         UPDATE review
-        SET 
-            userId =#{userId},
-            accId=#{accId},
-            rate=#{rate},
+        SET
+            acc_id=#{accId}, rate=#{rate},
             comment=#{comment},
-            likeCnt=#{likeCnt},
-            created_at=#{createdAt},
-            updated_at=#{updatedAt}
-        where review_id=#{reviewId}
-    </update>
+            like_cnt=#{likeCnt},
+            updated_at=NOW() where review_id=#{reviewId} AND user_id = #{userId} </update>
+
     <select id="count" resultType="int">
         SELECT COUNT(*)
         FROM review
     </select>
 
-    <select id="findByAccId" parameterType="long" resultType="org.spring.example.review.ReviewBoardDto">
-        SELECT * FROM review WHERE acc_id = #{accId}
+    <select id="getReviewsByAccId" parameterType="Long" resultMap="reviewBoardResultMap">
+        SELECT
+            r.review_id, r.user_id, r.acc_id, r.rate, r.comment, r.delete_yn, r.created_at, r.updated_at, r.like_cnt, r.reply_cnt,
+            a.name AS acc_name,
+            a.address AS acc_address,
+            a.avgrate AS acc_avgrate,
+            a.reviewer_cnt AS acc_reviewer_cnt,
+            a.info AS acc_info,
+            a.description AS acc_description
+        FROM
+            `review` r
+                JOIN
+            `user` u ON r.user_id = u.user_id
+                JOIN
+            `acc` a ON r.acc_id = a.acc_id
+        WHERE
+            r.acc_id = #{accId}
+        ORDER BY
+            r.created_at DESC
     </select>
 
-</mapper>
+    
 
+</mapper>

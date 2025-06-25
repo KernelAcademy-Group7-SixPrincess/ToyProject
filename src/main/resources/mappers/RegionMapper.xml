@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.spring.example.mapper.RegionMapper">
+
+    <resultMap id="RegionResultMap" type="org.spring.example.region.RegionDto">
+        <id     property="regionId"    column="region_id"/>
+        <result property="sidoCode"     column="sido_code"/>
+        <result property="sigunguCode"  column="sigungu_code"/>
+        <result property="dongCode"     column="dong_code"/>
+        <result property="sidoName"     column="sido_name"/>
+        <result property="sigunguName"  column="sigungu_name"/>
+        <result property="dongName"     column="dong_name"/>
+    </resultMap>
+
+    <!-- 1) 시도별 대표 행 -->
+    <select id="getSido" resultMap="RegionResultMap">
+        SELECT r.*
+        FROM region r
+                 JOIN (
+            SELECT
+                sido_code,
+                MIN(region_id) AS min_id
+            FROM region
+            GROUP BY sido_code
+        ) m
+                      ON r.sido_code  = m.sido_code
+                          AND r.region_id  = m.min_id
+    </select>
+
+    <!-- 2) 특정 시도 내 시군구별 대표 행 -->
+    <select id="getSigungu" parameterType="string" resultMap="RegionResultMap">
+        SELECT r.*
+        FROM region r
+                 JOIN (
+            SELECT
+                sido_code,
+                sigungu_code,
+                MIN(region_id) AS min_id
+            FROM region
+            WHERE sido_code = #{sidoCode}
+            GROUP BY sido_code, sigungu_code
+        ) m
+                      ON r.sido_code    = m.sido_code
+                          AND r.sigungu_code = m.sigungu_code
+                          AND r.region_id    = m.min_id
+        WHERE r.sido_code = #{sidoCode}
+    </select>
+
+    <!-- 3) 특정 시군구 내 동별 대표 행 -->
+    <select id="getDong" parameterType="map" resultMap="RegionResultMap">
+        SELECT r.*
+        FROM region r
+                 JOIN (
+            SELECT
+                sido_code,
+                sigungu_code,
+                dong_code,
+                MIN(region_id) AS min_id
+            FROM region
+            WHERE sido_code   = #{sidoCode}
+              AND sigungu_code = #{sigunguCode}
+            GROUP BY sido_code, sigungu_code, dong_code
+        ) m
+                      ON r.sido_code    = m.sido_code
+                          AND r.sigungu_code = m.sigungu_code
+                          AND r.dong_code    = m.dong_code
+                          AND r.region_id    = m.min_id
+        WHERE r.sido_code    = #{sidoCode}
+          AND r.sigungu_code = #{sigunguCode}
+    </select>
+
+</mapper>

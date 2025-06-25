@@ -12,7 +12,6 @@ public interface ReviewBoardService {
     int remove(Long reviewId, Long user_id) throws Exception;
     int write(ReviewBoardDto reviewBoardDto) throws Exception;
     ReviewBoardDto read(Long reviewId) throws Exception;
-    ReviewBoardDto readAll(Long reviewId) throws Exception;
     List<ReviewBoardDto> getPage(Map map) throws Exception;
     List<ReviewReplyDto> selectAll(Long reviewId) throws Exception;
     int modify(ReviewBoardDto reviewBoardDto) throws Exception;

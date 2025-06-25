@@ -5,23 +5,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>리뷰</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    <link rel="stylesheet" href="<c:url value='/resources/css/layout.css'/>"> <%-- 리뷰 관련 CSS --%>
+    <link rel="stylesheet" href="<c:url value='/resources/css/layout.css'/>">
     <link rel="stylesheet" href="<c:url value='/resources/css/review.css'/>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <%-- FontAwesome CDN 추가 (아이콘용) --%>
-
-
     <style>
-        /*
-            이 <style> 블록의 CSS는 reviewBoardForm.jsp에만 적용되는 스타일입니다.
-            가능하면 'review.css' 또는 'layout.css'와 같은 외부 CSS 파일로 분리하여 관리하는 것이 좋습니다.
-            이전 답변에서 제공했던 스타일을 여기에 다시 넣어둡니다.
-        */
+        /* 기존 CSS 스타일 유지 */
         body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; margin: 0; padding: 0; }
@@ -123,7 +114,7 @@
         }
 
         /* Review Card */
-        .review-list {
+        .review-list-container {
             padding-bottom: 40px;
         }
         .review-card {
@@ -185,8 +176,7 @@
             gap: 10px;
             margin-bottom: 15px;
             flex-wrap: wrap;
-            /* Placeholder for images before AJAX loads them */
-            min-height: 100px; /* 이미지가 로드되기 전에도 공간을 확보 */
+            min-height: 100px;
         }
         .review-card .review-images img {
             width: 100px;
@@ -277,12 +267,36 @@
     </nav>
 
     <div class="review-section-header">
-        <h1>리뷰 <span class="badge rating-summary">4.9</span> <small>3,193명 평가</small></h1>
-        <a href="<c:url value='/review/board/form'/>" class="btn btn-primary">새 리뷰 작성</a>
+        <h1>리뷰
+            <span class="badge rating-summary">
+                <c:choose>
+                    <%-- accAvgrate는 이제 컨트롤러에서 직접 모델에 추가되므로, 바로 참조 --%>
+                    <c:when test="${not empty accAvgrate}">${accAvgrate}</c:when>
+                    <c:otherwise>N/A</c:otherwise>
+                </c:choose>
+            </span>
+            <small>
+                <c:choose>
+                    <%-- accReviewerCnt도 컨트롤러에서 직접 모델에 추가되므로, 바로 참조 --%>
+                    <c:when test="${not empty accReviewerCnt}">${accReviewerCnt}</c:when>
+                    <c:otherwise>0</c:otherwise>
+                </c:choose>명 평가
+            </small>
+        </h1>
+        <%-- <a href="<c:url value='/review/board/create'/>" class="btn btn-primary">새 리뷰 작성</a> --%>
+        <%-- "새 리뷰 작성" 버튼이 제거되었습니다. --%>
     </div>
 
     <div class="review-filters">
-        <span class="review-count">총 3,193개 리뷰</span>
+        <span class="review-count">총
+            <c:choose>
+                <%-- 단일 리뷰 조회 모드 (reviewBoardDto가 있을 때) --%>
+                <c:when test="${not empty reviewBoardDto and not empty reviewBoardDto.reviewId}">1</c:when>
+                <%-- reviews 리스트의 길이로 총 리뷰 수 표시 --%>
+                <c:when test="${not empty reviews}">${fn:length(reviews)}</c:when>
+                <c:otherwise>0</c:otherwise>
+            </c:choose>개 리뷰
+        </span>
         <div class="sort-options">
             <label for="sortOrder" class="sr-only">정렬 기준</label>
             <select id="sortOrder">
@@ -294,105 +308,157 @@
         </div>
     </div>
 
-    <c:if test="${not empty message}">
-        <div class="alert alert-success"><i class="fas fa-check-circle"></i> ${message}</div>
+    <c:if test="${not empty msg}">
+        <div class="alert alert-success"><i class="fas fa-check-circle"></i> ${msg}</div>
     </c:if>
     <c:if test="${not empty error}">
         <div class="alert alert-danger"><i class="fas fa-exclamation-triangle"></i> ${error}</div>
     </c:if>
 
-    <div class="review-list">
-        <c:if test="${empty review}">
-            <p class="no-review">아직 작성된 리뷰가 없습니다.</p>
-        </c:if>
+    <div class="review-list-container">
 
-        <%-- 실제 리뷰 데이터를 반복해서 표시 --%>
-        <c:forEach var="review" items="${review}">
-            <div class="review-card" data-review-id="${review.reviewId}">
+        <%-- 단일 리뷰 조회 (읽기/수정) 모드 --%>
+        <%-- reviewBoardDto가 있으면 단일 리뷰를 표시 --%>
+        <c:if test="${not empty reviewBoardDto}">
+            <h2>리뷰 상세/수정</h2>
+            <div class="review-card" data-review-id="${reviewBoardDto.reviewId}">
                 <div class="review-user-info">
                     <div class="user-avatar">
-                            <%-- userId의 첫 글자만 표시 --%>
-                        <c:if test="${not empty review.userId}">${fn:substring(review.userId, 0, 1)}</c:if>
-                        <c:if test="${empty review.userId}">익명</c:if>
+                        <c:if test="${not empty reviewBoardDto.userId}">${fn:substring(reviewBoardDto.userId.toString(), 0, 1)}</c:if>
+                        <c:if test="${empty reviewBoardDto.userId}">익명</c:if>
                     </div>
                     <div>
                         <div class="user-name">
-                                <%-- userId 전체 표시 --%>
                             <c:choose>
-                                <c:when test="${not empty review.userId}">${review.userId}</c:when>
+                                <c:when test="${not empty reviewBoardDto.userId}">${reviewBoardDto.userId}</c:when>
                                 <c:otherwise>익명사용자</c:otherwise>
                             </c:choose>
                         </div>
-                            <%-- DTO에 없는 reviewCount, photoCount는 하드코딩으로 대체 --%>
                         <div class="user-level">
-                            리뷰 **10개** · 사진 **3장** · 좋아요 ${review.likeCnt}
+                            리뷰 <span>${reviewBoardDto.reviewId}</span> ·
+                            좋아요 <span>${reviewBoardDto.likeCnt}</span> ·
+                            답변 <span>${reviewBoardDto.replyCnt}</span>
                         </div>
                     </div>
                 </div>
-
                 <div class="review-rating-stars">
                     <c:forEach begin="1" end="5" varStatus="loop">
-                        <i class="fas fa-star <c:if test="${review.rate >= loop.index}">filled</c:if>"></i>
+                        <i class="fas fa-star <c:if test="${reviewBoardDto.rate >= loop.index}">filled</c:if>"></i>
                     </c:forEach>
                 </div>
                 <div class="review-date">
-                    <fmt:formatDate value="${review.createdAt}" pattern="yyyy.MM.dd"/> 방문 리뷰
+                    <fmt:formatDate value="${reviewBoardDto.createdAt}" pattern="yyyy.MM.dd"/> 방문 리뷰
                 </div>
-
-                <div class="review-images" id="review-images-${review.reviewId}">
-                        <%-- 이미지는 AJAX로 로드할 것이므로, 초기에는 비워둡니다. --%>
+                <div class="review-images" id="review-images-${reviewBoardDto.reviewId}">
                 </div>
-
                 <div class="review-comment-container">
-                    <c:set var="commentText" value="${review.comment}" />
-                    <c:set var="maxLength" value="150" />
-                    <c:if test="${fn:length(commentText) > maxLength}">
-                        <p class="review-comment truncated-text">
-                                ${fn:substring(commentText, 0, maxLength)}...
-                            <span class="read-more-btn" data-target="full-comment-${review.reviewId}">더보기</span>
-                        </p>
-                        <p class="review-comment full-text hidden" id="full-comment-${review.reviewId}">
-                                ${commentText}
-                            <span class="read-more-btn" data-target="truncated-comment-${review.reviewId}">접기</span>
-                        </p>
-                    </c:if>
-                    <c:if test="${fn:length(commentText) <= maxLength}">
-                        <p class="review-comment">${commentText}</p>
-                    </c:if>
+                    <p class="review-comment">${reviewBoardDto.comment}</p>
                 </div>
-
-                    <%-- DTO에 없는 replyComment, repliedAt 필드를 하드코딩으로 대체 --%>
-                    <%-- 제휴점 답변은 항상 있다고 가정하고 표시. 실제 데이터가 없으면 빈 값으로 나옴. --%>
-                <c:forEach var="reply" items="${review.replies}">
+                <c:forEach var="reply" items="${reviewBoardDto.replies}">
                     <div class="admin-reply">
                         <div class="reply-header">
                             제휴점 답변
                             <fmt:formatDate value="${reply.createdAt}" pattern="yy.MM.dd" />
                         </div>
-                        <p>${reply.comments}</p>
+                        <p>${reply.comment}</p>
                     </div>
                 </c:forEach>
+                <div class="review-actions">
+                    <a href="<c:url value='/review/board/read?reviewId=${reviewBoardDto.reviewId}&mode=modify'/>" class="btn btn-primary">수정</a>
+                    <form action="<c:url value='/review/board/remove'/>" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="${reviewBoardDto.reviewId}"/>
+                        <button type="submit" class="btn btn-danger">삭제</button>
+                    </form>
+                </div>
             </div>
-        </c:forEach>
-        <c:forEach var="review" items="${reviews}">
-            <div>
-                <p>리뷰 ID: ${review.reviewId}</p>
-                <p>숙소 ID: ${review.accId}</p>
-                <p>평점: ${review.rate}</p>
-                <p>내용: ${review.comment}</p>
-            </div>
-        </c:forEach>
+        </c:if>
 
-    <%-- 페이지네이션 영역 --%>
-        <c:if test="${totalCnt!=null && totalCnt!=0}">
+        <%-- 리뷰 목록 표시: reviews 리스트가 넘어왔을 때 (단일 리뷰 조회 모드가 아닐 때) --%>
+        <%-- reviewBoardDto가 없고, reviews 리스트가 있을 때만 이 블록 실행 --%>
+        <c:if test="${empty reviewBoardDto and not empty reviews}">
+            <c:set var="currentReviewList" value="${reviews}" /> <%-- 항상 reviews를 사용 --%>
+
+            <c:if test="${empty currentReviewList}">
+                <p class="no-review">아직 작성된 리뷰가 없습니다.</p>
+            </c:if>
+
+            <c:forEach var="r" items="${currentReviewList}">
+                <div class="review-card" data-review-id="${r.reviewId}">
+                    <div class="review-user-info">
+                        <div class="user-avatar">
+                            <c:if test="${not empty r.userId}">${fn:substring(r.userId.toString(), 0, 1)}</c:if>
+                            <c:if test="${empty r.userId}">익명</c:if>
+                        </div>
+                        <div>
+                            <div class="user-name">
+                                <c:choose>
+                                    <c:when test="${not empty r.userId}">${r.userId}</c:when>
+                                    <c:otherwise>익명사용자</c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="user-level">
+                                리뷰 <span>${r.reviewId}</span> ·
+                                사진 **3장** ·
+                                좋아요 <span>${r.likeCnt}</span> ·
+                                답변 <span>${r.replyCnt}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-rating-stars">
+                        <c:forEach begin="1" end="5" varStatus="loop">
+                            <i class="fas fa-star <c:if test="${r.rate >= loop.index}">filled</c:if>"></i>
+                        </c:forEach>
+                    </div>
+                    <div class="review-date">
+                        <fmt:formatDate value="${r.createdAt}" pattern="yyyy.MM.dd"/> 방문 리뷰
+                    </div>
+                    <div class="review-images" id="review-images-${r.reviewId}">
+                    </div>
+                    <div class="review-comment-container">
+                        <c:set var="commentText" value="${r.comment}" />
+                        <c:set var="maxLength" value="150" />
+                        <c:if test="${fn:length(commentText) > maxLength}">
+                            <p class="review-comment truncated-text">
+                                    ${fn:substring(commentText, 0, maxLength)}...
+                                <span class="read-more-btn" data-target="full-comment-${r.reviewId}">더보기</span>
+                            </p>
+                            <p class="review-comment full-text hidden" id="full-comment-${r.reviewId}">
+                                    ${commentText}
+                                <span class="read-more-btn" data-target="truncated-comment-${r.reviewId}">접기</span>
+                            </p>
+                        </c:if>
+                        <c:if test="${fn:length(commentText) <= maxLength}">
+                            <p class="review-comment">${commentText}</p>
+                        </c:if>
+                    </div>
+                    <c:forEach var="reply" items="${r.replies}">
+                        <div class="admin-reply">
+                            <div class="reply-header">
+                                제휴점 답변
+                                <fmt:formatDate value="${reply.createdAt}" pattern="yy.MM.dd" />
+                            </div>
+                            <p>${reply.comment}</p>
+                        </div>
+                    </c:forEach>
+                </div>
+            </c:forEach>
+        </c:if>
+        <%-- reviews 리스트가 비어있고, reviewBoardDto도 없을 경우 ("아직 작성된 리뷰가 없습니다." 메시지) --%>
+        <c:if test="${empty reviewBoardDto and empty reviews}">
+            <p class="no-review">아직 작성된 리뷰가 없습니다.</p>
+        </c:if>
+
+
+        <%-- 페이지네이션 영역 --%>
+        <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">
             <c:if test="${ph.showPrev}">
-                <a class="page" href="<c:url value="/board/list${ph.getQueryString(ph.beginPage-1)}"/>">&lt;</a>
+                <a class="page" href="<c:url value="/review/board/form${ph.getQueryString(ph.beginPage-1)}"/>">&lt;</a>
             </c:if>
             <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                <a class="page ${i==ph.page? "paging-active" : ""}" href="<c:url value="/board/list${ph.getQueryString(i)}"/>">${i}</a>
+                <a class="page ${i==ph.page? "paging-active" : ""}" href="<c:url value="/review/board/form${ph.getQueryString(i)}"/>">${i}</a>
             </c:forEach>
             <c:if test="${ph.showNext}">
-                <a class="page" href="<c:url value="/board/list${ph.getQueryString(ph.endPage+1)}"/>">&gt;</a>
+                <a class="page" href="<c:url value="/review/board/form${ph.getQueryString(ph.endPage+1)}"/>">&gt;</a>
             </c:if>
         </c:if>
     </div>
@@ -400,10 +466,9 @@
 
 <jsp:include page="layout/footer.jsp" />
 
-<%-- JavaScript 파일들을 <body> 닫는 태그 직전에 명시하는 것이 좋습니다. --%>
 <script src="<c:url value='/resources/js/main.js'/>"></script>
 <script src="<c:url value='/resources/js/reviewHeader.js'/>"></script>
-<script src="<c:url value='/resources/js/reviewMain.js'/>"></script> <%-- 리뷰 페이지 전용 JS --%>
+<script src="<c:url value='/resources/js/reviewMain.js'/>"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -443,8 +508,6 @@
 
         // ======== AJAX로 이미지 로딩 로직 (추가) ========
         function loadReviewImages(reviewId, targetElementId) {
-            // 실제 API 엔드포인트 URL로 변경해야 합니다.
-            // 예: '/api/review/{reviewId}/images'
             const imageUrl = `<c:url value='/api/review/${reviewId}/images'/>`;
 
             fetch(imageUrl)
@@ -452,25 +515,23 @@
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
-                    return response.json(); // 이미지 URL 리스트를 JSON 형태로 반환한다고 가정
+                    return response.json();
                 })
                 .then(imageUrls => {
                     const imageContainer = document.getElementById(targetElementId);
                     if (imageContainer) {
-                        imageContainer.innerHTML = ''; // 기존 내용 지우기 (로딩 스피너 등)
+                        imageContainer.innerHTML = '';
                         if (imageUrls && imageUrls.length > 0) {
                             imageUrls.forEach(url => {
                                 const img = document.createElement('img');
-                                img.src = `<c:url value='${url}'/>`; // URL에 컨텍스트 경로 추가
+                                img.src = `<c:url value='${url}'/>`;
                                 img.alt = '리뷰 이미지';
                                 img.addEventListener('click', function() {
-                                    // 이미지 확대/모달 로직
                                     console.log('Image clicked:', this.src);
                                 });
                                 imageContainer.appendChild(img);
                             });
                         } else {
-                            // 이미지가 없을 경우 표시할 내용
                             imageContainer.innerHTML = '<p style="color:#999; font-size:0.9em;">첨부된 이미지가 없습니다.</p>';
                         }
                     }
@@ -484,16 +545,13 @@
                 });
         }
 
-        // 모든 리뷰 카드에 대해 이미지 로딩 함수 호출
         document.querySelectorAll('.review-card').forEach(card => {
             const reviewId = card.dataset.reviewId;
             if (reviewId) {
                 loadReviewImages(reviewId, `review-images-${reviewId}`);
             }
         });
-        // ====================================================
     });
 </script>
-<link rel="stylesheet" href="<c:url value='/resources/css/review.css'/>">
 </body>
 </html>

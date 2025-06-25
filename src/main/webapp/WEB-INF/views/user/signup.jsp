@@ -23,6 +23,14 @@
     <form action="/user/signup" method="post" aria-labelledby="form-title">
         <fieldset>
             <legend class="visually-hidden" id="form-title">회원가입 폼</legend>
+            <div class="form-group">
+                <label for="name">
+                    이름
+                    <span aria-hidden="true" class="required"></span>
+                </label>
+                <input type="text" id="name" name="name" placeholder="이름 입력" required aria-required="true" />
+                <span class="error_msg" role="alert" id="nameError">이름을 입력해주세요.</span>
+            </div>
 
             <div class="form-group">
                 <label for="email">
@@ -51,23 +59,32 @@
                 <span id="confirmPasswordError" class="error_msg">비밀번호가 일치하지 않습니다.</span>
             </div>
 
+            <div class="form-group">
+                <label for="phone">
+                    휴대폰 번호
+                    <span aria-hidden="true" class="required"></span>
+                </label>
+                <input type="text" id="phone" name="phone" placeholder="01012345678" required aria-required="true" />
+                <span class="error_msg" id="phoneError">휴대폰 번호를 정확히 입력해주세요.</span>
+            </div>
+
             <div class="form-group birth">
-                <label for="birthYear">
+                <label for="birthDate">
                     생년월일
                     <span aria-hidden="true" class="required"></span>
                 </label>
                 <div class="birth-select">
-                    <select id="birthYear" name="birthYear" required aria-label="년" aria-required="true">
-                        <option value="">년도</option>
-                    </select>
-                    <select id="birthMonth" name="birthMonth" required aria-label="월" aria-required="true">
-                        <option value="">월</option>
-                    </select>
-                    <select id="birthDay" name="birthDay" required aria-label="일" aria-required="true">
-                        <option value="">일</option>
-                    </select>
+                    <input type="date"
+                           id="birthDate"
+                           name="birth"
+                           placeholder="연도-월-일"
+                           required
+                           min="1900-01-01"
+                           class="custom-input" />
                 </div>
+                <span class="error_msg" id="birthDateError">생년월일을 올바르게 입력해주세요.</span>
             </div>
+
 
             <div class="form-group gender">
                 <label for="gender">
@@ -84,6 +101,22 @@
                         남자
                     </label>
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label for="job">
+                    직업
+                    <span aria-hidden="true" class="required"></span>
+                </label>
+                <select id="job" name="job" required aria-required="true">
+                    <option value="">직업을 선택해주세요 (필수)</option>
+                    <option value="학생">학생</option>
+                    <option value="개발자">개발자</option>
+                    <option value="디자이너">디자이너</option>
+                    <option value="교사">교사</option>
+                    <option value="기타">기타</option>
+                </select>
+                <span class="error_msg" id="jobError">직업을 선택해주세요.</span>
             </div>
 
             <div class="form-group nickname">

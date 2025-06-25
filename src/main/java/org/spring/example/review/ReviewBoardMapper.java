@@ -20,6 +20,8 @@ import java.util.List;
         int count();
 
         List<ReviewBoardDto> findByAccId(Long accId);
+
+        List<ReviewBoardDto> getReviewsByAccId(Long accId);
     }
 
 

@@ -109,33 +109,46 @@ public class ReviewBoardController {
         }
 
     @GetMapping("/form")
-    public String form(Model m, HttpServletRequest request) {
-
-
+    public String form(@RequestParam(value = "accId", required = false) Long accId, Model m) {
         try {
+            List<ReviewBoardDto> reviews; // JSP와 통일된 이름 'reviews' 사용
+            if (accId != null) {
+                // accId가 있으면 특정 숙소의 리뷰를 가져옴
+                System.out.println("DEBUG: Filtering reviews by accId = " + accId); // 디버그 로그 추가
+                reviews = reviewBoardService.getReviewsByAccId(accId);
+            } else {
+                // accId가 없으면 모든 리뷰를 가져옴 (기존 로직)
+                System.out.println("DEBUG: Fetching all reviews (no accId provided)."); // 디버그 로그 추가
+                reviews = reviewBoardService.getPage(new HashMap<>()); // getPage는 모든 리뷰를 가져올 것으로 예상
+            }
+            System.out.println("DEBUG: Number of reviews fetched = " + reviews.size()); // 디버그 로그 추가
 
-            List<ReviewBoardDto> list = reviewBoardService.getPage(new HashMap<>());
-            m.addAttribute("review", list);
+            m.addAttribute("reviews", reviews); // 모델에 'reviews'라는 이름으로 리스트 추가
+
+            // 숙소의 평균 평점 및 리뷰어 수 정보를 가져와서 모델에 추가
+            // (reviews 리스트가 비어있지 않다면 첫 번째 리뷰에서 정보를 가져옴)
+            if (!reviews.isEmpty()) {
+                ReviewBoardDto firstReview = reviews.get(0);
+                m.addAttribute("accAvgrate", firstReview.getAccAvgrate());
+                m.addAttribute("accReviewerCnt", firstReview.getAccReviewerCnt());
+            } else {
+                // 리뷰가 없을 경우 N/A, 0 등으로 표시될 수 있도록 기본값 설정 (선택 사항)
+                m.addAttribute("accAvgrate", null); // 또는 0.0
+                m.addAttribute("accReviewerCnt", 0);
+            }
+
 
             Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
             m.addAttribute("startOfToday", startOfToday.toEpochMilli());
+
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute("msg", "LIST_ERR");
+            // 오류 발생 시 빈 리스트를 넘겨서 JSP가 오류 처리하도록 할 수 있음
+            m.addAttribute("reviews", Collections.emptyList());
         }
 
         return "review/reviewBoardForm";
     }
 
-    @GetMapping("/listByAcc" )
-    public String showReviewsByAccId(@RequestParam("accId") Long accId, Model model) {
-        System.out.println("accId = " + accId);  // 로그 찍기
-        List<ReviewBoardDto> reviews = reviewBoardService.getReviewsByAccId(accId);
-        System.out.println("reviews.size() = " + reviews.size());  // 로그 찍기
-        model.addAttribute("reviews", reviews);
-        return "review/reviewBoardForm";
-    }
-
-
-
-    }
+}

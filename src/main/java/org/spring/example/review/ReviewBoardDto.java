@@ -16,6 +16,18 @@ public class ReviewBoardDto {
         private LocalDateTime updatedAt;
         private List<ReviewReplyDto> replies;
 
+
+            // Acc 테이블에서 조인해서 가져올 필드 (핵심 추가 부분)
+         private String accName;         // acc.name
+         private String accAddress;      // acc.address
+         private Double accAvgrate;      // acc.avgrate
+         private Integer accReviewerCnt; // acc.reviewer_cnt
+         private String accInfo;         // acc.info (숙소 기본 정보)
+         private String accDescription;  // acc.description (숙소 상세 설명)
+
+
+
+
         public ReviewBoardDto(){};
         public ReviewBoardDto(Long reviewId, Long userId,
                               Long accId, int rate,
@@ -111,6 +123,52 @@ public class ReviewBoardDto {
     public void setCreatedAt(Date date) {
     }
 
+    public String getAccName() {
+        return accName;
+    }
 
+    public void setAccName(String accName) {
+        this.accName = accName;
+    }
+
+    public String getAccAddress() {
+        return accAddress;
+    }
+
+    public void setAccAddress(String accAddress) {
+        this.accAddress = accAddress;
+    }
+
+    public Double getAccAvgrate() {
+        return accAvgrate;
+    }
+
+    public void setAccAvgrate(Double accAvgrate) {
+        this.accAvgrate = accAvgrate;
+    }
+
+    public Integer getAccReviewerCnt() {
+        return accReviewerCnt;
+    }
+
+    public void setAccReviewerCnt(Integer accReviewerCnt) {
+        this.accReviewerCnt = accReviewerCnt;
+    }
+
+    public String getAccInfo() {
+        return accInfo;
+    }
+
+    public void setAccInfo(String accInfo) {
+        this.accInfo = accInfo;
+    }
+
+    public String getAccDescription() {
+        return accDescription;
+    }
+
+    public void setAccDescription(String accDescription) {
+        this.accDescription = accDescription;
+    }
 }
 

@@ -1,6 +1,8 @@
 package org.spring.example.board;
 
+import org.spring.example.board.dto.CommentDto;
 import org.spring.example.board.dto.PostDto;
+import org.spring.example.board.service.CommentService;
 import org.spring.example.board.service.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +16,12 @@ import java.util.List;
 public class BoardController {
 
     private final PostService postService;
+    private final CommentService commentService;
 
-    public BoardController(PostService postService) {
+
+    public BoardController(PostService postService, CommentService commentService) {
         this.postService = postService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/{type}")
@@ -82,6 +87,19 @@ public class BoardController {
     public String viewPost(@PathVariable String type, @PathVariable Long postId, Model model) {
         PostDto post = postService.findPostById(postId);
         model.addAttribute("post", post);
+
+        List<CommentDto> commentList = commentService.selectCommentsByPostId(postId);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        for (CommentDto comment : commentList) {
+            if (comment.getCreatedAt() != null) {
+                comment.setFormattedDate(comment.getCreatedAt().format(formatter));
+            }
+        }
+
+        model.addAttribute("commentList", commentList);
+
         return "board/" + type + "/detail";
     }
 

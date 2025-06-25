@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <settings>
+        <!-- DB 칼럼 스네이크 → Java 필드 카멜 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+        <!-- 쿼리 결과 없을 때 객체 null이 아닌 빈 객체로 매핑할지 -->
+        <setting name="callSettersOnNulls" value="true"/>
+
+        <!-- 로깅 (로컬 개발 시 사용) -->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <!-- ✅ 타입 알리아스 등록 -->
+    <typeAliases>
+        <!-- 패키지 전체 등록 -->
+        <package name="org.spring.example.room.dto"/>
+        <package name="org.spring.example.board.dto"/>
+        <package name="org.spring.example.cart.dto"/>
+        <package name="org.spring.example.cartItem.dto"/>
+<!--        <package name="org.spring.example.user.dto"/>-->
+    </typeAliases>
+</configuration>
