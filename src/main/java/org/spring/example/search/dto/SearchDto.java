@@ -1,8 +1,9 @@
-package org.spring.example.common.dto;
+package org.spring.example.search.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
@@ -13,6 +14,7 @@ import java.time.LocalDate;
  * statusCodeCode : 객실의 상태 코드
  */
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 public class SearchDto {
@@ -25,8 +27,9 @@ public class SearchDto {
     private Long roomId;
 
     // 검색 시 필요한 파라미터
-    private String keyWord;
+    private String keyword;
     private LocalDate checkIn;
     private LocalDate checkOut;
     private Integer personal;
+    private String sidoCode;
 }

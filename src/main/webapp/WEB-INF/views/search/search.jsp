@@ -9,6 +9,15 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/search.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+  <!-- flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+
+  <!-- flatpickr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <!-- 한글 locale 지원 -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
+
 </head>
 <body>
 
@@ -25,18 +34,77 @@
         </svg>
       </a>
     </div>
-    <form action="${pageContext.request.contextPath}/search" method="get" class="header-search">
-      <input
-              type="text"
-              name="search_term"
-              class="search-input"
-              placeholder="여행지나 숙소를 검색해보세요."
-              <c:if test="${not empty param.search_term}">
-                value="<c:out value='${param.search_term}'/>"
-              </c:if>
-      />
-      <button type="submit" class="search-btn">🔍</button>
-    </form>
+
+    <div class="search-section" >
+      <div class="search-inner" id="searchToggleBtn">
+        <form role="search" class="search-form">
+
+          <!-- 검색창 -->
+          <div class="search-box-group">
+            <div class="search-input-wrap">
+              <label role="presentation" aria-label="Search Label" class="search-label">
+                <div class="search-label-content">
+                  <div class="search-icon-wrap">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                         xmlns="http://www.w3.org/2000/svg" class="search-icon">
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M8.85 16.1a6.707 6.707 0 004.394-1.642l-.027.034 3.4 3.508L18 16.574l-3.47-3.58A7.163 7.163 0 0015.7 9.05C15.7 5.156 12.633 2 8.85 2 5.067 2 2 5.156 2 9.05c0 3.894 3.067 7.05 6.85 7.05zm0-1.99c2.695 0 4.88-2.263 4.88-5.055S11.545 4 8.85 4 3.97 6.263 3.97 9.055s2.185 5.055 4.88 5.055z"
+                            fill="current"></path>
+                    </svg>
+                  </div>
+                  <div class="search-input-field">
+                    <input
+                            name="search_term"
+                            type="text"
+                            placeholder="여행지나 숙소를 검색해보세요."
+                            maxlength="50"
+                            autocomplete="off"
+                            autocapitalize="none"
+                            autocorrect="off"
+                            spellcheck="false"
+                            class="input-keyword"
+                            value="부산"
+                    />
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- 날짜 선택 버튼 -->
+          <div class="date-picker-wrap">
+            <input type="text" id="date-range" class="input-keyword" placeholder="날짜를 선택하세요" readonly>
+          </div>
+
+          <!-- 인원 선택 버튼 -->
+          <div class="guest-count-wrap">
+            <div class="guest-btn-wrap" tabindex="0" role="button">
+              <div class="guest-display">
+                <button type="button" class="guest-btn minus">–</button>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                     xmlns="http://www.w3.org/2000/svg" class="guest-icon">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M10 9a3 3 0 10.002-6.001A3 3 0 0010 9zm-6.997 6.025C2.996 11.512 7.483 10 10 10c2.558 0 7.007 1.563 6.995 4.993 0 .058.002.104.003.146l.002.109c.004 1.06-.853 1.746-1.762 1.749-.602.004-5.232.002-5.232.002s-3.87.009-5.206-.001c-1.335-.01-1.796-1.13-1.8-1.692l.002-.188v-.093z"
+                        fill="currentColor"></path>
+                </svg>
+                <span class="guest-label">인원</span>
+                <span class="guest-count-text">2</span>
+                <button type="button" class="guest-btn plus">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 검색 버튼 -->
+          <div class="submit-btn-wrap">
+            <button class="submit-btn" type="button">
+              <span>검색</span>
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
     <div class="nav__actions guest">
       <a href="/user/auth" class="site-header__auth-link">로그인/회원가입</a>
 
@@ -103,6 +171,7 @@
           </ul>
           <h3>신화관 제주신화월드 호텔 앤 리조트</h3>
           <p class="details">서귀포시 • 신화테마파크 & 신화워터파크 도보 3분</p>
+<%--          <p class="acc-score">⭐ <%= acc.getAvgrate() %> / <%= acc.getReviewerCnt() %>명 평가</p>--%>
           <div class="price-section">
             <span class="price">₩159,500</span>
           </div>
@@ -130,7 +199,22 @@
 <%@ include file="../common/footer.jsp" %>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<%--<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>--%>
+<script src="${pageContext.request.contextPath}/resources/js/search.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/swiper.js"></script>
+
+<script>
+  flatpickr("#date-range", {
+    mode: "range",
+    dateFormat: "Y-m-d",
+    locale: "ko",
+    minDate: "today",
+    onChange: function(selectedDates, dateStr, instance) {
+      console.log("선택된 날짜:", dateStr);
+      // dateStr 예시: "2025-06-24 to 2025-06-25"
+      // 필요하면 여기서 input 숨겨서 submit용 처리 가능
+    }
+  });
+</script>
+
 </body>
 </html>

@@ -1,0 +1,112 @@
+/* 팝업 전체 */
+.calendar-popup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 8px;
+    z-index: 10;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    gap: 24px;
+}
+
+/* 개별 월 렌더링 영역 */
+.calendar-month {
+    width: 280px;
+}
+
+.calendar-month p {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+/* 요일 헤더 */
+.calendar-weekdays {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 4px;
+}
+
+.calendar-weekdays li {
+    width: 32px;
+    text-align: center;
+}
+
+/* 날짜 리스트 */
+.calendar-days {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.calendar-days li {
+    width: 32px;
+    height: 32px;
+}
+
+.calendar-days button {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: none;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.calendar-days button:hover {
+    background-color: #eee;
+}
+
+.calendar-days button.selected {
+    background-color: #007aff;
+    color: white;
+}
+
+.calendar-days button.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+/* 이전/다음 버튼 */
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.calendar-nav button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.calendar-nav svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* 일정 초기화 */
+.calendar-reset {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+.calendar-reset button {
+    background: none;
+    border: none;
+    color: #007aff;
+    cursor: pointer;
+}
