@@ -3,22 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.spring.example.amenity.mapper.RoomAmenityMapper">
+<mapper namespace="org.spring.example.mapper.RoomAmenityMapper">
 
-    <select id="findByRoomId" parameterType="long" resultType="org.spring.example.amenity.domain.RoomAmenity">
+    <select id="findByRoomId" parameterType="long" resultType="org.spring.example.roomAmenity.domain.RoomAmenity">
         SELECT * FROM room_amenity WHERE room_id = #{roomId}
     </select>
 
-    <select id="findByAmenityId" parameterType="long" resultType="org.spring.example.amenity.domain.RoomAmenity">
+    <select id="findByAmenityId" parameterType="long" resultType="org.spring.example.roomAmenity.domain.RoomAmenity">
         SELECT * FROM room_amenity WHERE amenity_id = #{amenityId}
     </select>
 
-    <insert id="insert" parameterType="org.spring.example.amenity.domain.RoomAmenity">
+    <insert id="insert" parameterType="org.spring.example.roomAmenity.domain.RoomAmenity">
         INSERT INTO room_amenity (room_id, amenity_id)
         VALUES (#{roomId}, #{amenityId})
     </insert>
 
-    <delete id="delete" parameterType="org.spring.example.amenity.domain.RoomAmenity">
+    <delete id="delete" parameterType="org.spring.example.roomAmenity.domain.RoomAmenity">
         DELETE FROM room_amenity
         WHERE room_id = #{roomId} AND amenity_id = #{amenityId}
     </delete>

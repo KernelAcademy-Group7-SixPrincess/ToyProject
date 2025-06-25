@@ -1,7 +1,7 @@
 package org.spring.example.amenity.service;
 
 import org.spring.example.amenity.domain.Amenity;
-import org.spring.example.amenity.mapper.AmenityMapper;
+import org.spring.example.mapper.AmenityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

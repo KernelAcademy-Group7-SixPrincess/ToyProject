@@ -1,7 +1,7 @@
 package org.spring.example.amenityCategory.service;
 
 import org.spring.example.amenityCategory.domain.AmenityCategory;
-import org.spring.example.amenityCategory.mapper.AmenityCategoryMapper;
+import org.spring.example.mapper.AmenityCategoryMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

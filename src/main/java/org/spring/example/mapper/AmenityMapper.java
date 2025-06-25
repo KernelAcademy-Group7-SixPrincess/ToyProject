@@ -1,4 +1,4 @@
-package org.spring.example.amenity.mapper;
+package org.spring.example.mapper;
 import org.spring.example.amenity.domain.Amenity;
 import java.util.List;
 

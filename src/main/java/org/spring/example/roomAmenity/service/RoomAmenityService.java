@@ -1,7 +1,7 @@
 package org.spring.example.roomAmenity.service;
 
 import org.spring.example.roomAmenity.domain.RoomAmenity;
-import org.spring.example.roomAmenity.mapper.RoomAmenityMapper;
+import org.spring.example.mapper.RoomAmenityMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

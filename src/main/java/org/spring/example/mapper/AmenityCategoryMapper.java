@@ -1,4 +1,4 @@
-package org.spring.example.amenityCategory.mapper;
+package org.spring.example.mapper;
 
 import org.spring.example.amenityCategory.domain.AmenityCategory;
 

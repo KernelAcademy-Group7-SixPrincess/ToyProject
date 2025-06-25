@@ -1,4 +1,4 @@
-package org.spring.example.roomAmenity.mapper;
+package org.spring.example.mapper;
 
 import org.spring.example.roomAmenity.domain.RoomAmenity;
 import java.util.List;

@@ -2,13 +2,14 @@ package org.spring.example.accAmenity;
 
 import org.spring.example.accAmenity.domain.AccAmenity;
 import org.spring.example.accAmenity.service.AccAmenityService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/acc-amenities")
 public class AccAmenityController {
 
@@ -18,32 +19,40 @@ public class AccAmenityController {
         this.accAmenityService = accAmenityService;
     }
 
-    // 특정 숙소의 편의시설 목록
+    // 특정 숙소의 편의시설 목록 조회
     @GetMapping("/acc/{accId}")
-    public String findByAccId(@PathVariable Long accId, Model model) {
+    public ResponseEntity<Map<String, Object>> findByAccId(@PathVariable Long accId) {
         List<AccAmenity> list = accAmenityService.findByAccId(accId);
-        model.addAttribute("accAmenities", list);
-        return "acc_amenity/list";
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("responseData", list);
+        return ResponseEntity.ok(response);
     }
 
-    // 편의시설 추가 폼
-    @GetMapping("/new")
-    public String newForm(Model model) {
-        model.addAttribute("accAmenity", new AccAmenity());
-        return "acc_amenity/new";
-    }
-
-    // 추가 처리
-    @PostMapping("/add")
-    public String insert(@ModelAttribute AccAmenity accAmenity) {
+    // 새로운 편의시설 추가 (POST)
+    @PostMapping
+    public ResponseEntity<Map<String, Object>> insert(@RequestBody AccAmenity accAmenity) {
         accAmenityService.insert(accAmenity);
-        return "redirect:/acc-amenities/acc/" + accAmenity.getAccId();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("message", "Amenity added");
+        response.put("accId", accAmenity.getAccId());
+
+        return ResponseEntity.ok(response);
     }
 
-    // 삭제 처리
-    @PostMapping("/delete")
-    public String delete(@ModelAttribute AccAmenity accAmenity) {
+    // 편의시설 삭제 (DELETE 방식으로 변경)
+    @DeleteMapping
+    public ResponseEntity<Map<String, Object>> delete(@RequestBody AccAmenity accAmenity) {
         accAmenityService.delete(accAmenity);
-        return "redirect:/acc-amenities/acc/" + accAmenity.getAccId();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("message", "Amenity deleted");
+        response.put("accId", accAmenity.getAccId());
+
+        return ResponseEntity.ok(response);
     }
 }

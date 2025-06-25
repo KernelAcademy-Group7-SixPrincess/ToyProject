@@ -1,7 +1,7 @@
 package org.spring.example.accAmenity.service;
 
 import org.spring.example.accAmenity.domain.AccAmenity;
-import org.spring.example.accAmenity.mapper.AccAmenityMapper;
+import org.spring.example.mapper.AccAmenityMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

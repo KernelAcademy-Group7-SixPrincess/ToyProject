@@ -1,4 +1,4 @@
-package org.spring.example.accAmenity.mapper;
+package org.spring.example.mapper;
 
 import org.spring.example.accAmenity.domain.AccAmenity;
 import java.util.List;
