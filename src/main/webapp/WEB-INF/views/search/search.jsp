@@ -12,6 +12,7 @@
 
   <!-- flatpickr CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/calendar.css" />
 
   <!-- flatpickr JS -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -20,7 +21,13 @@
 
 </head>
 <body>
-
+<script>
+  const contextPath = '${pageContext.request.contextPath}';
+  const codeDtoList = "${codeDtoList}"
+  // EL 치환된 실제 문자열
+  const modelCheckIn  = "${searchDto.checkIn}";
+  const modelCheckOut = "${searchDto.checkOut}";
+</script>
 <header class="site-header">
   <nav class="nav" aria-label="메인 메뉴">
     <div class="nav__logo">
@@ -63,7 +70,7 @@
                             autocorrect="off"
                             spellcheck="false"
                             class="input-keyword"
-                            value="부산"
+                            value="${searchDto.keyword}"
                     />
                   </div>
                 </div>
@@ -88,7 +95,7 @@
                         fill="currentColor"></path>
                 </svg>
                 <span class="guest-label">인원</span>
-                <span class="guest-count-text">2</span>
+                <span class="guest-count-text">${searchDto.guests}</span>
                 <button type="button" class="guest-btn plus">+</button>
               </div>
             </div>
@@ -146,16 +153,25 @@
     <div class="filters-container">
       <section id="filter-category" class="filter-section">
         <h3 class="title">숙소유형</h3>
-        <div id="filter-category-group" class="gc-radio-group"> <!-- 라디오 옵션 래퍼 -->
-          <div class="gc-radio" role="radio" aria-checked="true" tabindex="0">  <!-- 전체 -->
-            <button type="button" class="radio-btn"><div></div></button>
-            <span class="radio-label">전체</span>
-          </div>
-          <div class="gc-radio" role="radio" aria-checked="false" tabindex="0">  <!-- 모텔 -->
-            <button type="button" class="radio-btn"><div></div></button>
-            <span class="radio-label">모텔</span>
-          </div>
+        <div id="filter-category-group" class="gc-radio-group">
+          <c:forEach var="c" items="${codeDtoList}" varStatus="st">
+            <div class="gc-radio" role="radio" aria-checked="${st.index == 0}" tabindex="0"
+                 data-type-id="ACCOMMODATION_TYPE" data-value="${c.code}">
+              <button type="button" class="radio-btn"></button>
+              <span class="radio-label">${c.codeName}</span>
+            </div>
+          </c:forEach>
         </div>
+<%--        <div id="filter-category-group" class="gc-radio-group"> <!-- 라디오 옵션 래퍼 -->--%>
+<%--          <div class="gc-radio" role="radio" aria-checked="true" tabindex="0">  <!-- 전체 -->--%>
+<%--            <button type="button" class="radio-btn"><div></div></button>--%>
+<%--            <span class="radio-label">전체</span>--%>
+<%--          </div>--%>
+<%--          <div class="gc-radio" role="radio" aria-checked="false" tabindex="0">  <!-- 모텔 -->--%>
+<%--            <button type="button" class="radio-btn"></button>--%>
+<%--            <span class="radio-label">모텔</span>--%>
+<%--          </div>--%>
+<%--        </div>--%>
       </section>
     </div>
 
@@ -203,16 +219,24 @@
 <script src="${pageContext.request.contextPath}/resources/js/swiper.js"></script>
 
 <script>
-  flatpickr("#date-range", {
-    mode: "range",
-    dateFormat: "Y-m-d",
-    locale: "ko",
-    minDate: "today",
-    onChange: function(selectedDates, dateStr, instance) {
-      console.log("선택된 날짜:", dateStr);
-      // dateStr 예시: "2025-06-24 to 2025-06-25"
-      // 필요하면 여기서 input 숨겨서 submit용 처리 가능
-    }
+  document.addEventListener("DOMContentLoaded", () => {
+    const today    = new Date();
+    const tomorrow = new Date(today.getTime() + 864e5);
+    const defaultDates = (modelCheckIn && modelCheckOut)
+            ? [ new Date(modelCheckIn), new Date(modelCheckOut) ]
+            : [ today, tomorrow ];
+
+    flatpickr("#date-range", {
+      locale: flatpickr.l10ns.ko,
+      mode: "range",
+      dateFormat: "Y-m-d",      // 내부 value 포맷 (e.g. 2025-06-26 ~ 2025-06-27)
+      altInput: true,           // 화면용 input 켬
+      altFormat: "m.d(D)",      // 화면 표시 포맷 – 구분자 제외
+      dateRangeSeparator: " ~ ",// 화면에서 start⋯end 사이에 이 문자열 삽입
+      minDate: "today",
+      defaultDate: defaultDates,
+      allowInput: false
+    });
   });
 </script>
 
