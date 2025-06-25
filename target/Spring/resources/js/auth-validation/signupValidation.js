@@ -15,6 +15,7 @@ if (submitBtn) {
     submitBtn.disabled = true;
 }
 
+// 이메일 중복 확인으로 추가한 코드
 let isEmailAvailable = false; // 이메일 중복 검사 결과 저장
 
 const checkEmailDuplicate = async (email) => {
@@ -59,6 +60,7 @@ const validateField = async (field) => {
         isNameValid(value) ? clearError(field, "nameError") : showError(field, "nameError", "이름은 2~10자의 한글 또는 영문만 입력할 수 있습니다.");
     } else if (id === "email") {
         // isEmailValid(value) ? clearError(field, "emailError") : showError(field, "emailError", "올바른 이메일 주소를 입력해주세요.");
+        // 이메일 중복확인으로 바꾼 코드
         if (isEmailValid(value)) {
             await checkEmailDuplicate(value);
         } else {

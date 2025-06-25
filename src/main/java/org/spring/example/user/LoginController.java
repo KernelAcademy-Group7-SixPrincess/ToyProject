@@ -67,7 +67,7 @@ public String checkEmailDuplicate(@RequestParam("email") String email) {
             return "redirect:/";
         } else {
             // 로그인 실패 → 다시 로그인 페이지로
-//            model.addAttribute("error", "이메일 또는 비밀번호가 올바르지 않습니다.");
+            model.addAttribute("loginError", "이메일 또는 비밀번호가 올바르지 않습니다.");
             return "user/login"; // 로그인 페이지
         }
     }

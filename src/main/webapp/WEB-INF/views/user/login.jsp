@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -41,14 +43,12 @@
       <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요." required aria-required="true" />
       <span class="error_msg" id="passwordError">8자 이상 입력해주세요.</span>
     </div>
-
-<%--    <div class="form-options">--%>
-<%--      <label>--%>
-<%--        <input type="checkbox" name="rememberMe" />--%>
-<%--        로그인 유지--%>
-<%--      </label>--%>
-<%--      <a href="/reset-password">비밀번호 재설정</a>--%>
-<%--    </div>--%>
+<%--로그인 실패시 팝업창--%>
+    <c:if test="${not empty loginError}">
+      <script>
+        alert("${loginError}");
+      </script>
+    </c:if>
 
     <button type="submit" class="login_btn submit_btn" disabled>로그인</button>
   </form>
