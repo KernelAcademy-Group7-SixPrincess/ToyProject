@@ -207,6 +207,7 @@ input[type="password"] {
 }
 
 .signup input[type="text"],
+.signup input[type="date"],
 .signup select {
   display: inline-block;
   width: 100%;

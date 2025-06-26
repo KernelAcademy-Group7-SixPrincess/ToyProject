@@ -10,11 +10,20 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/main.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+    <!-- flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/calendar.css" />
+
+    <!-- flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- 한글 locale 지원 -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 </head>
 
 <body class="index">
 
-<%@ include file="../common/header.jsp" %>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <main>
     <section class="kv" aria-label="여행 숙소 검색 섹션">
@@ -27,31 +36,34 @@
 
             <section class="form-wrap" aria-labelledby="search-title">
                 <h2 id="search-title" class="search-title">국내 숙소</h2>
-                <form role="search" class="search-form" aria-label="여행 숙소 검색">
+                <div role="search" class="search-form" aria-label="여행 숙소 검색" >
                     <label for="search-input" class="visually-hidden">여행 숙소 검색</label>
                     <div class="search-input-wrapper input-style">
                         <svg width="20" height="20" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M8.85 16.1a6.707 6.707 0 004.394-1.642l-.027.034 3.4 3.508L18 16.574l-3.47-3.58A7.163 7.163 0 0015.7 9.05C15.7 5.156 12.633 2 8.85 2 5.067 2 2 5.156 2 9.05c0 3.894 3.067 7.05 6.85 7.05zm0-1.99c2.695 0 4.88-2.263 4.88-5.055S11.545 4 8.85 4 3.97 6.263 3.97 9.055s2.185 5.055 4.88 5.055z" fill="" />
                         </svg>
-                        <input id="search-input" name="search_term" type="search" placeholder="여행지나 숙소를 검색해보세요." maxlength="50" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" aria-autocomplete="list" />
+                        <input id="search-input" name="keyword" type="search" placeholder="여행지나 숙소를 검색해보세요." maxlength="50" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" aria-autocomplete="list" />
                     </div>
 
-                    <button class="input-style" type="button" aria-label="숙박 기간 선택">
-                        <svg width="20" height="20" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M13 3.5v.9H7v-.9a1 1 0 00-2 0v1.07A3.001 3.001 0 003 7.4v7.1a3 3 0 003 3h8a3 3 0 003-3V7.4a3.001 3.001 0 00-2-2.83V3.5a1 1 0 10-2 0zM5 13.6V9h10v4.6a2 2 0 01-2 2H7a2 2 0 01-2-2z" fill="" />
-                        </svg>
-                        <span>06.16 월 - 06.17 화 (1박)</span>
-                    </button>
+                    <div class="input-style" aria-label="숙박 기간 선택">
+                        <div class="date-picker-wrap">
+                            <input type="text" id="date-range" name="checkDateInfo" class="input-keyword" placeholder="날짜를 선택하세요" readonly>
+                        </div>
+                    </div>
 
-                    <button class="input-style" type="button" aria-label="인원 선택">
-                        <svg width="20" height="20" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10 9a3 3 0 10.002-6.001A3 3 0 0010 9zm-6.997 6.025C2.996 11.512 7.483 10 10 10c2.558 0 7.007 1.563 6.995 4.993 0 .058.002.104.003.146l.002.109c.004 1.06-.853 1.746-1.762 1.749-.602.004-5.232.002-5.232.002s-3.87.009-5.206-.001c-1.335-.01-1.796-1.13-1.8-1.692l.002-.188v-.093z" fill="" />
-                        </svg>
-                        <span>인원 2</span>
-                    </button>
+                        <div class="input-style" type="button" aria-label="인원 선택">
+                            <input type="hidden" name="guests" id="guests-count-input" value="2" />
+                            <svg width="20" height="20" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M10 9a3 3 0 10.002-6.001A3 3 0 0010 9zm-6.997 6.025C2.996 11.512 7.483 10 10 10c2.558 0 7.007 1.563 6.995 4.993 0 .058.002.104.003.146l.002.109c.004 1.06-.853 1.746-1.762 1.749-.602.004-5.232.002-5.232.002s-3.87.009-5.206-.001c-1.335-.01-1.796-1.13-1.8-1.692l.002-.188v-.093z" fill="" />
+                            </svg>
+                            <span class="guest-label">인원</span>
+                            <span class="guest-count-text">2</span>
+                            <button type="button" class="guest-btn minus">–</button>
+                            <button type="button" class="guest-btn plus">+</button>
+                        </div>
 
-                    <button type="submit" class="search-btn">검색</button>
-                </form>
+                    <button type="submit" class="search-btn" onclick="doSearch()">검색</button>
+                </div>
             </section>
         </div>
         <img alt="상단 메인 이미지" src="https://static.yeogi.com/_next/static/media/03_Kv_PC_Light_B.fcfed8ce.webp" decoding="async" class="main-image" />
@@ -236,5 +248,16 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/swiper.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        flatpickr("#date-range", {
+            locale: flatpickr.l10ns.ko,
+            mode: "range",
+            dateFormat: "m.d(D)",
+            minDate: "today",
+            allowInput: false
+        });
+    });
+</script>
 </body>
 </html>

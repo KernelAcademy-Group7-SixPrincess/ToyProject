@@ -1,8 +1,7 @@
-package org.spring.example.common.dto;
+package org.spring.example.search.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -13,8 +12,10 @@ import java.time.LocalDate;
  * statusCodeCode : 객실의 상태 코드
  */
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
+@ToString
 public class SearchDto {
     // 숙소의 객실 리스트 조회시 필요한 파라미터
     private Long accId;
@@ -25,8 +26,14 @@ public class SearchDto {
     private Long roomId;
 
     // 검색 시 필요한 파라미터
-    private String keyWord;
+    private String keyword;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkIn;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkOut;
-    private Integer personal;
+    private Integer guests;
+    private String sidoCode;
+    private String region;
+    private String codeTypeId;
+    private Integer code;
 }

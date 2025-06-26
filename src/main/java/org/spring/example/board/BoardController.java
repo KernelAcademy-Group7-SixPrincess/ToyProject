@@ -88,7 +88,16 @@ public class BoardController {
         PostDto post = postService.findPostById(postId);
         model.addAttribute("post", post);
 
-        List<CommentDto> commentList = commentService.getCommentsByPostId(postId);
+        List<CommentDto> commentList = commentService.selectCommentsByPostId(postId);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        for (CommentDto comment : commentList) {
+            if (comment.getCreatedAt() != null) {
+                comment.setFormattedDate(comment.getCreatedAt().format(formatter));
+            }
+        }
+
         model.addAttribute("commentList", commentList);
 
         return "board/" + type + "/detail";

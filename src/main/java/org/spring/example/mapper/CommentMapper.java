@@ -8,6 +8,8 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
     void insertComment(CommentDto commentDto);
+    void updateComment(CommentDto commentDto);
+    void deleteComment(CommentDto commentDto);
 
     List<CommentDto> selectCommentsByPostId(Long postId);
 }
