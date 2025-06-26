@@ -1,4 +1,3 @@
-<%--<%@ page import="org.spring.example.user.dto.UserinfoDto" %>--%>
 <%--
   Created by IntelliJ IDEA.
   User: hyeonjeong
@@ -7,11 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%
-  // 로그인한 사용자 정보 가져오기
-//  UserinfoDto loginUser = (UserinfoDto) session.getAttribute("loginUser");
 
-%>
 <header class="site-header">
   <nav class="nav" aria-label="메인 메뉴">
     <div class="nav__logo">
@@ -35,7 +30,6 @@
     </div>
 
     <div class="nav__actions">
-<%--      <% if (loginUser == null) { %>--%>
         <div class="btn-wrap guest">
           <a href="/user/auth" class="site-header__auth-link">로그인/회원가입</a>
 
@@ -57,7 +51,10 @@
             </ul>
           </div>
         </div>
+<<<<<<< feature/board
 <%--      <% } else { %>--%>
+=======
+>>>>>>> develop
 <%--        <div class="btn-wrap user">--%>
 <%--          <a href="/login/auth" class="">--%>
 <%--            <div class="user__name-wrap">--%>
@@ -84,7 +81,10 @@
 <%--            </ul>--%>
 <%--          </div>--%>
 <%--        </div>--%>
+<<<<<<< feature/board
 <%--      <% } %>--%>
+=======
+>>>>>>> develop
     </div>
 
 

@@ -1,0 +1,262 @@
+/* review.css */
+
+/* --- Common Styles (body, a, ul, button 등은 common.css나 layout.css로 분리 고려) --- */
+body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; margin: 0; padding: 0; }
+button { cursor: pointer; }
+
+/* --- Container --- */
+.container {
+    max-width: 1200px; /* 실제 웹사이트에 맞게 조정 */
+    margin: 20px auto;
+    padding: 0 15px;
+    background-color: #fff; /* 배경색 추가 */
+    box-shadow: 0 0 10px rgba(0,0,0,0.05); /* 그림자 효과 */
+    border-radius: 8px; /* 모서리 둥글게 */
+}
+
+/* --- Sub-navigation (탭 메뉴) --- */
+.sub-nav {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+.sub-nav ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+.sub-nav li {
+    padding: 15px 20px;
+    font-weight: bold;
+    color: #777;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+}
+.sub-nav li.active {
+    color: #333;
+    border-bottom-color: #007bff; /* 활성화된 탭 파란색 밑줄 */
+}
+.sub-nav li:hover {
+    color: #007bff;
+}
+
+/* --- Review Section Header --- */
+.review-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+.review-section-header h1 {
+    margin: 0;
+    font-size: 24px;
+    display: flex;
+    align-items: baseline;
+}
+.review-section-header .rating-summary {
+    background-color: #28a745; /* 초록색 뱃지 (여기어때 스타일) */
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-left: 10px;
+}
+.review-section-header small {
+    font-size: 0.7em;
+    color: #888;
+    margin-left: 5px;
+}
+/* --- Button Styles --- */
+.btn-primary {
+    background-color: #20c997; /* 세련된 틸 색상 (추천) */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn-primary:hover {
+    background-color: #1a9e7a; /* 호버 시 약간 더 어두운 틸 */
+}
+
+/* --- Review Filters --- */
+.review-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.review-filters .review-count {
+    font-weight: bold;
+    color: #333;
+}
+.review-filters .sort-options select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #555;
+    background-color: #fff;
+}
+
+/* --- Review Card --- */
+.review-list {
+    padding-bottom: 40px;
+}
+.review-card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+}
+
+.review-card .review-user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.review-card .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #666;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+.review-card .user-name {
+    font-weight: bold;
+    color: #333;
+    font-size: 15px;
+}
+.review-card .user-level {
+    font-size: 0.85em;
+    color: #777;
+}
+
+.review-card .review-rating-stars {
+    color: #ffc107; /* 노란색 별 */
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+.review-card .review-rating-stars i {
+    margin-right: 2px;
+}
+.review-card .review-rating-stars i.filled { /* 별점 채워진 색상 */
+    color: #ffc107;
+}
+.review-card .review-rating-stars i:not(.filled) { /* 별점 비워진 색상 */
+    color: #e0e0e0;
+}
+
+.review-card .review-date {
+    font-size: 0.85em;
+    color: #999;
+    margin-bottom: 15px;
+}
+
+/* AJAX 이미지 로딩 Placeholder 스타일 */
+.review-images-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* 높이 고정 */
+    background-color: #f9f9f9;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    color: #a0a0a0;
+    font-size: 0.9em;
+}
+
+/* AJAX로 로드된 실제 이미지들의 컨테이너 스타일 */
+.review-card .review-images {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+.review-card .review-images .loaded-review-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.review-card .review-comment-container {
+    margin-bottom: 15px;
+}
+.review-card .review-comment {
+    line-height: 1.6;
+    color: #333;
+    font-size: 15px;
+}
+.review-card .review-comment .read-more-btn {
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-left: 5px;
+    font-size: 0.9em;
+}
+.truncated-text.hidden, .full-text.hidden {
+    display: none;
+}
+
+.review-card .admin-reply {
+    border-top: 1px dashed #eee;
+    padding-top: 15px;
+    margin-top: 15px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #666;
+}
+.admin-reply .reply-header {
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 5px;
+}
+
+/* Alerts for messages */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+.alert i {
+    margin-right: 8px;
+}
+.no-reviews {
+    text-align: center;
+    padding: 50px;
+    color: #777;
+    font-size: 1.1em;
+}
