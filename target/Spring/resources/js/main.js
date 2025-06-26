@@ -1,21 +1,15 @@
-// const navBtn = document.querySelector(".nav__menu-btn");
-// const guestNavMenu = document.querySelector(".nav__content-wrap.guest");
-//
-// navBtn.addEventListener("click", () => {
-//     guestNavMenu.hidden = !guestNavMenu.hidden;
-// });
-
 const navBtn = document.querySelector(".nav__menu-btn");
-if (navBtn) {
-    navBtn.addEventListener("click", () => {
-        const guestNavMenu = document.querySelector(".nav__content-wrap.guest");
-        if (guestNavMenu) {
-            guestNavMenu.hidden = !guestNavMenu.hidden;
-        }
-    });
-}
+const guestNavMenu = document.querySelector(".nav__content-wrap.guest");
+const userNavMenu = document.querySelector(".nav__content-wrap.user");
 
-
+navBtn.addEventListener("click", () => {
+    if (guestNavMenu) {
+        guestNavMenu.hidden = !guestNavMenu.hidden;
+    }
+    if (userNavMenu) {
+        userNavMenu.hidden = !userNavMenu.hidden;
+    }
+});
 
 const accordionBtn = document.querySelectorAll(".accordion-trigger");
 
