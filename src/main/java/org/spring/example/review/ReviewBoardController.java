@@ -28,23 +28,21 @@ public class ReviewBoardController {
 
     @PostMapping("/modify")
     public String modify(ReviewBoardDto reviewBoardDto,
-                         // Integer page, Integer pageSize, // 페이지네이션 관련 인자 삭제
+
                          RedirectAttributes rattr, Model m, HttpSession session) {
         reviewBoardDto.setUserId((Long) session.getAttribute("id"));
         try {
             if (reviewBoardService.modify(reviewBoardDto) != 1)
                 throw new Exception("Modify failed.");
 
-            // rattr.addAttribute("page", page); // 페이지네이션 관련 인자 삭제
-            // rattr.addAttribute("pageSize", pageSize); // 페이지네이션 관련 인자 삭제
+
             rattr.addFlashAttribute("msg", "MOD_OK");
             // 성공 시, 목록 페이지로 리다이렉트
             return "redirect:/review/board/form";
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute(reviewBoardDto);
-            // m.addAttribute("page", page); // 페이지네이션 관련 인자 삭제
-            // m.addAttribute("pageSize", pageSize); // 페이지네이션 관련 인자 삭제
+
             m.addAttribute("msg", "MOD_ERR");
             return "review/reviewBoardForm"; // 수정 실패 시, 수정하려던 내용을 다시 보여줌.
         }
@@ -79,7 +77,7 @@ public class ReviewBoardController {
 
     @GetMapping("/read")
     public String read(Long reviewId,
-                       // Integer page, Integer pageSize, // 페이지네이션 관련 인자 삭제
+
                        RedirectAttributes rattr, Model m) {
         try {
             ReviewBoardDto reviewBoardDto = reviewBoardService.read(reviewId);
@@ -140,10 +138,10 @@ public class ReviewBoardController {
                 for (ReviewBoardDto review : reviews) {
                     List<ReviewReplyDto> replies = reviewReplyService.selectAllRepliesByReviewId(review.getReviewId());
                     if (replies != null && !replies.isEmpty()) {
-                        review.setReply(replies.get(0)); // 가장 첫 번째 답변만 연결
-                        // review.setReplies(replies); // 이 줄은 제거되었습니다. 전체 댓글 리스트는 이제 설정하지 않습니다.
+                        review.setReply(replies.get(0));
+
                     }
-                    // else 블록도 제거되었습니다. 단일 'reply' 필드만 사용하므로 빈 리스트 설정이 필요 없습니다.
+
                 }
             }
 
