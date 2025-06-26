@@ -1,9 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="org.spring.example.accommodation.domain.Acc" %>
-<%@ page import="org.spring.example.room.dto.Room" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -14,478 +10,468 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/setting.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/main.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
-    <style>
-        /* 공통 */
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-
-        /* 상세페이지 컨테이너 */
-        .acc-detail-container {
-            max-width: 900px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-
-        /* 메인 이미지 */
-        .acc-main-image img {
-            width: 100%;
-            border-radius: 10px;
-            object-fit: cover;
-            max-height: 450px;
-        }
-
-        /* 기본정보 */
-        .acc-info-section {
-            margin-top: 20px;
-        }
-
-        .acc-name {
-            font-size: 2em;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        .acc-address {
-            color: #666;
-            margin-bottom: 10px;
-        }
-
-        .acc-rating span {
-            font-weight: 600;
-            margin-right: 12px;
-            color: #f56a00;
-        }
-
-        .acc-contact p {
-            margin: 2px 0;
-            font-size: 14px;
-        }
-
-        /* 섹션 공통 */
-        section {
-            margin-top: 25px;
-        }
-
-        section h2 {
-            border-bottom: 2px solid #f56a00;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
-            font-size: 1.4em;
-            color: #007bff;
-        }
-
-        section ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-
-        section ul li {
-            margin-bottom: 6px;
-            line-height: 1.5;
-        }
-
-        .acc-extra-info h3, .acc-facility-info h3 {
-            font-size: 1.1rem; /* h2보다는 작게 */
-            font-weight: 700; /* 굵게 */
-            margin-top: 1em;
-            margin-bottom: 0.3em;
-        }
-
-        .acc-extra-info p, .acc-facility-info p {
-            margin-left: 1em; /* 들여쓰기 */
-            line-height: 2.0;
-        }
-
-        /* 버튼 */
-        .seller-info-list {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 20px;
-            margin-top: 20px;
-            border-top: 1px solid #ddd;
-            border-bottom: 1px solid #ddd;
-            cursor: pointer;
-            font-size: 1rem;
-            background-color: white;
-            color: #333;
-        }
-
-        .seller-info-list:hover {
-            background-color: #f5f5f5;
-        }
-
-        .seller-info-list .arrow {
-            color: #aaa;
-            font-size: 1.2rem;
-        }
-
-
-        /* 모달 배경 */
-        .modal {
-            display: none; /* 처음엔 숨김 */
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        /* 모달 창 내용 */
-        .modal-content {
-            background-color: #fff;
-            margin: 15% auto;
-            padding: 30px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 500px;
-        }
-
-        /* 닫기 버튼 */
-        .close-btn {
-            color: #aaa;
-            float: right;
-            font-size: 1.5rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close-btn:hover {
-            color: black;
-        }
-
-        .room-section {
-            margin-top: 40px;
-        }
-
-        .room-card {
-            display: flex;
-            background: #fdfdfd;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            overflow: hidden;
-        }
-
-        .room-image {
-            width: 160px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 10px 0 0 10px;
-        }
-
-        .room-details {
-            padding: 15px;
-            flex: 1;
-        }
-
-        .room-name {
-            font-size: 1.2em;
-            margin-bottom: 6px;
-        }
-
-        .room-info {
-            color: #666;
-            margin-bottom: 4px;
-        }
-
-
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/accinfo.css" />
+<%--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>--%>
 </head>
+<body class="">
+<%@ include file="../common/header.jsp" %>
 
-<body class="acc">
-<header class="site-header">
-    <nav class="nav" aria-label="메인 메뉴">
-        <div class="nav__logo">
-            <a href="/" class="nav__logo-link" aria-label="홈으로 이동">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 106 18" class="logo-svg" role="img"
-                     aria-hidden="true" focusable="false">
-                    <title>사이트 로고</title>
-                    <path
-                            d="M94.8 18V6.7c0-.4-.3-.8-.8-.8-.4 0-.8.3-.8.8V18h-5.1V5.9C88.1 2.6 90.8 0 94 0s5.9 2.6 5.9 5.9V18h-5.1zm-9.5-5.1h1.8V18H76.9c-2.3 0-4.1-1.8-4.1-4.1V4.1c0-2.3 1.8-4.1 4.1-4.1h10.2v5.1h-1.8v7.8zm-4.5 0V5.1H79c-.6 0-1 .5-1 1v5.7c0 .6.5 1 1 1l1.8.1zM19.4 3.3v-.7c0-1.4 1.1-2.6 2.5-2.6s2.5 1.2 2.5 2.6V18h-5.1v-3.3h-3.5c-1.6 2-4.1 3.3-6.9 3.3C4 18 0 14 0 9s4-9 8.9-9c2.8 0 5.3 1.3 6.9 3.3h3.6zM17.8 8c0 .3.1.7.1 1s0 .7-.1 1h1.6V8h-1.6zm-8.9 5.1c2.3 0 4.1-1.8 4.1-4.1s-1.8-4.1-4.1-4.1S4.8 6.7 4.8 9s1.9 4.1 4.1 4.1zM38.3 1.2c.7.7 1.2 1.8 1.2 2.9V18h-5.1V6.2c0-.6-.5-1-1-1h-5.6c-1.4 0-2.5-1.2-2.5-2.6S26.4 0 27.8 0h7.6c1.1 0 2.2.5 2.9 1.2zM43.1 0c1.4 0 2.5 1.2 2.5 2.6V18h-5.1V2.6c0-1.4 1.1-2.6 2.6-2.6zm23.1 6.4V2.6c0-1.4 1.1-2.6 2.5-2.6s2.5 1.2 2.5 2.6V18h-5.1v-6.4h-1.9c-1.1 3.7-4.5 6.4-8.5 6.4-4.9 0-8.9-4-8.9-9s4-9 8.9-9c4 0 7.4 2.7 8.5 6.4h2zm-10.4 6.7c2.3 0 4.1-1.8 4.1-4.1S58 4.9 55.8 4.9 51.7 6.7 51.7 9s1.8 4.1 4.1 4.1zm47.6 4.9c-1.4 0-2.5-1.2-2.5-2.6s1.1-2.6 2.5-2.6 2.5 1.2 2.5 2.6-1.1 2.6-2.5 2.6z"
-                            fill=""
-                    ></path>
-                </svg>
+<main>
+    <section class="gallery-section">
+        <div class="gallery-container">
+            <a href="#" class="gallery-main gallery-img-link">
+                <img alt="${acc.name}" sizes="100vw"
+                     srcset="http://image.goodchoice.kr/resize_1280x1024/affiliate/2022/05/31/6295bf8c8d3f3.jpg 340w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2022/05/31/6295bf8c8d3f3.jpg 912w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2022/05/31/6295bf8c8d3f3.jpg 1200w"
+                     src="${acc.mainImageUrl}"/>
+            </a>
+            <a href="#" class="gallery-thumb gallery-img-link" data-idx="1">
+                <img alt="${acc.name}" sizes="100vw"
+                     srcset="http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391a86702.jpg 340w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391a86702.jpg 912w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391a86702.jpg 1200w"
+                     src="${acc.mainImageUrl}"/>
+            </a>
+            <a href="#" class="gallery-thumb gallery-img-link" data-idx="2">
+                <img alt="${acc.name}" sizes="100vw"
+                     srcset="http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391cbea2f.jpg 340w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391cbea2f.jpg 912w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391cbea2f.jpg 1200w"
+                     src="${acc.mainImageUrl}"/>
+            </a>
+            <a href="#" class="gallery-thumb gallery-img-link" data-idx="3">
+                <img alt="${acc.name}" sizes="100vw"
+                     srcset="http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391b8280c.jpg 340w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391b8280c.jpg 912w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391b8280c.jpg 1200w"
+                     src="${acc.mainImageUrl}"/>
+            </a>
+            <a href="#" class="gallery-thumb gallery-img-link" data-idx="4">
+                <img alt="${acc.name}" sizes="100vw"
+                     srcset="http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391dc3bad.jpg 340w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391dc3bad.jpg 912w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391dc3bad.jpg 1200w"
+                     src="${acc.mainImageUrl}"/>
             </a>
         </div>
-        <div class="nav__actions guest">
-            <a href="/user/auth" class="site-header__auth-link">로그인/회원가입</a>
+    </section>
 
-            <button class="nav__menu-btn" aria-label="메뉴 열기" aria-controls="menu" aria-expanded="false">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="rgb(51, 51, 51)"
-                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                    <path d="M2 4h16v2H2V4zM2 14h16v2H2v-2zM18 9H2v2h16V9z" fill=""></path>
-                </svg>
-            </button>
+    <!-- 갤러리 모달 -->
+    <div id="galleryModal" class="modal" style="display: none">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button class="modal-close" aria-label="닫기">&times;</button>
+            <img class="modal-img" src="" alt="갤러리 큰 이미지"/>
+        </div>
+    </div>
 
-            <div class="nav__content-wrap guest" id="menu" hidden>
-                <div class="guest-panel">
-                    <a href="/user/auth" class="auth-link">로그인/회원가입</a>
+    <section class="accom-header">
+        <div class="accom-header-row">
+            <div class="accom-category">Black · 호텔 · 5성급</div>
+        </div>
+        <div class="accom-title-row">
+            <h1 class="accom-title">${acc.name}</h1>
+            <div class="accom-price">204,732원~</div>
+        </div>
+        <div class="accom-info-cards">
+            <div class="accom-info-card accom-review">
+                <div class="accom-card-title-row">
+                    <span class="accom-card-title accom-review-title">${acc.reviewerCnt}명 평가</span>
+                    <span class="accom-card-arrow">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="" xmlns="http://www.w3.org/2000/svg"
+                     class="css-1hjsey4"><path
+                        d="M7.016 14.594L12.02 10 7 5.392 8.402 4c2.816 2.545 4.485 4.076 5.007 4.594a1.978 1.978 0 010 2.812L8.422 16l-1.406-1.406z"
+                        fill="current"></path></svg>
+              </span>
                 </div>
-                <ul class="nav__menu-lists">
-                    <li><a href="/">국내숙소</a></li>
-                    <li><a href="/board">고객센터</a></li>
-                </ul>
+                <div class="accom-review-desc">${acc.accIntro}</div>
             </div>
-
-            <div class="nav__content-wrap user" id="menu" hidden>
-                <div class="guest-panel">
-                    <a href="/user/auth" class="auth-link">로그인/회원가입</a>
+            <div class="accom-info-card accom-facilities" id="facilityCard" tabindex="0" role="button"
+                 aria-label="모든 부대시설 보기" style="cursor: pointer">
+                <div class="accom-card-title-row">
+                    <span class="accom-card-title accom-facilities-title">서비스 및 부대시설</span>
+                    <span class="accom-card-arrow">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="" xmlns="http://www.w3.org/2000/svg"
+                     class="css-1hjsey4"><path
+                        d="M7.016 14.594L12.02 10 7 5.392 8.402 4c2.816 2.545 4.485 4.076 5.007 4.594a1.978 1.978 0 010 2.812L8.422 16l-1.406-1.406z"
+                        fill="current"></path></svg>
+              </span>
                 </div>
-                <ul class="nav__menu-lists">
-                    <li><a href="/">국내숙소</a></li>
-                    <li><a href="/board">고객센터</a></li>
-                </ul>
+                <div class="accom-facility-list">
+                    <span>🏋️‍♂️ 피트니스</span>
+                    <span>🏊‍♂️ 수영장</span>
+                    <span>📶 무선인터넷</span>
+                    <span>🛁 욕실용품</span>
+                    <span>🍽️ 레스토랑</span>
+                    <span>🚭 금연</span>
+                </div>
+            </div>
+            <div class="accom-info-card accom-location">
+                <div class="accom-card-title-row">
+                    <span class="accom-card-title accom-location-title">위치 정보</span>
+                    <span class="accom-card-arrow">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="" xmlns="http://www.w3.org/2000/svg"
+                     class="css-1hjsey4"><path
+                        d="M7.016 14.594L12.02 10 7 5.392 8.402 4c2.816 2.545 4.485 4.076 5.007 4.594a1.978 1.978 0 010 2.812L8.422 16l-1.406-1.406z"
+                        fill="current"></path></svg>
+              </span>
+                </div>
+                <div class="accom-location-row">
+                    <span>📍</span>
+                    ${acc.address}
+                    <a href="#" class="accom-map-link">지도보기</a>
+                </div>
             </div>
         </div>
-    </nav>
-</header>
+    </section>
 
 
-<c:choose>
-    <c:when test="${empty acc}">
-        <p>숙소 정보를 불러올 수 없습니다.</p>
-    </c:when>
-    <c:otherwise>
-        <div class="acc-detail-container">
+    <%--        <div class="acc-detail-container">--%>
+    <%--            <section class="acc-info-section">--%>
+    <%--                <h1 class="acc-name">${acc.name}</h1>--%>
+    <%--                <p class="acc-address">${acc.address}</p>--%>
+    <%--                <div class="acc-rating">--%>
+    <%--                    <span>⭐ ${acc.avgrate} / 10.0</span>--%>
+    <%--                    <span>(${acc.reviewerCnt}명 평가)</span>--%>
+    <%--                </div>--%>
 
-            <div class="acc-main-image">
-                <img src="${acc.mainImageUrl}" alt="${acc.name}"/>
-            </div>
+    <%--                <section class="acc-checkin-checkout">--%>
+    <%--                    <p>체크인: <c:out value="${acc.checkInTime != null ? acc.checkInTime : '정보없음'}"/></p>--%>
+    <%--                    <p>체크아웃: <c:out value="${acc.checkOutTime != null ? acc.checkOutTime : '정보없음'}"/></p>--%>
+    <%--                </section>--%>
 
-            <section class="acc-info-section">
-                <h1 class="acc-name">${acc.name}</h1>
-                <p class="acc-address">${acc.address}</p>
-                <div class="acc-rating">
-                    <span>⭐ ${acc.avgrate} / 10.0</span>
-                    <span>(${acc.reviewerCnt}명 평가)</span>
+    <%--                <!-- 기타 정보도 마찬가지로 EL로 표현 -->--%>
+
+    <%--            </section>--%>
+
+    <c:if test="${not empty acc.roomList}">
+    <section class="room-section">
+        <h2>객실 선택</h2>
+
+        <c:forEach var="room" items="${acc.roomList}">
+            <section class="room-card">
+                <div class="room-card__img-wrap">
+                    <img alt="${room.name}"
+                         srcset="${room.mainImageUrl} 1x"
+                         src="${room.mainImageUrl}"/>
                 </div>
 
-                <section class="acc-checkin-checkout">
-                    <p>체크인: <c:out value="${acc.checkInTime != null ? acc.checkInTime : '정보없음'}"/></p>
-                    <p>체크아웃: <c:out value="${acc.checkOutTime != null ? acc.checkOutTime : '정보없음'}"/></p>
-                </section>
-
-                <!-- 기타 정보도 마찬가지로 EL로 표현 -->
-
+                    <%--    <section class="room-card">--%>
+                    <%--        <div class="room-card__img-wrap">--%>
+                    <%--            <img alt="[숙박 페스타] [호텔] 슈페리어 빌리지 더블" srcset="http://image.goodchoice.kr/affiliate/2025/02/26/67be58902e40b.jpg 1x" src="http://image.goodchoice.kr/affiliate/2025/02/26/67be58902e40b.jpg" />--%>
+                    <%--        </div>--%>
+                <div class="room-card__content">
+                    <header class="room-card__header">
+                        <h2 class="room-card__title">${room.name}</h2>
+                        <button class="room-card__detail-btn" aria-label="상세 정보 보기" id="roomDetailBtn"
+                                data-name="${room.name}"
+                                data-info="${room.info}"
+                                data-addinfo="${room.addInfo}">
+                            상세 정보
+                            <svg width="18" height="18" viewBox="0 0 20 20" fill="#2584f7"
+                                 xmlns="http://www.w3.org/2000/svg" class="css-1hjsey4">
+                                <path d="M7.016 14.594L12.02 10 7 5.392 8.402 4c2.816 2.545 4.485 4.076 5.007 4.594a1.978 1.978 0 010 2.812L8.422 16l-1.406-1.406z"
+                                      fill="current"></path>
+                            </svg>
+                        </button>
+                    </header>
+                    <div class="room-card__info-row">
+                        <ul class="room-card__info-list">
+                            <li>
+                                <span aria-hidden="true">🚫</span>
+                                무료취소 불가
+                            </li>
+                            <li>
+                                <span aria-hidden="true">⏰</span>
+                                입실 ${acc.checkInTime} · 퇴실 ${acc.checkOutTime}
+                            </li>
+                        </ul>
+                        <div class="room-card__price-box">
+                            <span class="room-card__price-label">4% 쿠폰 적용가</span>
+                            <span class="room-card__price-old">1,452,000원</span>
+                            <span class="room-card__price">373,920원</span>
+                            <button class="room-card__reserve-btn">객실 예약</button>
+                        </div>
+                    </div>
+                    <dl class="room-card__room-info">
+                        <dt>객실정보</dt>
+                        <dd>기준 ${room.capacity}인 · 최대 ${room.maxCapacity}인</dd>
+                    </dl>
+                </div>
             </section>
+        </c:forEach>
+    </section>
+    </c:if>
+    <%--            <!-- 객실 리스트 -->--%>
+    <%--            <c:if test="${not empty acc.roomList}">--%>
+    <%--                <section class="room-section">--%>
+    <%--                    <h2>객실 선택</h2>--%>
+    <%--                    <c:forEach var="room" items="${acc.roomList}">--%>
+    <%--                        <div class="room-card">--%>
+    <%--                            <img src="${room.mainImageUrl}" alt="객실 이미지" class="room-image"/>--%>
+    <%--                            <div class="room-details">--%>
+    <%--                                <h3 class="room-name"><c:out value="${room.name}"/></h3>--%>
+    <%--                                <p>기준 ${room.capacity}인 / 최대 ${room.maxCapacity}인</p>--%>
+    <%--                                <button class="detail-btn"--%>
+    <%--                                        data-name="${room.name}"--%>
+    <%--                                        data-info="${room.info}"--%>
+    <%--                                        data-addinfo="${room.addInfo}">--%>
+    <%--                                    상세 정보--%>
+    <%--                                </button>--%>
+    <%--                            </div>--%>
+    <%--                        </div>--%>
+    <%--                    </c:forEach>--%>
+    <%--                </section>--%>
+    <%--            </c:if>--%>
 
-            <!-- 추가 정보 -->
-            <c:if test="${hasExtraInfo}">
-                <section class="acc-extra-info">
-                    <h2>추가 정보</h2>
-
-                    <c:if test="${not empty acc.addPeopleInfoFormatted}">
-                        <div class="subsection">
-                            <h3>인원 추가 정보</h3>
-                            <p><c:out value="${acc.addPeopleInfoFormatted}" escapeXml="false"/></p>
-                        </div>
-                    </c:if>
-
-                    <c:if test="${not empty acc.breakfastInfoFormatted}">
-                        <div class="subsection">
-                            <h3>조식 정보</h3>
-                            <p><c:out value="${acc.breakfastInfoFormatted}" escapeXml="false"/></p>
-                        </div>
-                    </c:if>
-
-                    <c:if test="${not empty acc.cookInfoFormatted}">
-                        <div class="subsection">
-                            <h3>취사 가능 여부</h3>
-                            <p><c:out value="${acc.cookInfoFormatted}" escapeXml="false"/></p>
-                        </div>
-                    </c:if>
-
-                    <c:if test="${not empty acc.cancelRefundInfoFormatted}">
-                        <div class="subsection">
-                            <h3>취소 및 환불 정보</h3>
-                            <p><c:out value="${acc.cancelRefundInfoFormatted}" escapeXml="false"/></p>
-                        </div>
-                    </c:if>
-
-                    <c:if test="${not empty acc.etcInfoFormatted}">
-                        <div class="subsection">
-                            <h3>기타 정보</h3>
-                            <p><c:out value="${acc.etcInfoFormatted}" escapeXml="false"/></p>
-                        </div>
-                    </c:if>
-                </section>
-            </c:if>
-
-            <!-- 편의 시설 -->
-            <c:if test="${hasFacilityInfo}">
-                <section class="acc-facility-info">
-                    <h2>편의 시설</h2>
-
-                    <c:if test="${not empty acc.subwayInfoFormatted}">
-                        <div class="subsection">
-                            <h3>지하철 정보</h3>
-                            <p><c:out value="${acc.subwayInfoFormatted}" escapeXml="false"/></p>
-                        </div>
-                    </c:if>
-
-                    <c:if test="${not empty acc.roomFacilityInfoFormatted}">
-                        <div class="subsection">
-                            <h3>객실 시설</h3>
-                            <p><c:out value="${acc.roomFacilityInfoFormatted}" escapeXml="false"/></p>
-                        </div>
-                    </c:if>
-
-                    <c:if test="${not empty acc.frontFacilityInfoFormatted}">
-                        <div class="subsection">
-                            <h3>프론트 및 그외 시설</h3>
-                            <p><c:out value="${acc.frontFacilityInfoFormatted}" escapeXml="false"/></p>
-                        </div>
-                    </c:if>
-
-                    <c:if test="${not empty acc.parkingInfoFormatted}">
-                        <div class="subsection">
-                            <h3>주차 정보</h3>
-                            <p><c:out value="${acc.parkingInfoFormatted}" escapeXml="false"/></p>
-                        </div>
-                    </c:if>
-
-                    <c:if test="${not empty acc.extraNoticeFormatted}">
-                        <div class="subsection">
-                            <h3>추가 안내</h3>
-                            <p><c:out value="${acc.extraNoticeFormatted}" escapeXml="false"/></p>
-                        </div>
-                    </c:if>
-                </section>
-            </c:if>
-
-            <!-- 객실 리스트 -->
-            <c:if test="${not empty acc.roomList}">
-                <section class="room-section">
-                    <h2>객실 선택</h2>
-                    <c:forEach var="room" items="${acc.roomList}">
-                        <div class="room-card">
-                            <img src="${room.mainImageUrl}" alt="객실 이미지" class="room-image"/>
-                            <div class="room-details">
-                                <h3 class="room-name"><c:out value="${room.name}"/></h3>
-                                <p>기준 ${room.capacity}인 / 최대 ${room.maxCapacity}인</p>
-                                <button class="detail-btn"
-                                        data-name="${room.name}"
-                                        data-info="${room.info}"
-                                        data-addinfo="${room.addInfo}">
-                                    상세 정보
-                                </button>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </section>
-            </c:if>
-
-
-            <!-- 객실 상세 모달 -->
-            <div id="roomDetailModal" class="modal">
-                <div class="modal-content">
-                    <span class="close-btn room-close">&times;</span>
-                    <h2 id="modalRoomName">객실명</h2>
-
-                    <h3>객실 정보</h3>
-                    <p id="modalRoomInfo">없음</p>
-
-                    <br/>
-
-                    <h3>추가 정보</h3>
-                    <p id="modalRoomAddInfo">없음</p>
-                </div>
+    <!-- 시설 전체 모달 -->
+    <div id="facilityModal" class="modal" style="display: none">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content" style="padding: 32px 24px; min-width: 320px; max-width: 90vw">
+            <button class="modal-close" aria-label="닫기" style="position: absolute; top: 16px; right: 18px; font-size: 2.2rem; color: #222; cursor: pointer; background: none; border: none; line-height: 1; padding: 0">&times;</button>
+            <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 18px">모든 부대시설</h2>
+            <div class="facility-modal-list" style="display: flex; flex-wrap: wrap; gap: 14px 24px; font-size: 15px; color: #444">
+                <span>🏋️‍♂️ 피트니스</span>
+                <span>🏊‍♂️ 수영장</span>
+                <span>📶 무선인터넷</span>
+                <span>🛁 욕실용품</span>
+                <span>🍽️ 레스토랑</span>
+                <span>🚭 금연</span>
+                <span>🧖‍♂️ 사우나</span>
+                <span>🅿️ 무료주차</span>
+                <span>🧺 세탁서비스</span>
             </div>
-
-            <!-- 판매자 정보 버튼 -->
-            <div id="openSellerModal" class="seller-info-list" tabindex="0" role="button" aria-pressed="false">
-                <span>판매자 정보</span>
-                <span class="arrow">&gt;</span>
-            </div>
-
-            <!-- 판매자 정보 모달 -->
-            <div id="sellerModal" class="modal">
-                <div class="modal-content">
-                    <span class="close-btn seller-close" role="button" aria-label="닫기">&times;</span>
-                    <h2>판매자 정보</h2>
-                    <ul>
-                        <li><strong>상호명:</strong> <c:out value="${acc.businessName}"/></li>
-                        <li><strong>대표자명:</strong> <c:out value="${acc.hostName}"/></li>
-                        <li><strong>전화번호:</strong> <c:out value="${acc.tel}"/></li>
-                        <li><strong>이메일:</strong> <c:out value="${acc.email}"/></li>
-                        <li><strong>사업자번호:</strong> <c:out value="${acc.licenseNum}"/></li>
-                    </ul>
-                </div>
-            </div>
-
         </div>
+    </div>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const sellerModal = document.getElementById("sellerModal");
-                const roomModal = document.getElementById("roomDetailModal");
 
-                const sellerBtn = document.getElementById("openSellerModal");
-                const sellerCloseBtn = document.querySelector("#sellerModal .seller-close");
-                const roomCloseBtn = document.querySelector("#roomDetailModal .room-close");
 
-                // 판매자 모달 열기
-                sellerBtn?.addEventListener('click', () => {
-                    sellerModal.style.display = "block";
-                    sellerBtn.setAttribute('aria-pressed', 'true');
-                });
+    <!-- 추가 정보 -->
+    <c:if test="${hasExtraInfo}">
+    <section class="acc-extra-info">
+        <h2>추가 정보</h2>
 
-                // 판매자 모달 닫기
-                sellerCloseBtn?.addEventListener('click', () => {
-                    sellerModal.style.display = "none";
-                    sellerBtn.setAttribute('aria-pressed', 'false');
-                });
+        <c:if test="${not empty acc.addPeopleInfoFormatted}">
+            <div class="subsection">
+                <h3>인원 추가 정보</h3>
+                <p><c:out value="${acc.addPeopleInfoFormatted}" escapeXml="false"/></p>
+            </div>
+        </c:if>
 
-                // 객실 상세정보 모달 열기
-                document.querySelectorAll('.detail-btn').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const rawInfo = button.dataset.info || '없음';
-                        const rawAddInfo = button.dataset.addinfo || '없음';
+        <c:if test="${not empty acc.breakfastInfoFormatted}">
+            <div class="subsection">
+                <h3>조식 정보</h3>
+                <p><c:out value="${acc.breakfastInfoFormatted}" escapeXml="false"/></p>
+            </div>
+        </c:if>
 
-                        const formattedInfo = rawInfo.replace(/\n/g, '<br>');
-                        const formattedAddInfo = rawAddInfo.replace(/\n/g, '<br>');
+        <c:if test="${not empty acc.cookInfoFormatted}">
+            <div class="subsection">
+                <h3>취사 가능 여부</h3>
+                <p><c:out value="${acc.cookInfoFormatted}" escapeXml="false"/></p>
+            </div>
+        </c:if>
 
-                        document.getElementById('modalRoomName').innerText = button.dataset.name;
-                        document.getElementById('modalRoomInfo').innerHTML = formattedInfo;
-                        document.getElementById('modalRoomAddInfo').innerHTML = formattedAddInfo;
-                        roomModal.style.display = "block";
+        <c:if test="${not empty acc.cancelRefundInfoFormatted}">
+            <div class="subsection">
+                <h3>취소 및 환불 정보</h3>
+                <p><c:out value="${acc.cancelRefundInfoFormatted}" escapeXml="false"/></p>
+            </div>
+        </c:if>
+
+        <c:if test="${not empty acc.etcInfoFormatted}">
+            <div class="subsection">
+                <h3>기타 정보</h3>
+                <p><c:out value="${acc.etcInfoFormatted}" escapeXml="false"/></p>
+            </div>
+        </c:if>
+    </section>
+    </c:if>
+
+    <!-- 편의 시설 -->
+    <c:if test="${hasFacilityInfo}">
+    <section class="acc-facility-info">
+        <h2>편의 시설</h2>
+
+        <c:if test="${not empty acc.subwayInfoFormatted}">
+            <div class="subsection">
+                <h3>지하철 정보</h3>
+                <p><c:out value="${acc.subwayInfoFormatted}" escapeXml="false"/></p>
+            </div>
+        </c:if>
+
+        <c:if test="${not empty acc.roomFacilityInfoFormatted}">
+            <div class="subsection">
+                <h3>객실 시설</h3>
+                <p><c:out value="${acc.roomFacilityInfoFormatted}" escapeXml="false"/></p>
+            </div>
+        </c:if>
+
+        <c:if test="${not empty acc.frontFacilityInfoFormatted}">
+            <div class="subsection">
+                <h3>프론트 및 그외 시설</h3>
+                <p><c:out value="${acc.frontFacilityInfoFormatted}" escapeXml="false"/></p>
+            </div>
+        </c:if>
+
+        <c:if test="${not empty acc.parkingInfoFormatted}">
+            <div class="subsection">
+                <h3>주차 정보</h3>
+                <p><c:out value="${acc.parkingInfoFormatted}" escapeXml="false"/></p>
+            </div>
+        </c:if>
+
+        <c:if test="${not empty acc.extraNoticeFormatted}">
+            <div class="subsection">
+                <h3>추가 안내</h3>
+                <p><c:out value="${acc.extraNoticeFormatted}" escapeXml="false"/></p>
+            </div>
+        </c:if>
+    </section>
+    </c:if>
+
+
+    <!-- 객실 상세 모달 -->
+    <div id="roomDetailModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn room-close">&times;</span>
+            <h2 id="modalRoomName">객실명</h2>
+
+            <h3>객실 정보</h3>
+            <p id="modalRoomInfo">없음</p>
+
+            <br/>
+
+            <h3>추가 정보</h3>
+            <p id="modalRoomAddInfo">없음</p>
+        </div>
+    </div>
+
+    <!-- 판매자 정보 버튼 -->
+    <div id="openSellerModal" class="seller-info-list" tabindex="0" role="button" aria-pressed="false">
+        <span>판매자 정보</span>
+        <span class="arrow">&gt;</span>
+    </div>
+
+    <!-- 판매자 정보 모달 -->
+    <div id="sellerModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn seller-close" role="button" aria-label="닫기">&times;</span>
+            <h2>판매자 정보</h2>
+            <ul>
+                <li><strong>상호명:</strong> <c:out value="${acc.businessName}"/></li>
+                <li><strong>대표자명:</strong> <c:out value="${acc.hostName}"/></li>
+                <li><strong>전화번호:</strong> <c:out value="${acc.tel}"/></li>
+                <li><strong>이메일:</strong> <c:out value="${acc.email}"/></li>
+                <li><strong>사업자번호:</strong> <c:out value="${acc.licenseNum}"/></li>
+            </ul>
+        </div>
+    </div>
+</main>
+
+<%@ include file="../common/footer.jsp" %>
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+    <script>
+
+        // 갤러리 모달
+        (function () {
+            const galleryModal = document.getElementById("galleryModal");
+            if (galleryModal) {
+                document.querySelectorAll(".gallery-img-link").forEach((link) => {
+                    link.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        const img = this.querySelector("img");
+                        const modalImg = galleryModal.querySelector(".modal-img");
+                        modalImg.src = img.src;
+                        galleryModal.style.display = "flex";
                     });
                 });
+                const closeBtn = galleryModal.querySelector(".modal-close");
+                const backdrop = galleryModal.querySelector(".modal-backdrop");
+                if (closeBtn)
+                    closeBtn.onclick = () => {
+                        galleryModal.style.display = "none";
+                    };
+                if (backdrop)
+                    backdrop.onclick = () => {
+                        galleryModal.style.display = "none";
+                    };
+            }
+        })();
 
-                // 객실 모달 닫기
-                roomCloseBtn?.addEventListener('click', () => {
-                    roomModal.style.display = "none";
-                });
+        // 시설 전체 모달
+        (function () {
+            const facilityModal = document.getElementById("facilityModal");
+            const facilityCard = document.getElementById("facilityCard");
+            if (facilityModal && facilityCard) {
+                facilityCard.onclick = function () {
+                    facilityModal.style.display = "flex";
+                };
+                facilityCard.onkeydown = function (e) {
+                    if (e.key === "Enter" || e.key === " ") {
+                        facilityModal.style.display = "flex";
+                    }
+                };
+                const closeBtn = facilityModal.querySelector(".modal-close");r
+                const backdrop = facilityModal.querySelector(".modal-backdrop");
+                if (closeBtn)
+                    closeBtn.onclick = () => {
+                        facilityModal.style.display = "none";
+                    };
+                if (backdrop)
+                    backdrop.onclick = () => {
+                        facilityModal.style.display = "none";
+                    };
+            }
+        })();
 
-                // 바깥 클릭 시 모달 닫기
-                window.addEventListener('click', (event) => {
-                    if (event.target === sellerModal) {
-                        sellerModal.style.display = "none";
-                        sellerBtn.setAttribute('aria-pressed', 'false');
-                    }
-                    if (event.target === roomModal) {
-                        roomModal.style.display = "none";
-                    }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const sellerModal = document.getElementById("sellerModal");
+            const roomModal = document.getElementById("roomDetailModal");
+
+            const sellerBtn = document.getElementById("openSellerModal");
+            const sellerCloseBtn = document.querySelector("#sellerModal .seller-close");
+            const roomCloseBtn = document.querySelector("#roomDetailModal .room-close");
+
+            // 판매자 모달 열기
+            sellerBtn?.addEventListener('click', () => {
+                sellerModal.style.display = "block";
+                sellerBtn.setAttribute('aria-pressed', 'true');
+            });
+
+            // 판매자 모달 닫기
+            sellerCloseBtn?.addEventListener('click', () => {
+                sellerModal.style.display = "none";
+                sellerBtn.setAttribute('aria-pressed', 'false');
+            });
+
+            // 객실 상세정보 모달 열기
+            document.querySelectorAll('.detail-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const rawInfo = button.dataset.info || '없음';
+                    const rawAddInfo = button.dataset.addinfo || '없음';
+
+                    const formattedInfo = rawInfo.replace(/\n/g, '<br>');
+                    const formattedAddInfo = rawAddInfo.replace(/\n/g, '<br>');
+
+                    document.getElementById('modalRoomName').innerText = button.dataset.name;
+                    document.getElementById('modalRoomInfo').innerHTML = formattedInfo;
+                    document.getElementById('modalRoomAddInfo').innerHTML = formattedAddInfo;
+                    roomModal.style.display = "block";
                 });
             });
-        </script>
 
-    </c:otherwise>
-</c:choose>
+            // 객실 모달 닫기
+            // roomCloseBtn?.addEventListener('click', () => {
+            //     roomModal.style.display = "none";
+            // });
+            //
+            // // 바깥 클릭 시 모달 닫기
+            // window.addEventListener('click', (event) => {
+            //     if (event.target === sellerModal) {
+            //         sellerModal.style.display = "none";
+            //         sellerBtn.setAttribute('aria-pressed', 'false');
+            //     }
+            //     if (event.target === roomModal) {
+            //         roomModal.style.display = "none";
+            //     }
+            // });
+        });
+    </script>
+
+<%--    </c:otherwise>--%>
+<%--    </c:choose>--%>
 </body>
 </html>
