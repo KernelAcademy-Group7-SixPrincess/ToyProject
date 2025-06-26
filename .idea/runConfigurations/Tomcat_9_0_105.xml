@@ -20,7 +20,7 @@
       <option name="DEBUG_PORT" value="60486" />
     </RunnerSettings>
     <RunnerSettings RunnerId="Debug">
-      <option name="DEBUG_PORT" value="60159" />
+      <option name="DEBUG_PORT" value="54875" />
     </RunnerSettings>
     <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="AppServerDebuggerRunner">
       <option name="USE_ENV_VARIABLES" value="true" />

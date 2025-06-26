@@ -46,7 +46,7 @@ public class Room {
     /**
      * 객실 대표 이미지 ID
      */
-    private String mainImageId;
+    private String mainImageUrl;
     /**
      * 객실 이름
      */
