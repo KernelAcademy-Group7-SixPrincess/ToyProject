@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.spring.example.mapper.ReviewReplyMapper">
+
+
+    <select id="select" parameterType="BigInteger" resultType="org.spring.example.review.ReviewReplyDto">
+        SELECT
+        review_reply_id,
+        review_id,
+        comments,
+        commenter,
+        created_at,
+        updated_at
+        FROM review_reply
+        WHERE review_reply_id = #{replyId}
+    </select>
+
+    <select id="selectAll" parameterType="long" resultType="org.spring.example.review.ReviewReplyDto">
+        SELECT * FROM review_reply WHERE review_id = #{reviewId}
+    </select>
+
+    <insert id="insert" parameterType="org.spring.example.review.ReviewReplyDto">
+
+        INSERT INTO review_reply (review_id, comments, commenter, created_at)
+        VALUES (#{reviewId}, #{comments}, #{commenter}, CURRENT_TIMESTAMP)
+     </insert>
+
+    <update id="update" parameterType="org.spring.example.review.ReviewReplyDto">
+    UPDATE review_reply
+    SET comments = #{comments},
+    updated_at = CURRENT_TIMESTAMP
+    WHERE review_reply_id = #{reviewReplyId}
+    </update>
+    <select id="selectAllRepliesByReviewId"
+            parameterType="Long"
+            resultType="org.spring.example.review.ReviewReplyDto">
+        SELECT *
+        FROM review_reply
+        WHERE review_id = #{reviewId}
+        ORDER BY created_at ASC
+    </select>
+
+
+</mapper>
