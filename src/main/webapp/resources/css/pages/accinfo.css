@@ -1,10 +1,17 @@
+.acc-title {
+    font-size: 18px;
+    color: #333333;
+    font-weight: 700;
+    padding: 16px 0;
+}
+
+/* 숙소 상세 상단 */
 .accommodations main {
     max-width: 1200px;
     padding: 60px;
     margin: 0 auto;
-}
 
-/* 숙소 상세 상단 */
+}
 .accommodation-detail-box {
     display: flex;
     gap: 32px;
@@ -528,7 +535,7 @@
     background: #f5f7fa;
     border-radius: 16px;
     padding: 24px;
-    margin: 40px auto 32px auto;
+    margin-bottom: 10px;
     max-width: 1200px;
     gap: 40px;
     align-items: flex-start;

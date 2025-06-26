@@ -137,7 +137,7 @@
 
     <c:if test="${not empty acc.roomList}">
     <section class="room-section">
-        <h2>객실 선택</h2>
+        <h2 class="acc-title">객실 선택</h2>
 
         <c:forEach var="room" items="${acc.roomList}">
             <section class="room-card">
@@ -240,7 +240,7 @@
     <!-- 추가 정보 -->
     <c:if test="${hasExtraInfo}">
     <section class="acc-extra-info">
-        <h2>추가 정보</h2>
+        <h2 class="acc-title">추가 정보</h2>
 
         <c:if test="${not empty acc.addPeopleInfoFormatted}">
             <div class="subsection">
@@ -340,7 +340,7 @@
 
     <!-- 판매자 정보 버튼 -->
     <div id="openSellerModal" class="seller-info-list" tabindex="0" role="button" aria-pressed="false">
-        <span>판매자 정보</span>
+        <span class="acc-title">판매자 정보</span>
         <span class="arrow">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="#c2c2c2" xmlns="http://www.w3.org/2000/svg" class="fill-contentQuaternary"><path d="M7.016 14.594L12.02 10 7 5.392 8.402 4c2.816 2.545 4.485 4.076 5.007 4.594a1.978 1.978 0 010 2.812L8.422 16l-1.406-1.406z" fill=""></path></svg>
         </span>
