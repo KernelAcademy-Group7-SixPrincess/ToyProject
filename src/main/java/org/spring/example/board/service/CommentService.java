@@ -2,6 +2,7 @@ package org.spring.example.board.service;
 
 import org.spring.example.board.dto.CommentDto;
 import org.spring.example.mapper.CommentMapper;
+import org.spring.example.mapper.PostMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,13 +11,16 @@ import java.util.List;
 public class CommentService {
 
     private final CommentMapper commentMapper;
+    private final PostMapper postMapper;
 
-    public CommentService(CommentMapper commentMapper) {
+    public CommentService(CommentMapper commentMapper, PostMapper postMapper) {
         this.commentMapper = commentMapper;
+        this.postMapper = postMapper;
     }
 
     public void saveComment(CommentDto commentDto) {
         commentMapper.insertComment(commentDto);
+        postMapper.markPostAsAnswered((long) commentDto.getPostId());
     }
 
     public void updateComment(CommentDto commentDto) {
@@ -30,4 +34,5 @@ public class CommentService {
     public List<CommentDto> selectCommentsByPostId(Long postId) {
         return commentMapper.selectCommentsByPostId(postId);
     }
+
 }
