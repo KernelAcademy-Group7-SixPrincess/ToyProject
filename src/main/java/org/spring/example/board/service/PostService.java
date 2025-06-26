@@ -1,5 +1,6 @@
 package org.spring.example.board.service;
 
+import org.apache.ibatis.annotations.Update;
 import org.spring.example.board.dto.PostDto;
 import org.spring.example.mapper.PostMapper;
 import org.springframework.stereotype.Service;
@@ -63,4 +64,5 @@ public class PostService {
     public List<PostDto> searchPostsByKeyword(int boardId, String keyword) {
         return postMapper.searchPostsByKeyword(boardId, keyword);
     }
+
 }

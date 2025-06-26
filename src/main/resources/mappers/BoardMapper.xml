@@ -12,7 +12,7 @@
     </select>
 
 
-    <select id="selectById" parameterType="int" resultType="org.spring.example.board.dto.BoardDto">
+    <select id="selectById" parameterType="long" resultType="org.spring.example.board.dto.BoardDto">
         SELECT board_id, board_type
         FROM board
         WHERE board_id = #{boardId}

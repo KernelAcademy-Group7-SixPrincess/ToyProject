@@ -14,7 +14,7 @@
   <!-- EasyMDE 마크다운 에디터 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
 <body class="board notice">
-<%@ include file="../../common/header.jsp" %>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 
 <main>
@@ -45,7 +45,7 @@
   </section>
 </main>
 
-<%@ include file="../../common/footer.jsp" %>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 
 

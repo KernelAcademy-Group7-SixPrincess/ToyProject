@@ -86,9 +86,18 @@ public class BoardController {
     @GetMapping("/{type}/{postId}")
     public String viewPost(@PathVariable String type, @PathVariable Long postId, Model model) {
         PostDto post = postService.findPostById(postId);
-        model.addAttribute("post", post);
 
-        List<CommentDto> commentList = commentService.getCommentsByPostId(postId);
+        List<CommentDto> commentList = commentService.selectCommentsByPostId(postId);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        for (CommentDto comment : commentList) {
+            if (comment.getCreatedAt() != null) {
+                comment.setFormattedDate(comment.getCreatedAt().format(formatter));
+            }
+        }
+
+        model.addAttribute("post", post);
         model.addAttribute("commentList", commentList);
 
         return "board/" + type + "/detail";
