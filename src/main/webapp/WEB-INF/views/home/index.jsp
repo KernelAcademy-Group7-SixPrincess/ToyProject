@@ -57,6 +57,7 @@
         <img alt="상단 메인 이미지" src="https://static.yeogi.com/_next/static/media/03_Kv_PC_Light_B.fcfed8ce.webp" decoding="async" class="main-image" />
     </section>
 
+    <!-- 여행지! -->
     <section class="recommend" aria-label="인기 여행지 추천 섹션">
         <h1 class="title">국내 추천 여행지</h1>
         <div class="swiper-container">
