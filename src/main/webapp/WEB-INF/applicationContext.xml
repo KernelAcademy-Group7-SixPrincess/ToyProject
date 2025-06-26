@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-           http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans.xsd
-           http://www.springframework.org/schema/context
-           http://www.springframework.org/schema/context/spring-context.xsd
-           http://mybatis.org/schema/mybatis-spring
-           http://mybatis.org/schema/mybatis-spring.xsd">
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://mybatis.org/schema/mybatis-spring
+        http://mybatis.org/schema/mybatis-spring.xsd">
 
     <!-- @Component, @Repository 등 자동 스캔 -->
-<!--    <context:component-scan base-package="org.spring.example.room.mapper"/>-->
     <context:component-scan base-package="org.spring.example"/>
 
     <!-- DB 연결 설정 -->
@@ -20,7 +22,7 @@
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/toyprojectdb?serverTimezone=UTC"/>
         <property name="username" value="root"/>
-        <property name="password" value="789456"/>
+        <property name="password" value=""/>
     </bean>
 
     <!-- MyBatis 설정 -->
@@ -36,7 +38,7 @@
     </bean>
 
     <!-- @Transactional 어노테이션 활성화 -->
-   <!-- <tx:annotation-driven transaction-manager="transactionManager"/>-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
