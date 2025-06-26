@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/accinfo.css" />
 <%--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>--%>
 </head>
-<body class="">
+<body class="accommodations">
 <%@ include file="../common/header.jsp" %>
 
 <main>
@@ -341,135 +341,143 @@
     <!-- 판매자 정보 버튼 -->
     <div id="openSellerModal" class="seller-info-list" tabindex="0" role="button" aria-pressed="false">
         <span>판매자 정보</span>
-        <span class="arrow">&gt;</span>
+        <span class="arrow">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="#c2c2c2" xmlns="http://www.w3.org/2000/svg" class="fill-contentQuaternary"><path d="M7.016 14.594L12.02 10 7 5.392 8.402 4c2.816 2.545 4.485 4.076 5.007 4.594a1.978 1.978 0 010 2.812L8.422 16l-1.406-1.406z" fill=""></path></svg>
+        </span>
     </div>
 
     <!-- 판매자 정보 모달 -->
     <div id="sellerModal" class="modal" style="display: none;">
+        <div class="modal-backdrop"></div>
         <div class="modal-content">
-            <span class="close-btn seller-close" role="button" aria-label="닫기">&times;</span>
+            <button class="close-btn seller-close" aria-label="닫기">&times;</button>
             <h2>판매자 정보</h2>
-            <ul>
-                <li><strong>상호명:</strong> <c:out value="${acc.businessName}"/></li>
-                <li><strong>대표자명:</strong> <c:out value="${acc.hostName}"/></li>
-                <li><strong>전화번호:</strong> <c:out value="${acc.tel}"/></li>
-                <li><strong>이메일:</strong> <c:out value="${acc.email}"/></li>
-                <li><strong>사업자번호:</strong> <c:out value="${acc.licenseNum}"/></li>
-            </ul>
+
+            <table class="seller-info-table">
+                <tbody>
+                <tr><th>상호명:</th> <td><c:out value="${acc.businessName}"/></td></tr>
+                <tr><th>대표자명:</th> <td><c:out value="${acc.hostName}"/></td></tr>
+                <tr><th>전화번호:</th> <td><c:out value="${acc.tel}"/></td></tr>
+                <tr><th>이메일:</th> <td><c:out value="${acc.email}"/></td></tr>
+                <tr><th>사업자번호:</th> <td><c:out value="${acc.licenseNum}"/></td></tr>
+                </tbody>
+            </table>
+
+            <div class="seller-info-notice">
+                <span class="highlight">판매자 정보는 판매자의 명시적 동의 없이 영리 목적의 마케팅·광고 등에 활용할 수 없습니다.</span>
+                <br />
+                이를 어길 시 정보통신망법 등 관련 법령에 의거하여 과태료 부과 및 민형사상 책임을 지게 될 수 있습니다.
+            </div>
         </div>
     </div>
 </main>
 
 <%@ include file="../common/footer.jsp" %>
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-    <script>
-
-        // 갤러리 모달
-        (function () {
-            const galleryModal = document.getElementById("galleryModal");
-            if (galleryModal) {
-                document.querySelectorAll(".gallery-img-link").forEach((link) => {
-                    link.addEventListener("click", function (e) {
-                        e.preventDefault();
-                        const img = this.querySelector("img");
-                        const modalImg = galleryModal.querySelector(".modal-img");
-                        modalImg.src = img.src;
-                        galleryModal.style.display = "flex";
-                    });
+<script>
+    // 갤러리 모달
+    (function () {
+        const galleryModal = document.getElementById("galleryModal");
+        if (galleryModal) {
+            document.querySelectorAll(".gallery-img-link").forEach((link) => {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const img = this.querySelector("img");
+                    const modalImg = galleryModal.querySelector(".modal-img");
+                    modalImg.src = img.src;
+                    galleryModal.style.display = "flex";
                 });
-                const closeBtn = galleryModal.querySelector(".modal-close");
-                const backdrop = galleryModal.querySelector(".modal-backdrop");
-                if (closeBtn)
-                    closeBtn.onclick = () => {
-                        galleryModal.style.display = "none";
-                    };
-                if (backdrop)
-                    backdrop.onclick = () => {
-                        galleryModal.style.display = "none";
-                    };
-            }
-        })();
+            });
+            const closeBtn = galleryModal.querySelector(".modal-close");
+            const backdrop = galleryModal.querySelector(".modal-backdrop");
+            if (closeBtn)
+                closeBtn.onclick = () => {
+                    galleryModal.style.display = "none";
+                };
+            if (backdrop)
+                backdrop.onclick = () => {
+                    galleryModal.style.display = "none";
+                };
+        }
+    })();
 
-        // 시설 전체 모달
-        (function () {
-            const facilityModal = document.getElementById("facilityModal");
-            const facilityCard = document.getElementById("facilityCard");
-            if (facilityModal && facilityCard) {
-                facilityCard.onclick = function () {
+    // 시설 전체 모달
+    (function () {
+        const facilityModal = document.getElementById("facilityModal");
+        const facilityCard = document.getElementById("facilityCard");
+        if (facilityModal && facilityCard) {
+            facilityCard.onclick = function () {
+                facilityModal.style.display = "flex";
+            };
+            facilityCard.onkeydown = function (e) {
+                if (e.key === "Enter" || e.key === " ") {
                     facilityModal.style.display = "flex";
+                }
+            };
+            const closeBtn = facilityModal.querySelector(".modal-close");
+            const backdrop = facilityModal.querySelector(".modal-backdrop");
+            if (closeBtn)
+                closeBtn.onclick = () => {
+                    facilityModal.style.display = "none";
                 };
-                facilityCard.onkeydown = function (e) {
-                    if (e.key === "Enter" || e.key === " ") {
-                        facilityModal.style.display = "flex";
-                    }
+            if (backdrop)
+                backdrop.onclick = () => {
+                    facilityModal.style.display = "none";
                 };
-                const closeBtn = facilityModal.querySelector(".modal-close");r
-                const backdrop = facilityModal.querySelector(".modal-backdrop");
-                if (closeBtn)
-                    closeBtn.onclick = () => {
-                        facilityModal.style.display = "none";
-                    };
-                if (backdrop)
-                    backdrop.onclick = () => {
-                        facilityModal.style.display = "none";
-                    };
-            }
-        })();
+        }
+    })();
 
+    // 객실 상세정보 모달
+    (function () {
+        const roomDetailModal = document.getElementById("roomDetailModal");
+        const roomDetailBtn = document.getElementById("roomDetailBtn");
+        if (roomDetailModal && roomDetailBtn) {
+            roomDetailBtn.onclick = function () {
+                roomDetailModal.style.display = "flex";
+            };
+            const closeBtn = roomDetailModal.querySelector(".modal-close");
+            const backdrop = roomDetailModal.querySelector(".modal-backdrop");
+            if (closeBtn)
+                closeBtn.onclick = () => {
+                    roomDetailModal.style.display = "none";
+                };
+            if (backdrop)
+                backdrop.onclick = () => {
+                    roomDetailModal.style.display = "none";
+                };
+        }
+    })();
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const sellerModal = document.getElementById("sellerModal");
-            const roomModal = document.getElementById("roomDetailModal");
+    // 판매자 정보 모달
+    (function () {
+        const sellerModal = document.getElementById("sellerModal");
+        const openSellerModal = document.getElementById("openSellerModal");
+        const closeBtn = sellerModal ? sellerModal.querySelector(".seller-close") : null;
+        const backdrop = sellerModal ? sellerModal.querySelector(".modal-backdrop") : null;
 
-            const sellerBtn = document.getElementById("openSellerModal");
-            const sellerCloseBtn = document.querySelector("#sellerModal .seller-close");
-            const roomCloseBtn = document.querySelector("#roomDetailModal .room-close");
-
-            // 판매자 모달 열기
-            sellerBtn?.addEventListener('click', () => {
-                sellerModal.style.display = "block";
-                sellerBtn.setAttribute('aria-pressed', 'true');
-            });
-
-            // 판매자 모달 닫기
-            sellerCloseBtn?.addEventListener('click', () => {
+        if (sellerModal && openSellerModal) {
+            openSellerModal.onclick = function () {
+                sellerModal.style.display = "flex";
+            };
+            openSellerModal.onkeydown = function (e) {
+                if (e.key === "Enter" || e.key === " ") {
+                    sellerModal.style.display = "flex";
+                }
+            };
+        }
+        if (sellerModal && closeBtn) {
+            closeBtn.onclick = function () {
                 sellerModal.style.display = "none";
-                sellerBtn.setAttribute('aria-pressed', 'false');
-            });
+            };
+        }
 
-            // 객실 상세정보 모달 열기
-            document.querySelectorAll('.detail-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const rawInfo = button.dataset.info || '없음';
-                    const rawAddInfo = button.dataset.addinfo || '없음';
-
-                    const formattedInfo = rawInfo.replace(/\n/g, '<br>');
-                    const formattedAddInfo = rawAddInfo.replace(/\n/g, '<br>');
-
-                    document.getElementById('modalRoomName').innerText = button.dataset.name;
-                    document.getElementById('modalRoomInfo').innerHTML = formattedInfo;
-                    document.getElementById('modalRoomAddInfo').innerHTML = formattedAddInfo;
-                    roomModal.style.display = "block";
-                });
-            });
-
-            // 객실 모달 닫기
-            // roomCloseBtn?.addEventListener('click', () => {
-            //     roomModal.style.display = "none";
-            // });
-            //
-            // // 바깥 클릭 시 모달 닫기
-            // window.addEventListener('click', (event) => {
-            //     if (event.target === sellerModal) {
-            //         sellerModal.style.display = "none";
-            //         sellerBtn.setAttribute('aria-pressed', 'false');
-            //     }
-            //     if (event.target === roomModal) {
-            //         roomModal.style.display = "none";
-            //     }
-            // });
-        });
-    </script>
+        if (sellerModal && backdrop) {
+            backdrop.onclick = function () {
+                sellerModal.style.display = "none";
+            };
+        }
+    })();
+</script>
 
 <%--    </c:otherwise>--%>
 <%--    </c:choose>--%>
