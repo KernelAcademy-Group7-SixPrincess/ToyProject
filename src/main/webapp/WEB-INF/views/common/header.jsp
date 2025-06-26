@@ -1,4 +1,5 @@
-<%@ page import="org.spring.example.user.dto.UserinfoDto" %><%--<%@ page import="org.spring.example.user.dto.UserinfoDto" %>--%>
+<%@ page import="org.spring.example.user.dto.UserinfoDto" %>
+<%@ page import="org.spring.example.user.dto.UserContextDto" %><%--<%@ page import="org.spring.example.user.dto.UserinfoDto" %>--%>
 <%--
   Created by IntelliJ IDEA.
   User: hyeonjeong
@@ -9,7 +10,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
 //   로그인한 사용자 정보 가져오기
-  UserinfoDto loginUser = (UserinfoDto) session.getAttribute("loginUser");
+  UserContextDto loginUser = (UserContextDto) session.getAttribute("loginUser");
 
 %>
 <header class="site-header">

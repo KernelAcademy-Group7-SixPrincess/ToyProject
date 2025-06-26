@@ -1,6 +1,7 @@
 package org.spring.example.user.service;
 
 import org.spring.example.mapper.UserMapper;
+import org.spring.example.user.dto.UserContextDto;
 import org.spring.example.user.dto.UserinfoDto;
 import org.spring.example.user.dto.UserloginDto;
 import org.spring.example.user.dto.UsersignupDto;
@@ -40,5 +41,26 @@ public class UserServiceImpl implements UserService {
         return userMapper.isEmailDuplicate(email) == 1;
     }
 
-
+//    회원정보, 역할 저장
+    @Override
+    public UserContextDto getUserContext(UserinfoDto userinfoDto,  Long roleId) {
+        UserContextDto userContextDto = new UserContextDto();
+        userContextDto.setId(userinfoDto.getId());
+        userContextDto.setPassword(userinfoDto.getPassword());
+        userContextDto.setName(userinfoDto.getName());
+        userContextDto.setGender(userinfoDto.getGender());
+        userContextDto.setEmail(userinfoDto.getEmail());
+        userContextDto.setBirthDate(userinfoDto.getBirthDate());
+        userContextDto.setPhone(userinfoDto.getPhone());
+        userContextDto.setNickname(userinfoDto.getNickname());
+        userContextDto.setSignupAt(userinfoDto.getSignupAt());
+        userContextDto.setUserStatus(userinfoDto.getUserStatus());
+        userContextDto.setPointBalance(userinfoDto.getPointBalance());
+        userContextDto.setDeletedAt(userinfoDto.getDeletedAt());
+        userContextDto.setUpdatedAt(userinfoDto.getUpdatedAt());
+        userContextDto.setCodeTypeId(userinfoDto.getCodeTypeId());
+        userContextDto.setCode(userinfoDto.getCode());
+        userContextDto.setRoleId(roleId);
+        return userContextDto;
+    }
 }

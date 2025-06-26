@@ -1,5 +1,6 @@
 package org.spring.example.user.service;
 
+import org.spring.example.user.dto.UserContextDto;
 import org.spring.example.user.dto.UserinfoDto;
 import org.spring.example.user.dto.UserloginDto;
 import org.spring.example.user.dto.UsersignupDto;
@@ -18,4 +19,7 @@ public interface UserService {
 
 //     이메일 중복 확인
      public boolean isEmailDuplicate(String email);
+
+     // 유저정보, 역할 정보 저장
+     public UserContextDto getUserContext(UserinfoDto userinfoDto, Long roleId);
 }
