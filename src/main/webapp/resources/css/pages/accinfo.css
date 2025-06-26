@@ -854,6 +854,32 @@
     line-height: 1.7;
 }
 
+.acc-facility-info {
+    margin: 48px auto 0 auto;
+}
+.acc-facility-info h2 {
+    font-size: 1.18rem;
+    color: #222;
+    font-weight: 800;
+    margin-bottom: 18px;
+}
+.acc-facility-info .subsection {
+    padding-top: 15px;
+    padding-bottom: 8px;
+}
+.acc-facility-info .subsection h3 {
+    font-size: 15px;
+    color: #49627a;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+.acc-facility-info .subsection p {
+    font-size: 15px;
+    color: #707070;
+    margin-bottom: 8px;
+    line-height: 1.7;
+}
+
 .seller-info-list {
     display: flex;
     align-items: center;

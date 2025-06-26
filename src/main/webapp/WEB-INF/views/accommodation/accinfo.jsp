@@ -21,27 +21,27 @@
         <div class="gallery-container">
             <a href="#" class="gallery-main gallery-img-link">
                 <img alt="${acc.name}" sizes="100vw"
-                     srcset="http://image.goodchoice.kr/resize_1280x1024/affiliate/2022/05/31/6295bf8c8d3f3.jpg 340w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2022/05/31/6295bf8c8d3f3.jpg 912w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2022/05/31/6295bf8c8d3f3.jpg 1200w"
+                     srcset="${acc.mainImageUrl} 340w, ${acc.mainImageUrl} 912w, ${acc.mainImageUrl} 1200w"
                      src="${acc.mainImageUrl}"/>
             </a>
             <a href="#" class="gallery-thumb gallery-img-link" data-idx="1">
                 <img alt="${acc.name}" sizes="100vw"
-                     srcset="http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391a86702.jpg 340w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391a86702.jpg 912w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391a86702.jpg 1200w"
+                     srcset="${acc.mainImageUrl} 340w, ${acc.mainImageUrl} 912w, ${acc.mainImageUrl} 1200w"
                      src="${acc.mainImageUrl}"/>
             </a>
             <a href="#" class="gallery-thumb gallery-img-link" data-idx="2">
                 <img alt="${acc.name}" sizes="100vw"
-                     srcset="http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391cbea2f.jpg 340w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391cbea2f.jpg 912w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391cbea2f.jpg 1200w"
+                     srcset="${acc.mainImageUrl} 340w, ${acc.mainImageUrl} 912w, ${acc.mainImageUrl} 1200w"
                      src="${acc.mainImageUrl}"/>
             </a>
             <a href="#" class="gallery-thumb gallery-img-link" data-idx="3">
                 <img alt="${acc.name}" sizes="100vw"
-                     srcset="http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391b8280c.jpg 340w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391b8280c.jpg 912w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391b8280c.jpg 1200w"
+                     srcset="${acc.mainImageUrl} 340w, ${acc.mainImageUrl} 912w, ${acc.mainImageUrl} 1200w"
                      src="${acc.mainImageUrl}"/>
             </a>
             <a href="#" class="gallery-thumb gallery-img-link" data-idx="4">
                 <img alt="${acc.name}" sizes="100vw"
-                     srcset="http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391dc3bad.jpg 340w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391dc3bad.jpg 912w, http://image.goodchoice.kr/resize_1280x1024/affiliate/2025/05/30/6839391dc3bad.jpg 1200w"
+                     srcset="${acc.mainImageUrl} 340w, ${acc.mainImageUrl} 912w, ${acc.mainImageUrl} 1200w"
                      src="${acc.mainImageUrl}"/>
             </a>
         </div>
@@ -67,6 +67,7 @@
         <div class="accom-info-cards">
             <div class="accom-info-card accom-review">
                 <div class="accom-card-title-row">
+                    <span class="accom-card-title accom-review-title">⭐ ${acc.avgrate}</span>
                     <span class="accom-card-title accom-review-title">${acc.reviewerCnt}명 평가</span>
                     <span class="accom-card-arrow">
                 <svg width="18" height="18" viewBox="0 0 20 20" fill="" xmlns="http://www.w3.org/2000/svg"
@@ -116,25 +117,6 @@
         </div>
     </section>
 
-
-    <%--        <div class="acc-detail-container">--%>
-    <%--            <section class="acc-info-section">--%>
-    <%--                <h1 class="acc-name">${acc.name}</h1>--%>
-    <%--                <p class="acc-address">${acc.address}</p>--%>
-    <%--                <div class="acc-rating">--%>
-    <%--                    <span>⭐ ${acc.avgrate} / 10.0</span>--%>
-    <%--                    <span>(${acc.reviewerCnt}명 평가)</span>--%>
-    <%--                </div>--%>
-
-    <%--                <section class="acc-checkin-checkout">--%>
-    <%--                    <p>체크인: <c:out value="${acc.checkInTime != null ? acc.checkInTime : '정보없음'}"/></p>--%>
-    <%--                    <p>체크아웃: <c:out value="${acc.checkOutTime != null ? acc.checkOutTime : '정보없음'}"/></p>--%>
-    <%--                </section>--%>
-
-    <%--                <!-- 기타 정보도 마찬가지로 EL로 표현 -->--%>
-
-    <%--            </section>--%>
-
     <c:if test="${not empty acc.roomList}">
     <section class="room-section">
         <h2 class="acc-title">객실 선택</h2>
@@ -146,15 +128,10 @@
                          srcset="${room.mainImageUrl} 1x"
                          src="${room.mainImageUrl}"/>
                 </div>
-
-                    <%--    <section class="room-card">--%>
-                    <%--        <div class="room-card__img-wrap">--%>
-                    <%--            <img alt="[숙박 페스타] [호텔] 슈페리어 빌리지 더블" srcset="http://image.goodchoice.kr/affiliate/2025/02/26/67be58902e40b.jpg 1x" src="http://image.goodchoice.kr/affiliate/2025/02/26/67be58902e40b.jpg" />--%>
-                    <%--        </div>--%>
                 <div class="room-card__content">
                     <header class="room-card__header">
                         <h2 class="room-card__title">${room.name}</h2>
-                        <button class="room-card__detail-btn" aria-label="상세 정보 보기" id="roomDetailBtn"
+                        <button class="room-card__detail-btn" aria-label="상세 정보 보기"
                                 data-name="${room.name}"
                                 data-info="${room.info}"
                                 data-addinfo="${room.addInfo}">
@@ -193,27 +170,6 @@
         </c:forEach>
     </section>
     </c:if>
-    <%--            <!-- 객실 리스트 -->--%>
-    <%--            <c:if test="${not empty acc.roomList}">--%>
-    <%--                <section class="room-section">--%>
-    <%--                    <h2>객실 선택</h2>--%>
-    <%--                    <c:forEach var="room" items="${acc.roomList}">--%>
-    <%--                        <div class="room-card">--%>
-    <%--                            <img src="${room.mainImageUrl}" alt="객실 이미지" class="room-image"/>--%>
-    <%--                            <div class="room-details">--%>
-    <%--                                <h3 class="room-name"><c:out value="${room.name}"/></h3>--%>
-    <%--                                <p>기준 ${room.capacity}인 / 최대 ${room.maxCapacity}인</p>--%>
-    <%--                                <button class="detail-btn"--%>
-    <%--                                        data-name="${room.name}"--%>
-    <%--                                        data-info="${room.info}"--%>
-    <%--                                        data-addinfo="${room.addInfo}">--%>
-    <%--                                    상세 정보--%>
-    <%--                                </button>--%>
-    <%--                            </div>--%>
-    <%--                        </div>--%>
-    <%--                    </c:forEach>--%>
-    <%--                </section>--%>
-    <%--            </c:if>--%>
 
     <!-- 시설 전체 모달 -->
     <div id="facilityModal" class="modal" style="display: none">
@@ -234,8 +190,6 @@
             </div>
         </div>
     </div>
-
-
 
     <!-- 추가 정보 -->
     <c:if test="${hasExtraInfo}">
@@ -326,7 +280,7 @@
     <div id="roomDetailModal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close-btn room-close">&times;</span>
-            <h2 id="modalRoomName">객실명</h2>
+            <h2 id="modalRoomName">${room.name}</h2>
 
             <h3>객실 정보</h3>
             <p id="modalRoomInfo">없음</p>
@@ -430,22 +384,40 @@
     // 객실 상세정보 모달
     (function () {
         const roomDetailModal = document.getElementById("roomDetailModal");
-        const roomDetailBtn = document.getElementById("roomDetailBtn");
-        if (roomDetailModal && roomDetailBtn) {
-            roomDetailBtn.onclick = function () {
+        const roomDetailBtn = document.querySelectorAll(".room-card__detail-btn");
+        const closeBtn = roomDetailModal.querySelector(".close-btn");
+        const backdrop = roomDetailModal.querySelector(".modal-backdrop");
+
+        roomDetailBtn.forEach(btn => {
+            btn.addEventListener("click", () => {
+                // 버튼의 data 속성에서 정보 읽기
+                const name = btn.getAttribute("data-name");
+                const info = btn.getAttribute("data-info");
+                const addInfo = btn.getAttribute("data-addinfo");
+
+                // 모달 내용 업데이트
+                roomDetailModal.querySelector("#modalRoomName").textContent = name || "정보 없음";
+                roomDetailModal.querySelector("#modalRoomInfo").textContent = info || "없음";
+                roomDetailModal.querySelector("#modalRoomAddInfo").textContent = addInfo || "없음";
+
+                // 모달 표시
                 roomDetailModal.style.display = "flex";
-            };
-            const closeBtn = roomDetailModal.querySelector(".modal-close");
-            const backdrop = roomDetailModal.querySelector(".modal-backdrop");
-            if (closeBtn)
-                closeBtn.onclick = () => {
-                    roomDetailModal.style.display = "none";
-                };
-            if (backdrop)
-                backdrop.onclick = () => {
-                    roomDetailModal.style.display = "none";
-                };
+            });
+        });
+
+        // 닫기 버튼 클릭 시 모달 닫기
+        if (closeBtn) {
+            closeBtn.addEventListener("click", () => {
+                roomDetailModal.style.display = "none";
+            });
         }
+
+        // 모달 영역 외 클릭 시 닫기 (선택사항 - 모달 구조에 backdrop이 있어야 함)
+        window.addEventListener("click", (e) => {
+            if (e.target === roomDetailModal) {
+                roomDetailModal.style.display = "none";
+            }
+        });
     })();
 
     // 판매자 정보 모달
