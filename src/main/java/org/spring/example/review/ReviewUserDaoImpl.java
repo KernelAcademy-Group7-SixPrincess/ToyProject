@@ -20,12 +20,10 @@ import java.util.Map;
     private static String namespace = "org.spring.example.review.ReviewUserMapper";
 
     // mapResultSetToUserDto 헬퍼 메서드는 MyBatis가 자동으로 처리하므로 필요 없습니다.
-    // private ReviewUserDto mapResultSetToUserDto(ResultSet rs) ... 이 메서드 통째로 삭제
 
     @Override
     public int deleteUser(BigInteger id) throws Exception {
-        // SQL 쿼리 직접 작성 대신 session.delete() 호출
-        // 여기서는 '소프트 삭제'를 위해 update 쿼리를 사용하도록 변경했습니다.
+
         Map<String, Object> map = new HashMap<>();
         map.put("id", id);
         map.put("status", "DELETED");
