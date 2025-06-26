@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
 //    회원정보, 역할 저장
     @Override
-    public UserContextDto getUserContext(UserinfoDto userinfoDto,  Long roleId) {
+    public UserContextDto setUserContext(UserinfoDto userinfoDto,  Long roleId) {
         UserContextDto userContextDto = new UserContextDto();
         userContextDto.setId(userinfoDto.getId());
         userContextDto.setPassword(userinfoDto.getPassword());
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         userContextDto.setUpdatedAt(userinfoDto.getUpdatedAt());
         userContextDto.setCodeTypeId(userinfoDto.getCodeTypeId());
         userContextDto.setCode(userinfoDto.getCode());
-        userContextDto.setRoleId(roleId);
+        userContextDto.setRoleIdCount(roleId);
         return userContextDto;
     }
 }

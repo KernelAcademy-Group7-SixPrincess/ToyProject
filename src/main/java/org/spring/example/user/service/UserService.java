@@ -21,5 +21,5 @@ public interface UserService {
      public boolean isEmailDuplicate(String email);
 
      // 유저정보, 역할 정보 저장
-     public UserContextDto getUserContext(UserinfoDto userinfoDto, Long roleId);
+     public UserContextDto setUserContext(UserinfoDto userinfoDto, Long roleId);
 }

@@ -24,5 +24,5 @@ public class UserContextDto {
     private Timestamp updatedAt;
     private String codeTypeId;
     private int code;
-    private Long roleId;
+    private Long roleIdCount;
 }

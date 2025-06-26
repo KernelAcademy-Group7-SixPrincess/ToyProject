@@ -69,6 +69,21 @@
             <li><a href="/board/notice">공지사항</a></li>
             <li><a href="/board/faq">자주묻는질문</a></li>
             <li><a href="/board/qna">고객문의</a></li>
+            <%
+              if (loginUser.getRoleIdCount() == 1){
+            %>
+            <li><a href="/user/check-role-seller">판매자로 변경</a></li>
+            <%
+              } else if (loginUser.getRoleIdCount() == 2) {
+            %>
+            <li><a href="/user/check-role-user">이용자로 변경</a></li>
+            <%
+              } else{
+            %>
+            <a href="/">관리자</a>
+            <%
+              }
+            %>
             <li><a href="/user/logout">로그아웃</a></li>
           </ul>
         </div>

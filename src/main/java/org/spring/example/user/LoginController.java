@@ -72,8 +72,13 @@ public class LoginController {
         if (loginUser == 1) {
             // 로그인 성공 → 세션에 저장
             UserinfoDto userinfo = userService.getUserinfo(userloginDto.getEmail());
-            Long userrole = rolesService.getUserRole(userinfo.getId());
-            UserContextDto usercontext = userService.getUserContext(userinfo, userrole);
+            Long userrole = rolesService.getUserRoleCount(userinfo.getId());
+            if (userrole == 0L) {
+                userrole = 0L;
+            } else {
+                userrole = 1L;
+            }
+            UserContextDto usercontext = userService.setUserContext(userinfo, userrole);
             session.setAttribute("loginUser", usercontext);
             return "redirect:/";
         } else {

@@ -13,12 +13,19 @@ public class RolesServiceImpl implements RolesService{
 
 //    역할 조회
     @Override
-    public Long getUserRole(Long userId){
-        return rolesMapper.getUserRole(userId);
+    public Long getUserRoleCount(Long userId){
+        return rolesMapper.getUserRoleCount(userId);
     }
 
+//    역할 저장
     @Override
     public void setUserRole(Long userId){
         rolesMapper.setUserRole(userId);
+    }
+
+//    역할 추가
+    @Override
+    public void addUserRole(Long userId,  Long roleId){
+        rolesMapper.addUserRole(userId, roleId);
     }
 }
