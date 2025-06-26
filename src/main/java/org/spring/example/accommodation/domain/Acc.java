@@ -1,9 +1,11 @@
 package org.spring.example.accommodation.domain;
 
 import lombok.*;
+import org.spring.example.room.dto.Room;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Getter
 @Setter

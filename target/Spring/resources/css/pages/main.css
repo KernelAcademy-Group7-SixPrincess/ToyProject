@@ -143,3 +143,193 @@
     color: rgb(51 51 51);
     padding: 12px 4px 20px;
 }
+
+/* flatpickr 달력 input 통일 스타일 */
+#date-range {
+    font-size: 15px;
+    height: 32px;
+    padding: 0 10px;
+    /*border-radius: 8px;*/
+    /*border: 1px solid #ddd;*/
+    background-color: rgb(245 245 245);
+    color: #222;
+    outline: none;
+    min-width: 180px;
+}
+
+#date-range:focus {
+    border-color: #007aff;
+    outline: none;
+}
+
+/* 날짜 선택 버튼 */
+.date-picker-wrap {
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.date-picker-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 12px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.date-picker-btn:hover {
+    border-color: #007aff;
+}
+
+.selected-date-text {
+    white-space: nowrap;
+}
+
+/* 인원 선택 */
+.guest-count-wrap {
+    flex-shrink: 0;
+}
+
+.guest-display {
+    font-size: 13px;
+    padding: 0 10px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    gap: 4px;
+}
+
+.guest-icon {
+    flex-shrink: 0;
+}
+
+.guest-btn {
+    width: 30px;
+    height: 30px;
+    /*border: 1px solid #ddd;*/
+    /*border-radius: 4px;*/
+    /*background: #f9f9f9;*/
+    font-size: 30px;
+    font-weight: 1000;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 3px;
+}
+
+button.guest-btn {
+    padding-bottom: 8px;
+}
+.guest-label {
+    margin-right: 4px;
+    color: #333;
+}
+
+.guest-btn:hover {
+    background: #eee;
+}
+
+.guest-btn:active {
+    background: #ddd;
+}
+
+/* 검색 버튼 */
+.submit-btn-wrap {
+    flex-shrink: 0;
+}
+
+.submit-btn {
+    background-color: #007aff;
+    color: white;
+    font-size: 13px;
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #005ecb;
+}
+
+/* 1. 검색 섹션 전체를 flex 컨테이너로 */
+.search-section .search-inner {
+    display: flex;
+    align-items: center;    /* 세로 중앙 정렬 */
+    gap: 12px;               /* 아이템 간격 통일 */
+    padding: 0 12px;         /* 좌우 여백 약간 추가 */
+    height: 48px;            /* 높이 고정 */
+}
+
+/* 2. 돋보기 아이콘 크기·정렬 보정 */
+.search-icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.search-icon-wrap svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* 3. 입력 필드(여행지 검색, 날짜 선택) 높이와 패딩 통일 */
+.search-input-field .input-keyword,
+.date-picker-wrap .input-keyword {
+    height: 32px;
+    line-height: 32px;
+    padding: 0 10px;
+    font-size: 13px;
+    border-radius: 8px;
+    /*border: 1px solid #ddd;*/
+    background-color: #fff;
+}
+
+/* 4. 인원 선택 버튼 그룹 정렬 */
+.guest-display {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.guest-display .guest-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+    line-height: 1;
+}
+.guest-display .guest-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* 5. 검색 버튼 크기·정렬 통일 */
+.submit-btn-wrap {
+    display: flex;
+    align-items: center;
+}
+.submit-btn {
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+/* 6. placeholder 및 글자 정렬 보정 */
+.search-inner input::placeholder {
+    color: #aaa;
+    font-size: 13px;
+}
+
+.input-style {
+    /* 기존 overflow: hidden; 제거 or 덮어쓰기 */
+    overflow: visible !important;
+}

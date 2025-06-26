@@ -7,8 +7,13 @@
 
 .login .container,
 .auth .container,
-.signup .container{
+.signup .container {
   max-width: 384px;
+}
+
+main {
+  margin: 0 auto;
+  padding-bottom: 96px;
 }
 
 /* 전체 헤더 배경 및 기본 레이아웃 */
@@ -33,6 +38,9 @@
 
 .nav__logo {
   margin: 0;
+  /*수정 해봤어요. 잘못되면 지워주세요. -승민-*/
+  display: flex;
+  align-items: center;
 }
 
 .nav__logo-link {
@@ -58,30 +66,23 @@
   padding-right: 14px;
 }
 
-.nav__actions.user {
+.nav__actions .user {
   border-style: solid;
   border-radius: 8px;
   border-width: 1.5px;
   border-color: rgb(235 235 235 / 1);
 }
 
-.nav__actions.user:hover {
+.nav__actions .user:hover {
   background-color: rgb(245 245 245);
 }
 
-/*로그인 이후 버튼에 있는 닉네임이 블럭잡히게 하지 않기 위해 추가*/
-.nav__actions.user,
-.nav__actions.user * {
-  cursor: pointer;
-  user-select: none;
-}
-
-.nav__actions.user .user__name-wrap {
+.nav__actions .user .user__name-wrap {
   display: flex;
   align-items: center;
 }
 
-.nav__actions.user img {
+.nav__actions .user img {
   height: 26px;
   max-height: 26px;
   min-height: 26px;
@@ -100,7 +101,7 @@
   overflow: hidden;
 }
 
-.nav__actions.user h2 {
+.nav__actions .user h2 {
   font-size: 0.75rem;
   line-height: normal;
   letter-spacing: 0px;
@@ -109,6 +110,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.nav__actions .btn-wrap {
+  display: flex;
 }
 
 .site-header__auth-link {
@@ -192,20 +197,12 @@
   background-color: rgb(245 245 245);
 }
 
-.btn-wrap {
-  display: flex;
-  align-items: center;
-}
-
 .nav__menu-btn {
+  width: 40px;
   font-size: 24px;
   background: none;
   border: none;
   cursor: pointer;
-}
-
-nav__menu-btn.guest {
-  width: 40px;
 }
 
 .nav__menu {

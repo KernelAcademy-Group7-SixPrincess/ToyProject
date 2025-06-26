@@ -48,6 +48,7 @@ public class LoginController {
     @GetMapping("/user/check-email")
     @ResponseBody
     public String checkEmailDuplicate(@RequestParam("email") String email) {
+        System.out.println("중복 체크 요청 이메일: " + email);
         boolean isDuplicate = userService.isEmailDuplicate(email);
         return isDuplicate ? "duplicate" : "available";
     }

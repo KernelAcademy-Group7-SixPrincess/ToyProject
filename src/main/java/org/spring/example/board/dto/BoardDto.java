@@ -4,14 +4,14 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("BoardDto")
 public class BoardDto {
-    private int boardId;
+    private Long boardId;
     private String boardType;
 
-    public int getBoardId() {
+    public Long getBoardId() {
         return boardId;
     }
 
-    public void setBoardId(int boardId) {
+    public void setBoardId(Long boardId) {
         this.boardId = boardId;
     }
 
