@@ -8,6 +8,7 @@ import org.spring.example.user.dto.UserloginDto;
 import org.spring.example.user.dto.UsersignupDto;
 import org.spring.example.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +46,7 @@ public class LoginController {
 
 
     //    이메일 중복 체크
-    @GetMapping("/user/check-email")
+    @GetMapping(value = "/user/check-email", produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
     public String checkEmailDuplicate(@RequestParam("email") String email) {
         System.out.println("중복 체크 요청 이메일: " + email);

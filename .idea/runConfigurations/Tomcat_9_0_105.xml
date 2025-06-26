@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Tomcat 9.0.105" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.105" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+    <option name="COMMON_VM_ARGUMENTS" value="-Dfile.encoding=UTF-8" />
     <option name="UPDATING_POLICY" value="restart-server" />
     <deployment>
       <artifact name="Spring:war exploded">

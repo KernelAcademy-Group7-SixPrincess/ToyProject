@@ -19,8 +19,10 @@ public class Acc {
     private Long regionId;
     private String typeCodeId;
     private int typeCodeCode;
+    private String typeCodeName;
     private String gradeCodeId;
     private int gradeCodeCode;
+    private String gradeCodeName;
     private String mainImageUrl;
     private String name;
     private String address;

@@ -189,9 +189,9 @@
             </ul>
             <h3>${acc.name}</h3>
             <p class="details">${acc.address}</p>
-            <div class="price-section">
-              <span class="price">₩${acc.priceString}</span>
-            </div>
+<%--            <div class="price-section">--%>
+<%--              <span class="price">₩${acc.priceString}</span>--%>
+<%--            </div>--%>
           </div>
         </article>
       </c:forEach>
