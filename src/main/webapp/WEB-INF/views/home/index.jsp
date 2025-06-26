@@ -199,7 +199,7 @@
                         </a>
                     </li>
                     <li class="swiper-slide">
-                        <a href="${pageContext.request.contextPath}/acclist?region=daejeon">
+                        <a href="${pageContext.request.contextPath}/acclist?region=daejeong">
                             <img
                                     alt="대전 여행"
                                     sizes="100vw"
