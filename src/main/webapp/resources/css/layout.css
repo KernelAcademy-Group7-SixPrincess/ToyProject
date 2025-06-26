@@ -1,14 +1,17 @@
 .container {
-  max-width: 1200px;
+  max-width: 384px;
   margin: 0 auto;
-  padding-top: 20px;
-  padding-bottom: 96px;
 }
 
 .login .container,
 .auth .container,
-.signup .container{
+.signup .container {
   max-width: 384px;
+}
+
+main {
+  margin: 0 auto;
+  padding-bottom: 96px;
 }
 
 /* 전체 헤더 배경 및 기본 레이아웃 */
@@ -58,23 +61,23 @@
   padding-right: 14px;
 }
 
-.nav__actions.user {
+.nav__actions .user {
   border-style: solid;
   border-radius: 8px;
   border-width: 1.5px;
   border-color: rgb(235 235 235 / 1);
 }
 
-.nav__actions.user:hover {
+.nav__actions .user:hover {
   background-color: rgb(245 245 245);
 }
 
-.nav__actions.user .user__name-wrap {
+.nav__actions .user .user__name-wrap {
   display: flex;
   align-items: center;
 }
 
-.nav__actions.user img {
+.nav__actions .user img {
   height: 26px;
   max-height: 26px;
   min-height: 26px;
@@ -93,7 +96,7 @@
   overflow: hidden;
 }
 
-.nav__actions.user h2 {
+.nav__actions .user h2 {
   font-size: 0.75rem;
   line-height: normal;
   letter-spacing: 0px;
@@ -102,6 +105,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.nav__actions .btn-wrap {
+  display: flex;
 }
 
 .site-header__auth-link {
@@ -183,11 +190,6 @@
 
 .nav__menu-lists a:hover {
   background-color: rgb(245 245 245);
-}
-
-.btn-wrap {
-  display: flex;
-  align-items: center;
 }
 
 .nav__menu-btn {
