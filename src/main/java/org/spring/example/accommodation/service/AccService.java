@@ -11,6 +11,11 @@ public interface AccService {
         // ID로 숙소 조회
         Acc getAccById(Long accId);
 
+        // ID로 숙소 + 객실 리스트 조회
+        Acc getAccByIdWithRooms(Long accId);
+
+        List<Acc> getByRegion(String region);
+
         // 지역(region)과 타입(typeCode)으로 숙소 조회
         List<Acc> getByRegionAndType(String region, Integer typeCode);
 

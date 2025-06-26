@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.spring.example.mapper.AmenityMapper">
+
+    <select id="findAll" resultType="org.spring.example.amenity.domain.Amenity">
+        SELECT * FROM amenity
+    </select>
+
+    <select id="findById" parameterType="long" resultType="org.spring.example.amenity.domain.Amenity">
+        SELECT * FROM amenity WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="org.spring.example.amenity.domain.Amenity">
+        INSERT INTO amenity (amenity_category_id, name, created_at)
+        VALUES (#{amenityCategoryId}, #{name}, #{createdAt})
+    </insert>
+
+    <update id="update" parameterType="org.spring.example.amenity.domain.Amenity">
+        UPDATE amenity
+        SET amenity_category_id = #{amenityCategoryId},
+        name = #{name},
+        created_at = #{createdAt}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM amenity WHERE id = #{id}
+    </delete>
+
+</mapper>

@@ -4,7 +4,5 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/mappers/PostMapper.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mappers/ReservationMapper.xml" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mappers/RoomMapper.xml" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/mappers/UserMapper.xml" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/mappers/UserRolesMapper.xml" dialect="GenericSQL" />
   </component>
 </project>

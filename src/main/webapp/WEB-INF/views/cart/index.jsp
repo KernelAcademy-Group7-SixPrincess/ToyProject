@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8" />
-    <title>장바구니 - 저기어때</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/reset.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/setting.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/cart.css" />
+  <meta charset="UTF-8" />
+  <title>저기어때</title>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/reset.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/setting.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/cart.css" />
 </head>
 
 <body class="cart">
