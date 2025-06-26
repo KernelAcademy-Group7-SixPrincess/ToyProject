@@ -86,7 +86,6 @@ public class BoardController {
     @GetMapping("/{type}/{postId}")
     public String viewPost(@PathVariable String type, @PathVariable Long postId, Model model) {
         PostDto post = postService.findPostById(postId);
-        model.addAttribute("post", post);
 
         List<CommentDto> commentList = commentService.selectCommentsByPostId(postId);
 
@@ -98,6 +97,7 @@ public class BoardController {
             }
         }
 
+        model.addAttribute("post", post);
         model.addAttribute("commentList", commentList);
 
         return "board/" + type + "/detail";

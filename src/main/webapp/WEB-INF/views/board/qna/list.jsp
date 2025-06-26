@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/board.css" />
 </head>
 <body class="board qna">
-<%@ include file="../../common/header.jsp" %>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 
 <main>
@@ -70,7 +70,7 @@
     </section>
 </main>
 
-<%@ include file="../../common/footer.jsp" %>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
