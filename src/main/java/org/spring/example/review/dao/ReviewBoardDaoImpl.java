@@ -1,7 +1,7 @@
-package org.spring.example.review;
+package org.spring.example.review.dao;
 
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
+import org.spring.example.review.ReviewBoardDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ public class ReviewBoardDaoImpl implements ReviewBoardDao {
 
         @Autowired
         private SqlSession session;
-        private String namespace = "org.spring.example.review.ReviewBoardMapper";
+        private String namespace = "org.spring.example.mapper.ReviewBoardMapper";
 
         @Override
         public int count() throws Exception {
@@ -33,7 +33,7 @@ public class ReviewBoardDaoImpl implements ReviewBoardDao {
     }
     @Override
     public List<ReviewBoardDto> selectAll() throws Exception{
-            return session.selectList(namespace +".selectAll");
+        return session.selectList("org.spring.example.mapper.ReviewBoardMapper.selectAll");
     }
 
 
@@ -42,16 +42,19 @@ public class ReviewBoardDaoImpl implements ReviewBoardDao {
         return session.selectOne(namespace+".select", review_id);
     }
 
-    @Override
-    public List<ReviewBoardDto> selectPage(Map map) throws Exception{
-            return session.selectList(namespace +".selectPage", map);
-    }
+
     @Override
     public int update(ReviewBoardDto dto) throws Exception{
             return session.update(namespace +".update",dto);
     }
+
     @Override
-    public List<ReviewBoardDto> findByAccId(@Param("accId") Long accId){
-            return session.selectList(namespace +".findByAccId",accId);
+    public List<ReviewBoardDto> getReviewsByAccId(Long accId) {
+        return session.selectList(namespace + ".getReviewsByAccId", accId);
+    }
+
+    @Override
+    public ReviewBoardDto getReviewStatsByAccId(Long accId) {
+        return session.selectOne(namespace + ".getReviewStatsByAccId", accId);
     }
 }

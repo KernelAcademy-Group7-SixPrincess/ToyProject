@@ -1,7 +1,7 @@
-package org.spring.example.review;
+package org.spring.example.review.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.spring.example.review.ReviewBoardDto;
+import org.spring.example.review.ReviewReplyDto;
 
 import java.util.List;
 import java.util.Map;
@@ -17,4 +17,5 @@ public interface ReviewBoardService {
     int modify(ReviewBoardDto reviewBoardDto) throws Exception;
     List<ReviewBoardDto> getAll() throws Exception;
     List<ReviewBoardDto> getReviewsByAccId(Long accId);
+    ReviewBoardDto getReviewStatsByAccId(Long accId);
 }

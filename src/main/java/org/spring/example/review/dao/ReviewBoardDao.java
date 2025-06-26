@@ -1,8 +1,8 @@
-package org.spring.example.review;
+package org.spring.example.review.dao;
 
-import org.apache.ibatis.annotations.Param;
+import org.spring.example.review.ReviewBoardDto;
+
 import java.util.List;
-import java.util.Map;
 
 public interface ReviewBoardDao {
 
@@ -14,7 +14,9 @@ public interface ReviewBoardDao {
        int insert(ReviewBoardDto dto) throws Exception;  // 새로운 게시글을 삽입
        List<ReviewBoardDto> selectAll() throws Exception;// 모든 게시글을 조회
        ReviewBoardDto select(Long reviewId) throws Exception;// 특정 ID에 해당하는 게시글 하나를 조회
-       List<ReviewBoardDto> selectPage(Map map) throws Exception;// 페이지네이션을 위해 특정 범위의 게시글을 조회
+
        int update(ReviewBoardDto dto) throws Exception;
-       List<ReviewBoardDto> findByAccId(@Param("accId") Long accId);
+
+       List<ReviewBoardDto> getReviewsByAccId(Long accId); // 숙소별 리뷰 목록
+       ReviewBoardDto getReviewStatsByAccId(Long accId);   // 숙소별 리뷰 통계
 }

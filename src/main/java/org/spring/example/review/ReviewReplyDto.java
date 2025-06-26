@@ -1,14 +1,25 @@
 package org.spring.example.review;
 
+import java.time.LocalDateTime;
+
 public class ReviewReplyDto {
+    private Long reviewReplyId;
     private Long reviewId;
-    private Long userId;
     private Long accId;
     private int rate;
-    private String comment;
+    private String comments;
     private int likeCnt;
-    private String createdAt;
-    private String updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+
+    public Long getReviewReplyId() {
+        return reviewReplyId;
+    }
+
+    public void setReviewReplyId(Long reviewReplyId) {
+        this.reviewReplyId = reviewReplyId;
+    }
 
     public Long getReviewId() {
         return reviewId;
@@ -16,14 +27,6 @@ public class ReviewReplyDto {
 
     public void setReviewId(Long reviewId) {
         this.reviewId = reviewId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public Long getAccId() {
@@ -42,12 +45,12 @@ public class ReviewReplyDto {
         this.rate = rate;
     }
 
-    public String getComment() {
-        return comment;
+    public String getComments() {
+        return comments;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
     public int getLikeCnt() {
@@ -58,19 +61,19 @@ public class ReviewReplyDto {
         this.likeCnt = likeCnt;
     }
 
-    public String getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public String getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(String updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 }

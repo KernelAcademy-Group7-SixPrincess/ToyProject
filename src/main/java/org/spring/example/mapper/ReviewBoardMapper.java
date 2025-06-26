@@ -1,10 +1,11 @@
-package org.spring.example.review;
+package org.spring.example.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.spring.example.review.ReviewBoardDto;
 import java.util.List;
+import java.util.Map;
 
-    @Mapper
+@Mapper
     public interface ReviewBoardMapper {
 
         List<ReviewBoardDto> selectAll();
@@ -19,9 +20,9 @@ import java.util.List;
 
         int count();
 
-        List<ReviewBoardDto> findByAccId(Long accId);
-
         List<ReviewBoardDto> getReviewsByAccId(Long accId);
+        ReviewBoardDto getReviewStatsByAccId(Long accId);
+        // 3. accId에 대한 평균 평점 및 평가자 수
     }
 
 

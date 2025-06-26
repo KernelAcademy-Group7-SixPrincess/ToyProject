@@ -1,13 +1,13 @@
-package org.spring.example.review;
+package org.spring.example.mapper;
 
 
 import org.apache.ibatis.annotations.Mapper;
 import org.spring.example.review.ReviewReplyDto;
 
-import java.math.BigInteger;
+
 import java.util.List;
 import java.util.Map;
-
+@Mapper
 public interface ReviewReplyMapper {
 
     // 특정 댓글 하나 조회
@@ -27,6 +27,8 @@ public interface ReviewReplyMapper {
 
         // 댓글 개수 조회 (댓글 ID 기준)
         int count(Long reviewReplyId);
+
+        List<ReviewReplyDto> selectAllRepliesByReviewId(Long reviewId);
     }
 
 

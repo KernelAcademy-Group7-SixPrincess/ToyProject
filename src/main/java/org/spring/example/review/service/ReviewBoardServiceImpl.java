@@ -1,22 +1,30 @@
-package org.spring.example.review;
+package org.spring.example.review.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.spring.example.mapper.ReviewBoardMapper;
+import org.spring.example.review.dao.ReviewBoardDao;
+import org.spring.example.review.ReviewBoardDto;
+import org.spring.example.review.dao.ReviewReplyDao;
+import org.spring.example.review.ReviewReplyDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
+
+
 @Service
 public class ReviewBoardServiceImpl implements ReviewBoardService {
 
     @Autowired
-     ReviewBoardDao reviewBoardDao;
+    ReviewBoardDao reviewBoardDao;
     @Autowired
-    ReviewReplyDao reviewReplyDao;
+    ReviewBoardMapper reviewBoardMapper;
     @Autowired
     private SqlSessionTemplate session;
-
+    @Autowired
+    ReviewReplyDao reviewReplyDao;
     @Override
     public int getCount() throws Exception {
         System.out.println("DEBUG: Service.getCount() called."); // 디버그 로그 추가
@@ -41,15 +49,11 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
     }
 
 
+
     @Override
     public List<ReviewBoardDto> getPage(Map map) throws Exception {
-        // 이 부분이 가장 중요합니다.
-        System.out.println("DEBUG: Service.getPage called with map: " + map);
-        List<ReviewBoardDto> reviews = reviewBoardDao.selectPage(map);
-        System.out.println("DEBUG: Service.getPage - DAO.selectPage returned " + (reviews != null ? reviews.size() : "null") + " reviews.");
-        return reviews;
+        return reviewBoardDao.selectAll();
     }
-
     @Override
     public int modify(ReviewBoardDto reviewBoardDto) throws Exception{
         System.out.println("DEBUG: Service.modify() called for reviewId: " + reviewBoardDto.getReviewId()); // 디버그 로그 추가
@@ -81,16 +85,19 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
         // ReviewReplyDao에 reviewReply.selectAllRepliesByReviewId 에 해당하는 메서드를 추가하고 그것을 호출하세요.
         // 예: return reviewReplyDao.selectAllRepliesByReviewId(reviewId);
         System.out.println("DEBUG: Service.selectAll(reviewId) called. This method should ideally be in ReviewReplyService or use ReviewReplyDao.");
-        // 임시로 직접 호출한다고 가정하면:
-        return session.selectList("org.spring.example.review.ReviewReplyMapper.selectAllRepliesByReviewId", reviewId);
+        return session.selectList("org.spring.example.mapper.ReviewReplyMapper.selectAllRepliesByReviewId", reviewId);
     }
 
     @Override
     public List<ReviewBoardDto> getReviewsByAccId(Long accId) {
         System.out.println("DEBUG: Service.getReviewsByAccId called for accId: " + accId);
-        List<ReviewBoardDto> reviews = reviewBoardDao.findByAccId(accId); // findByAccId 호출 (또는 getReviewsByAccId)
-        System.out.println("DEBUG: Service.getReviewsByAccId - DAO.findByAccId returned " + (reviews != null ? reviews.size() : "null") + " reviews.");
+        List<ReviewBoardDto> reviews = reviewBoardDao.getReviewsByAccId(accId);
+        System.out.println("DEBUG: Service.getReviewsByAccId returned " + (reviews != null ? reviews.size() : "null") + " reviews.");
         return reviews;
+    }
+    @Override
+    public ReviewBoardDto getReviewStatsByAccId(Long accId) {
+        return reviewBoardMapper.getReviewStatsByAccId(accId);
     }
 }
 

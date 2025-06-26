@@ -1,8 +1,8 @@
-package org.spring.example.review;
+package org.spring.example.review.dao;
 
 
-import java.math.BigInteger;
-import java.time.LocalDateTime;
+import org.spring.example.review.ReviewReplyDto;
+
 import java.util.List;
 public interface ReviewReplyDao {
 
@@ -12,5 +12,6 @@ public interface ReviewReplyDao {
         ReviewReplyDto select(Long  reviewReplyId) throws Exception;
         List<ReviewReplyDto> selectAll(Long  reviewId) throws Exception;
         int update(ReviewReplyDto reviewReplyDto) throws Exception;
+        List<ReviewReplyDto> selectAllRepliesByReviewId(Long reviewId);
 
 }

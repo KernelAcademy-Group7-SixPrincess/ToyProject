@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.spring.example.review.ReviewBoardMapper">
+<mapper namespace="org.spring.example.mapper.ReviewBoardMapper">
 
     <resultMap id="reviewBoardResultMap" type="org.spring.example.review.ReviewBoardDto">
         <id property="reviewId" column="review_id" />
@@ -11,11 +11,10 @@
         <result property="userId" column="user_id" />
         <result property="rate" column="rate" />
         <result property="comment" column="comment" />
-        <result property="deleteYn" column="delete_yn" />
         <result property="createdAt" column="created_at" />
         <result property="updatedAt" column="updated_at" />
         <result property="likeCnt" column="like_cnt" />
-        <result property="replyCnt" column="reply_cnt" />
+
 
         <result property="accName" column="acc_name" />
         <result property="accAddress" column="acc_address" />
@@ -26,6 +25,7 @@
         <collection property="replies" ofType="org.spring.example.review.ReviewReplyDto">
         </collection>
     </resultMap>
+
 
     <select id="select" parameterType="int" resultMap="reviewBoardResultMap">
         SELECT
@@ -59,40 +59,11 @@
             (#{reviewId},#{userId},#{accId},#{rate},#{comment},#{likeCnt},#{createdAt},#{updatedAt})
     </insert>
 
-    <select id="selectAll" resultMap="reviewBoardResultMap">
-        SELECT
-            r.review_id, r.user_id, r.acc_id, r.rate, r.comment, r.like_cnt, r.created_at, r.updated_at,
-            a.name AS acc_name,
-            a.address AS acc_address,
-            a.avgrate AS acc_avgrate,
-            a.reviewer_cnt AS acc_reviewer_cnt,
-            a.info AS acc_info,
-            a.description AS acc_description
-        FROM
-            `review` r
-                JOIN
-            `acc` a ON r.acc_id = a.acc_id
-        ORDER BY r.created_at DESC, r.updated_at DESC, r.review_id DESC
+    <select id="selectAll" resultType="org.spring.example.review.ReviewBoardDto">
+        SELECT * FROM review
     </select>
 
-    <select id="selectPage" parameterType="map" resultMap="reviewBoardResultMap">
-        SELECT
-        r.review_id, r.user_id, r.acc_id, r.rate, r.comment, r.like_cnt, r.created_at, r.updated_at,
-        a.name AS acc_name,
-        a.address AS acc_address,
-        a.avgrate AS acc_avgrate,
-        a.reviewer_cnt AS acc_reviewer_cnt,
-        a.info AS acc_info,
-        a.description AS acc_description
-        FROM
-        `review` r
-        JOIN
-        `acc` a ON r.acc_id = a.acc_id
-        ORDER BY r.created_at DESC, r.updated_at DESC, r.review_id DESC
-        <if test="offset != null and pageSize != null">
-            LIMIT #{offset}, #{pageSize}
-        </if>
-    </select>
+
 
     <update id="update" parameterType="org.spring.example.review.ReviewBoardDto">
         UPDATE review
@@ -106,10 +77,19 @@
         SELECT COUNT(*)
         FROM review
     </select>
+    <select id="getReviewStatsByAccId" parameterType="Long" resultType="org.spring.example.review.ReviewBoardDto">
+        SELECT
+            a.acc_id,
+            a.avgrate AS acc_avgrate,
+            a.reviewer_cnt AS acc_reviewer_cnt
+        FROM acc a
+        WHERE a.acc_id = #{accId}
+    </select>
+
 
     <select id="getReviewsByAccId" parameterType="Long" resultMap="reviewBoardResultMap">
         SELECT
-            r.review_id, r.user_id, r.acc_id, r.rate, r.comment, r.delete_yn, r.created_at, r.updated_at, r.like_cnt, r.reply_cnt,
+            r.review_id, r.user_id, r.acc_id, r.rate, r.comment, r.created_at, r.updated_at, r.like_cnt,
             a.name AS acc_name,
             a.address AS acc_address,
             a.avgrate AS acc_avgrate,
@@ -128,6 +108,5 @@
             r.created_at DESC
     </select>
 
-    
 
 </mapper>

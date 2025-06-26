@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -347,22 +348,25 @@
                     </c:forEach>
                 </div>
                 <div class="review-date">
-                    <fmt:formatDate value="${reviewBoardDto.createdAt}" pattern="yyyy.MM.dd"/> 방문 리뷰
+                        <%-- LocalDateTime 포맷팅으로 변경 --%>
+                    <spring:eval expression="reviewBoardDto.createdAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy.MM.dd'))" /> 방문 리뷰
                 </div>
                 <div class="review-images" id="review-images-${reviewBoardDto.reviewId}">
                 </div>
                 <div class="review-comment-container">
                     <p class="review-comment">${reviewBoardDto.comment}</p>
                 </div>
-                <c:forEach var="reply" items="${reviewBoardDto.replies}">
+                    <%-- ★수정: reviewBoardDto.replies 대신 reviewBoardDto.reply 사용 (단일 객체) ★ --%>
+                <c:if test="${not empty reviewBoardDto.reply}">
                     <div class="admin-reply">
                         <div class="reply-header">
                             제휴점 답변
-                            <fmt:formatDate value="${reply.createdAt}" pattern="yy.MM.dd" />
+                                <%-- LocalDateTime 포맷팅으로 변경 --%>
+                            <spring:eval expression="reviewBoardDto.reply.createdAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yy.MM.dd'))" />
                         </div>
-                        <p>${reply.comment}</p>
+                        <p>${reviewBoardDto.reply.comments}</p>
                     </div>
-                </c:forEach>
+                </c:if>
                 <div class="review-actions">
                     <a href="<c:url value='/review/board/read?reviewId=${reviewBoardDto.reviewId}&mode=modify'/>" class="btn btn-primary">수정</a>
                     <form action="<c:url value='/review/board/remove'/>" method="post" style="display:inline;">
@@ -410,7 +414,8 @@
                         </c:forEach>
                     </div>
                     <div class="review-date">
-                        <fmt:formatDate value="${r.createdAt}" pattern="yyyy.MM.dd"/> 방문 리뷰
+                            <%-- LocalDateTime 포맷팅으로 변경 --%>
+                        <spring:eval expression="r.createdAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy.MM.dd'))" /> 방문 리뷰
                     </div>
                     <div class="review-images" id="review-images-${r.reviewId}">
                     </div>
@@ -431,15 +436,17 @@
                             <p class="review-comment">${commentText}</p>
                         </c:if>
                     </div>
-                    <c:forEach var="reply" items="${r.replies}">
+                        <%-- ★수정: r.replies 대신 r.reply 사용 (단일 객체) ★ --%>
+                    <c:if test="${not empty r.reply}">
                         <div class="admin-reply">
                             <div class="reply-header">
                                 제휴점 답변
-                                <fmt:formatDate value="${reply.createdAt}" pattern="yy.MM.dd" />
+                                    <%-- LocalDateTime 포맷팅으로 변경 --%>
+                                <spring:eval expression="r.reply.createdAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yy.MM.dd'))" />
                             </div>
-                            <p>${reply.comment}</p>
+                            <p>${r.reply.comments}</p>
                         </div>
-                    </c:forEach>
+                    </c:if>
                 </div>
             </c:forEach>
         </c:if>

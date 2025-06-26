@@ -15,17 +15,15 @@ public class ReviewBoardDto {
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
         private List<ReviewReplyDto> replies;
+        private Long replyCnt;
+        private ReviewReplyDto reply;
 
-
-            // Acc 테이블에서 조인해서 가져올 필드 (핵심 추가 부분)
          private String accName;         // acc.name
          private String accAddress;      // acc.address
          private Double accAvgrate;      // acc.avgrate
-         private Integer accReviewerCnt; // acc.reviewer_cnt
+         private Long accReviewerCnt; // acc.reviewer_cnt
          private String accInfo;         // acc.info (숙소 기본 정보)
          private String accDescription;  // acc.description (숙소 상세 설명)
-
-
 
 
         public ReviewBoardDto(){};
@@ -33,7 +31,9 @@ public class ReviewBoardDto {
                               Long accId, int rate,
                               String comment, int likeCnt,
                               LocalDateTime createdAt, LocalDateTime
-                                       updatedAt, List<ReviewReplyDto> replies){
+                                       updatedAt, List<ReviewReplyDto> replies,
+                              Long accReviewerCnt,String accInfo,String accDescription,Long replyCnt){
+            this.userId = userId;
             this.reviewId=reviewId;
             this.accId=accId;
             this.rate=rate;
@@ -42,6 +42,10 @@ public class ReviewBoardDto {
             this.createdAt=createdAt;
             this.updatedAt=updatedAt;
             this.replies=replies;
+            this.accReviewerCnt=accReviewerCnt;
+            this.accInfo=accInfo;
+            this.accDescription=accDescription;
+            this.replyCnt=replyCnt;
         }
 
     public Long getReviewId() {
@@ -139,6 +143,8 @@ public class ReviewBoardDto {
         this.accAddress = accAddress;
     }
 
+
+
     public Double getAccAvgrate() {
         return accAvgrate;
     }
@@ -147,14 +153,14 @@ public class ReviewBoardDto {
         this.accAvgrate = accAvgrate;
     }
 
-    public Integer getAccReviewerCnt() {
+    public Long getAccReviewerCnt() {
+        this.accReviewerCnt= accReviewerCnt;
         return accReviewerCnt;
     }
 
-    public void setAccReviewerCnt(Integer accReviewerCnt) {
+    public void setAccReviewerCnt(Long accReviewerCnt) {
         this.accReviewerCnt = accReviewerCnt;
     }
-
     public String getAccInfo() {
         return accInfo;
     }
@@ -169,6 +175,24 @@ public class ReviewBoardDto {
 
     public void setAccDescription(String accDescription) {
         this.accDescription = accDescription;
+    }
+
+
+
+    public Long getReplyCnt() {
+        return replyCnt;
+    }
+
+    public void setReplyCnt(Long replyCnt) {
+        this.replyCnt = replyCnt;
+    }
+
+    public ReviewReplyDto getReply() {
+        return reply;
+    }
+
+    public void setReply(ReviewReplyDto reply) {
+        this.reply = reply;
     }
 }
 
