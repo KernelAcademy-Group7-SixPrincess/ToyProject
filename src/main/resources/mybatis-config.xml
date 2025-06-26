@@ -16,11 +16,19 @@
     </settings>
 
     <!-- ✅ 타입 알리아스 등록 -->
+
     <typeAliases>
         <!-- 패키지 전체 등록 -->
         <package name="org.spring.example.room.dto"/>
         <package name="org.spring.example.board.dto"/>
         <package name="org.spring.example.cart.dto"/>
         <package name="org.spring.example.cartItem.dto"/>
+
+<!--        <package name="org.spring.example.user.dto"/>-->
     </typeAliases>
+    <!-- 타입 핸들러 등록-->
+    <typeHandlers>
+        <!-- org.spring.example.typehandler 패키지 안에 있는 모든 TypeHandler를 스캔합니다. -->
+        <package name="org.spring.example.typehandler"/>
+    </typeHandlers>
 </configuration>

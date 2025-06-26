@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/board.css" />
 </head>
 <body class="board notice">
-<%@ include file="../../common/header.jsp" %>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 
 <main>
@@ -30,20 +30,23 @@
       <p class="markdown-content">${post.content}</p>
     </section>
   </article>
-  <nav class="board-actions notice-actions" aria-label="글 조작 버튼">
-    <a href="/board/notice/${post.postId}/edit" class="button">수정</a>
-    <form action="/board/notice/${post.postId}/delete" method="post" onsubmit="return confirm('삭제할까요?')" style="display: inline">
-      <input type="hidden" name="id" value="3" />
+
+  <nav class="notice-actions" aria-label="글 조작 버튼">
+    <a href="/board/notice" class="button">목록으로</a>
+    <a href="/board/notice/${post.postId}/edit" class="button primary admin-only">수정</a>
+    <form action="/board/notice/${post.postId}/delete" method="post" onsubmit="return confirm('삭제할까요?')" class="admin-only">
+      <input type="hidden" name="id" value="${post.postId}" />
       <button type="submit" class="button danger">삭제</button>
     </form>
-    <a href="/board/notice" class="button">목록으로</a>
   </nav>
 </main>
 
-<%@ include file="../../common/footer.jsp" %>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/easyMDE.js"></script>
 <script>
   const buttons = document.querySelectorAll(".accordion-trigger");
 

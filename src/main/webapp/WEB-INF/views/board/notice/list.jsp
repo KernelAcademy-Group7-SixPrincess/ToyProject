@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/board.css" />
 </head>
 <body class="board notice">
-<%@ include file="../../common/header.jsp" %>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <main>
     <section aria-labelledby="notice-title">
@@ -54,10 +54,9 @@
 
         </ul>
 
-        <a href="/board/notice/write" class="write-btn" role="button">
-            <span aria-hidden="true">✏️</span>
-            <span>글쓰기</span>
-        </a>
+        <div class="faq-write-row">
+            <a href="/board/notice/write" class="write-btn" role="button">글쓰기</a>
+        </div>
 
         <nav aria-label="페이지 이동">
             <ul class="pagination">
@@ -77,7 +76,7 @@
     </section>
 </main>
 
-<%@ include file="../../common/footer.jsp" %>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 
 

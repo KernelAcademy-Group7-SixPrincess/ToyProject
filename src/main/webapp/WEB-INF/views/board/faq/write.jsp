@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
 </head>
 <body class="board faq">
-<%@ include file="../../common/header.jsp" %>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <main>
   <section aria-labelledby="write-title">
@@ -40,7 +40,7 @@
   </section>
 </main>
 
-<%@ include file="../../common/footer.jsp" %>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 
 

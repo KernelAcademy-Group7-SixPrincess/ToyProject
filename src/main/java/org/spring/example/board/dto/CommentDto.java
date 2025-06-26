@@ -10,6 +10,23 @@ public class CommentDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String writerName;
+    private String formattedDate;
+    private String isoDate;
+
+    public String getIsoDate() {
+        return isoDate;
+    }
+
+    public void setIsoDate(String isoDate) {
+        this.isoDate = isoDate;
+    }
+
+    public String getFormattedDate() {
+        return formattedDate;
+    }
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
+    }
 
     public String getWriterName() { return writerName; }
 

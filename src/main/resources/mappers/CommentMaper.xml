@@ -18,4 +18,15 @@
         ORDER BY c.created_at ASC
     </select>
 
+    <update id="updateComment" parameterType="CommentDto">
+        UPDATE comment
+        SET content = #{content}, updated_at = NOW()
+        WHERE comment_id = #{commentId}
+    </update>
+
+    <update id="deleteComment" parameterType="int">
+        UPDATE comment
+        SET is_deleted = 1, updated_at = NOW()
+        WHERE comment_id = #{commentId}
+    </update>
 </mapper>
