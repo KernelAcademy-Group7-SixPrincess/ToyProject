@@ -110,10 +110,10 @@
                 </label>
                 <select id="job" name="job" required aria-required="true">
                     <option value="">직업을 선택해주세요 (필수)</option>
+                    <option value="무직">무직</option>
                     <option value="학생">학생</option>
+                    <option value="자영업자">자영업자</option>
                     <option value="개발자">개발자</option>
-                    <option value="디자이너">디자이너</option>
-                    <option value="교사">교사</option>
                     <option value="기타">기타</option>
                 </select>
                 <span class="error_msg" id="jobError">직업을 선택해주세요.</span>

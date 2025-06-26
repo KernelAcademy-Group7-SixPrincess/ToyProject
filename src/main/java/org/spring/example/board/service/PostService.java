@@ -64,5 +64,4 @@ public class PostService {
     public List<PostDto> searchPostsByKeyword(int boardId, String keyword) {
         return postMapper.searchPostsByKeyword(boardId, keyword);
     }
-
 }
