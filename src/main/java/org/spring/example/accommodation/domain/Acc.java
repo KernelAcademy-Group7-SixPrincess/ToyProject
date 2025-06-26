@@ -1,9 +1,11 @@
 package org.spring.example.accommodation.domain;
 
 import lombok.*;
+import org.spring.example.room.dto.Room;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -47,4 +49,17 @@ public class Acc {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String sidoName;
+    private List<Room> roomList;
+
+    private String addPeopleInfoFormatted;
+    private String breakfastInfoFormatted;
+    private String cookInfoFormatted;
+    private String cancelRefundInfoFormatted;
+    private String etcInfoFormatted;
+
+    private String subwayInfoFormatted;
+    private String roomFacilityInfoFormatted;
+    private String frontFacilityInfoFormatted;
+    private String parkingInfoFormatted;
+    private String extraNoticeFormatted;
 }
