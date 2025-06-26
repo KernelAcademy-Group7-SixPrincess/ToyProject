@@ -1,6 +1,6 @@
 package org.spring.example.mapper;
 
-import org.spring.example.common.dto.SearchDto;
+import org.spring.example.search.dto.SearchDto;
 import org.spring.example.room.dto.Room;
 
 import java.util.List;

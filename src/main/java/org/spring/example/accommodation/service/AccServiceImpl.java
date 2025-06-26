@@ -1,6 +1,7 @@
 package org.spring.example.accommodation.service;
 
 import org.spring.example.accommodation.domain.Acc;
+import org.spring.example.code.CodeDto;
 import org.spring.example.mapper.AccMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,8 +86,8 @@ public class AccServiceImpl implements AccService {
 
     // 타입 코드별 숙소 조회
     @Override
-    public List<Acc> getByType(int typeCode) {
-        return accMapper.findByType(typeCode);
+    public List<Acc> getByType(CodeDto codeDto) {
+        return accMapper.findByType(codeDto);
     }
 
     // 숙소 등록

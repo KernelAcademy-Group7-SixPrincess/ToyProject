@@ -1,32 +1,35 @@
 package org.spring.example.search;
 
 import lombok.RequiredArgsConstructor;
-import org.spring.example.common.dto.SearchDto;
+import lombok.extern.slf4j.Slf4j;
+import org.spring.example.accommodation.domain.Acc;
+import org.spring.example.accommodation.service.AccService;
+import org.spring.example.room.service.RoomService;
+import org.spring.example.search.dto.SearchDto;
 import org.spring.example.reservation.service.ReservationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class SearchController {
-    private final ReservationService reservationService;
-
+    private final SearchService searchService;
 
     @GetMapping("/search")
-    public String search(SearchDto searchDto, Model model) {
-        // 조건에 맞는 객실 필터링 후 ID 반환
-        // 조건 : 키워드, 지역
-        // 객실과 조인 후 인원 조건 필터링
-        List<Integer> roomIdList = new ArrayList<>();
-
-        // 예약 가능한 객실 ID 리스트 조회
-//        List<Integer> canReserveList = reservationService.canReserve()
-
+    public String search(@ModelAttribute SearchDto searchDto, Model model) {
+        log.info(searchDto.toString());
+        List<Acc> accList = searchService.findAccBySearchDto(searchDto);
+        log.info("accList={}", accList);
+        model.addAttribute("accList", accList);
+        model.addAttribute("searchDto", searchDto);
         return "search/search";
     }
 }

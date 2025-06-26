@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.spring.example.common.dto.SearchDto;
+import org.spring.example.search.dto.SearchDto;
 import org.spring.example.room.dto.Room;
 import org.spring.example.room.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;

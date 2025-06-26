@@ -1,14 +1,16 @@
 #search-page {
     display: flex;
     flex-direction: row;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
     padding: 24px;
-    background-color: #f9f9f9;
 }
 
 .filters-container {
     display: flex;
+    flex: 2;
     flex-wrap: wrap;
-    gap: 16px;
     margin-bottom: 32px;
     position: sticky;
 }
@@ -20,17 +22,17 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-.filter-category .title {
+.filter-section .title {
     font-size: 1.125rem;
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
 }
 
 .gc-radio-group {
     gap: 12px;
 }
 .gc-radio {
-    display: flex; align-items: center; cursor: pointer;
+    display: flex; align-items: center; cursor: pointer; margin-bottom: 10px;
 }
 .radio-btn {
     width: 18px;
@@ -57,7 +59,7 @@
 }
 
 #cards-container {
-    flex: 1;
+    flex: 8;
     display: grid;
     /*grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));*/
     grid-template-columns: 1fr;
@@ -91,3 +93,200 @@
 .details { font-size: 0.875rem; color: #666; flex: 1; }
 .price-section { display: flex; justify-content: space-between; align-items: baseline; margin-top: 12px; }
 .price { font-size: 1.125rem; font-weight: 700; }
+
+
+/* 전체 컨테이너 */
+.search-section {
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    flex: 1;
+    margin-left: 12px;
+}
+
+/* 내부 wrapper */
+.search-inner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f7f7f7;
+    padding: 8px;
+    height: 48px;
+    border-radius: 12px;
+    max-width: 650px !important;
+    margin-left: 30px;
+}
+
+/* 검색 폼 */
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin: 0;
+}
+
+/* 검색 인풋 */
+.search-box-group {
+    flex: 1;
+    min-width: 0;
+}
+
+.search-input-wrap {
+    width: 100%;
+}
+
+.search-label {
+    display: flex;
+    width: 100%;
+}
+
+.search-label-content {
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    border: none;
+}
+
+.search-label-content:focus-within {
+    border-color: #007aff;
+}
+
+.search-icon {
+    width: 16px;
+    height: 16px;
+    fill: #666;
+}
+
+.search-icon-wrap {
+    margin-right: 6px;
+}
+
+.input-keyword {
+    border: none;
+    outline: none;
+    font-size: 13px;
+    height: 32px;
+    line-height: 32px;
+    background: none;
+    width: 100%;
+}
+
+
+/* flatpickr 달력 input 통일 스타일 */
+#date-range {
+    font-size: 13px;
+    height: 32px;
+    padding: 0 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #222;
+    outline: none;
+    min-width: 180px;
+    display: none !important;
+}
+
+#date-range:focus {
+    border-color: #007aff;
+    outline: none;
+}
+
+/* 날짜 선택 버튼 */
+.date-picker-wrap {
+    flex-shrink: 0;
+}
+
+.date-picker-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 12px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.date-picker-btn:hover {
+    border-color: #007aff;
+}
+
+.selected-date-text {
+    white-space: nowrap;
+}
+
+/* 인원 선택 */
+.guest-count-wrap {
+    flex-shrink: 0;
+}
+
+.guest-display {
+    font-size: 13px;
+    padding: 0 10px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    gap: 4px;
+}
+
+.guest-icon {
+    flex-shrink: 0;
+}
+
+.guest-btn {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f9f9f9;
+    font-size: 22px;
+    font-weight: 1000;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 3px;
+}
+.guest-label {
+    margin-right: 4px;
+    color: #333;
+}
+
+.guest-btn:hover {
+    background: #eee;
+}
+
+.guest-btn:active {
+    background: #ddd;
+}
+
+/* 검색 버튼 */
+.submit-btn-wrap {
+    flex-shrink: 0;
+}
+
+.submit-btn {
+    background-color: #007aff;
+    color: white;
+    font-size: 13px;
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #005ecb;
+}
+
+
+
+

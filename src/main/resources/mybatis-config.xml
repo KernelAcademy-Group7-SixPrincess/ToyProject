@@ -24,5 +24,6 @@
         <package name="org.spring.example.cartItem.dto"/>
         <package name="org.spring.example.user.dto"/>
         <package name="org.spring.example.roles.dto"/>
+        <package name="org.spring.example.code" />
     </typeAliases>
 </configuration>

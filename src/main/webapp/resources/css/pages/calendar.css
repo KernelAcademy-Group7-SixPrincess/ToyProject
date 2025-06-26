@@ -1,0 +1,58 @@
+/* 1) 팝업 전체를 아래로 5px 이동 */
+.flatpickr-calendar {
+    margin-top: 5px !important;
+}
+
+/* 2) 실제 달력의 일요일만 빨간색 (prev/next 제외) */
+.flatpickr-calendar
+.flatpickr-days
+.dayContainer
+> span.flatpickr-day:not(.flatpickr-disabled):not(.nextMonthDay):nth-child(7n+1) {
+    color: red !important;
+}
+
+/* 4) 이전/다음 달 날짜: opacity 제거 + 회색 처리 */
+.flatpickr-calendar .flatpickr-day.prevMonthDay,
+.flatpickr-calendar .flatpickr-day.nextMonthDay {
+    opacity: 1 !important;
+    color: #CCC !important;
+}
+
+/* 5) hover 배경을 중간 정도 연한 회색 (10%) */
+.flatpickr-calendar .flatpickr-day:not(.disabled):hover {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    color: #000000 !important;
+}
+
+.flatpickr-current-month {
+    font-size: 120%;
+}
+
+/* 4) startRange가 today와 겹칠 때 today border 제거 */
+.flatpickr-calendar .flatpickr-day.startRange.today,
+.flatpickr-calendar .flatpickr-day.endRange.today {
+    border: none !important;
+}
+
+/* ———————————————————————————————— */
+/* 4) today 클래스와 겹칠 때 */
+/* ———————————————————————————————— */
+.flatpickr-calendar .flatpickr-day.startRange.today,
+.flatpickr-calendar .flatpickr-day.endRange.today {
+    /* 오늘 표시용 파란 테두리 스타일을 무시 */
+    outline: none !important;
+}
+
+/* ———————————————————————————————— */
+/* 5) hover 시에도 start/end/inRange 유지 */
+/* ———————————————————————————————— */
+.flatpickr-calendar .flatpickr-day.startRange:hover,
+.flatpickr-calendar .flatpickr-day.endRange:hover,
+.flatpickr-calendar .flatpickr-day.inRange:hover {
+    background-color: #005ecc !important;  /* hover 시 조금 짙게 */
+    color: #fff !important;
+}
+
+.flatpickr-calendar {
+    z-index: 9999;
+}
