@@ -164,7 +164,6 @@
                                     class="gc-curation-card-image absolute top-Spacing0 left-Spacing0 desktop:hover:bg-backgroundOverlayDarkInactive"
                                     loading="lazy"
                             />
-
                             <span>경남</span>
                         </a>
                     </li>
