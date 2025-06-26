@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.spring.example.mapper.UserMapper">
+
+<!--    회원가입 정보 저장-->
+    <insert id="signup" parameterType="org.spring.example.user.dto.UsersignupDto">
+                INSERT INTO `user` (
+                    password, name, gender, email, birth_date, phone, nickname, code_type_id, code
+                )
+                SELECT
+                    #{password}, #{name}, #{gender}, #{email}, #{birth}, #{phone}, #{nickname},
+                    c.code_type_id, c.code
+                FROM code c
+                WHERE c.code_name = #{job}
+                  AND c.is_used = TRUE
+    </insert>
+
+<!--    로그인 정보 DB랑 비교후 결과 반환-->
+    <select id="loginCheck" resultType="int"
+            parameterType="org.spring.example.user.dto.UserloginDto">
+        SELECT COUNT(*)
+        FROM user
+        WHERE email = #{email} AND password = #{password}
+    </select>
+
+<!--    유저정보 조회-->
+    <select id="getUserInfo" resultType="org.spring.example.user.dto.UserinfoDto"
+            parameterType="String">
+        SELECT id, password, name, gender, email, birth_date, phone, nickname,
+               signup_at, user_status, point_balance, deleted_at, updated_at,
+               code_type_id, code
+        FROM user
+        WHERE email = #{email}
+    </select>
+
+<!--    이메일 중복 확인-->
+    <select id="isEmailDuplicate" parameterType="String" resultType="int">
+        SELECT EXISTS (
+            SELECT 1 FROM user WHERE email = #{email}
+        )
+    </select>
+
+</mapper>
+

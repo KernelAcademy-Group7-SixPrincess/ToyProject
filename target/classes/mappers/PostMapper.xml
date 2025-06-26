@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.spring.example.mapper.PostMapper">
+
+    <!-- 게시글 등록 -->
+    <insert id="createPost" parameterType="PostDto">
+        INSERT INTO post (
+            board_id, user_id, title, content,
+            is_pinned, is_answered, faq_keyword,
+            is_deleted, deleted_at, deleted_by
+        ) VALUES (
+            #{boardId}, #{userId}, #{title}, #{content},
+            #{pinned}, #{isAnswered}, #{faqKeyword},
+            #{isDeleted}, #{deletedAt}, #{deletedBy}
+        )
+    </insert>
+
+
+    <!-- 게시글 상세페이지 조회 -->
+    <select id="findPostById" parameterType="long" resultType="PostDto">
+        SELECT * FROM post WHERE post_id = #{postId} AND is_deleted = FALSE
+    </select>
+
+
+    <!-- 고정글 조회 -->
+    <select id="findPinnedPostsByBoardId" parameterType="map" resultType="PostDto">
+        SELECT
+            post_id,
+            board_id,
+            user_id,
+            title,
+            content,
+            is_pinned,
+            is_answered,
+            faq_keyword,
+            is_deleted,
+            deleted_at,
+            deleted_by,
+            created_at
+        FROM post
+        WHERE board_id = #{boardId}
+          AND is_pinned = #{pinned}
+          AND is_deleted = 0
+        ORDER BY created_at DESC
+    </select>
+
+
+    <!-- 일반글 페이징 (고정글 제외) -->
+    <select id="findPagedNormalPostsByBoardId" resultType="PostDto">
+        SELECT * FROM post
+        WHERE board_id = #{boardId}
+          AND is_pinned = FALSE
+          AND is_deleted = FALSE
+        ORDER BY created_at DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+
+    <!-- 전체 게시글 수 (고정글 포함) -->
+    <select id="countAllPostsByBoardId" resultType="int">
+        SELECT COUNT(*) FROM post WHERE board_id = #{boardId} AND is_deleted = 0
+    </select>
+
+
+    <!-- 일반 게시글 수 -->
+    <select id="countNormalPostsByBoardId" resultType="int">
+        SELECT COUNT(*)
+        FROM post
+        WHERE board_id = #{boardId}
+          AND is_pinned = FALSE
+          AND is_deleted = FALSE
+    </select>
+
+
+    <!-- 페이징된 게시글 목록 (고정글 + 일반글인데 현재 사용 안함 25.06.21) -->
+    <select id="selectPagedPosts" resultType="PostDto">
+        SELECT * FROM post
+        WHERE board_id = #{boardId} AND is_deleted = 0
+        ORDER BY is_pinned DESC, created_at DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+
+    <!-- 글 수정 -->
+    <update id="updatePost" parameterType="PostDto">
+        UPDATE post
+        SET title = #{title},
+            content = #{content},
+            updated_at = NOW(),
+            is_pinned = #{pinned},
+            is_answered = #{isAnswered},
+            faq_keyword = #{faqKeyword}
+        WHERE post_id = #{postId}
+    </update>
+
+
+    <!-- 글 삭제 (soft delete)-->
+    <update id="softDelete" parameterType="PostDto">
+        UPDATE post
+        SET is_deleted = TRUE,
+            deleted_at = NOW(),
+            deleted_by = #{deletedBy}
+        WHERE post_id = #{postId}
+    </update>
+
+    <!-- 키워드 검색 -->
+    <select id="searchPostsByKeyword" parameterType="map" resultType="PostDto">
+        SELECT *
+        FROM post
+        WHERE board_id = #{boardId}
+          AND (title LIKE CONCAT('%', #{keyword}, '%')
+            OR content LIKE CONCAT('%', #{keyword}, '%'))
+        ORDER BY created_at DESC
+    </select>
+
+</mapper>

@@ -13,39 +13,44 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/board.css" />
 </head>
 <body class="board qna">
-<%@ include file="../../common/header.jsp" %>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 
 <main>
     <section aria-labelledby="qna-title">
         <h1 id="qna-title" class="qna-title board-title">고객 문의</h1>
 
-        <ul class="board-list notice-list" role="list" aria-label="고객 문의 목록">
-            <li class="board-item notice-item notice-header">
+        <ul class="qna-list" role="list" aria-label="고객 문의 목록">
+            <li class="qna-item qna-header">
                 <span>NO</span>
                 <span>제목</span>
                 <span>작성일</span>
                 <span>답변여부</span>
             </li>
             <c:forEach var="post" items="${normalPosts}">
-                <li class="board-item notice-item">
+                <li class="qna-item">
                     <span class="no">${post.postId}</span>
                     <span class="title">
-                        <a href="/board/qna/${post.postId}">
-                                ${post.title}
-                        </a>
-                    </span>
+                <a href="/board/qna/${post.postId}">${post.title}</a>
+              </span>
                     <span class="date">${post.formattedDate}</span>
-                    <span class="answer">답변 대기</span>
+                    <span class="answer">
+                <c:choose>
+                    <c:when test="${post.answered}">
+                        <span class="qna-answer-badge answered">답변 완료</span>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="qna-answer-badge waiting">답변 대기</span>
+                    </c:otherwise>
+                </c:choose>
+              </span>
                 </li>
             </c:forEach>
-
         </ul>
 
-        <a href="/board/qna/write" class="write-btn" role="button">
-            <span aria-hidden="true">✏️</span>
-            <span>글쓰기</span>
-        </a>
+        <div class="faq-write-row">
+            <a href="/board/qna/write" class="write-btn" role="button">글쓰기</a>
+        </div>
 
         <nav aria-label="페이지 이동">
             <ul class="pagination">
@@ -65,7 +70,7 @@
     </section>
 </main>
 
-<%@ include file="../../common/footer.jsp" %>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>

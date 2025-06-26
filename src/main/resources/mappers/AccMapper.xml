@@ -43,6 +43,28 @@
         <result property="sidoName" column="sido_name"/>
     </resultMap>
 
+    <resultMap id="roomResultMap" type="org.spring.example.room.dto.Room">
+        <id property="roomId" column="rm_room_id"/>
+        <result property="accId" column="rm_acc_id"/>
+        <result property="typeCodeId" column="rm_type_code_id"/>
+        <result property="typeCodeCode" column="rm_type_code_code"/>
+        <result property="statusCodeId" column="rm_status_code_id"/>
+        <result property="statusCodeCode" column="rm_status_code_code"/>
+        <result property="mainImageUrl" column="rm_main_image_url"/>
+        <result property="name" column="rm_name"/>
+        <result property="info" column="rm_info"/> <!-- ⚠️ 문제 해결 포인트 -->
+        <result property="addInfo" column="rm_add_info"/>
+        <result property="size" column="rm_size"/>
+        <result property="roomCnt" column="rm_room_cnt"/>
+        <result property="floor" column="rm_floor"/>
+        <result property="capacity" column="rm_capacity"/>
+        <result property="maxCapacity" column="rm_max_capacity"/>
+    </resultMap>
+
+    <resultMap id="accWithRoomResultMap" type="org.spring.example.accommodation.domain.Acc" extends="accResultMap">
+        <collection property="roomList" ofType="org.spring.example.room.dto.Room" resultMap="roomResultMap"/>
+    </resultMap>
+
     <select id="findAll" resultMap="accResultMap">
         SELECT a.*, r.sido_name
         FROM acc a
@@ -167,6 +189,33 @@
         SET deleted_at = NOW()
         WHERE acc_id = #{accId}
     </update>
+
+    <select id="findByIdWithRooms" resultMap="accWithRoomResultMap" parameterType="long">
+        SELECT
+            a.*, r.sido_name,
+
+            rm.room_id AS rm_room_id,
+            rm.acc_id AS rm_acc_id,
+            rm.type_code_id AS rm_type_code_id,
+            rm.type_code_code AS rm_type_code_code,
+            rm.status_code_id AS rm_status_code_id,
+            rm.status_code_code AS rm_status_code_code,
+            rm.main_image_url AS rm_main_image_url,
+            rm.name AS rm_name,
+            rm.info AS rm_info,
+            rm.add_info AS rm_add_info,
+            rm.size AS rm_size,
+            rm.room_cnt AS rm_room_cnt,
+            rm.floor AS rm_floor,
+            rm.capacity AS rm_capacity,
+            rm.max_capacity AS rm_max_capacity
+
+        FROM acc a
+                 LEFT JOIN region r ON a.region_id = r.id
+                 LEFT JOIN room rm ON a.acc_id = rm.acc_id
+        WHERE a.acc_id = #{accId}
+          AND a.deleted_at IS NULL
+    </select>
 
 
 </mapper>

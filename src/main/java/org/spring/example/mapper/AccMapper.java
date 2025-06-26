@@ -14,6 +14,8 @@ public interface AccMapper {
     // ID로 조회
     Acc findById(Long accId);
 
+    Acc findByIdWithRooms(Long accId);
+
     // 지역 및 타입으로 조회
     List<Acc> findByRegionAndType(Map<String, Object> params);
 

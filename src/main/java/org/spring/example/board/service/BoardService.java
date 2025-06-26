@@ -19,7 +19,7 @@ public class BoardService {
         return boardMapper.selectAllBoards();
     }
 
-    public BoardDto getBoardById(int boardId) {
+    public BoardDto getBoardById(long boardId) {
         return boardMapper.selectById(boardId);
     }
 
