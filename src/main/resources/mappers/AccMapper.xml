@@ -46,7 +46,7 @@
     <select id="findAll" resultMap="accResultMap">
         SELECT a.*, r.sido_name
         FROM acc a
-                 LEFT JOIN region r ON a.region_id = r.id
+                 LEFT JOIN region r ON a.region_id = r.region_id
         WHERE a.deleted_at IS NULL
         ORDER BY a.acc_id DESC
     </select>
@@ -54,21 +54,40 @@
     <select id="findById" resultMap="accResultMap" parameterType="long">
         SELECT a.*, r.sido_name
         FROM acc a
-                 LEFT JOIN region r ON a.region_id = r.id
+                 LEFT JOIN region r ON a.region_id = r.region_id
         WHERE a.acc_id = #{accId}
           AND a.deleted_at IS NULL
+    </select>
+
+    <select id="findByRegion" resultMap="accResultMap" parameterType="string">
+        SELECT a.*, r.sido_name
+        FROM acc a
+        LEFT JOIN region r ON a.region_id = r.region_id
+        WHERE a.deleted_at IS NULL
+        <if test="region != null">
+            AND a.address LIKE CONCAT('%', #{region}, '%')
+        </if>
+        ORDER BY a.acc_id DESC
     </select>
 
     <select id="findByRegionAndType" resultMap="accResultMap" parameterType="map">
         SELECT a.*, r.sido_name
         FROM acc a
-        LEFT JOIN region r ON a.region_id = r.id
+        LEFT JOIN region r ON a.region_id = r.region_id
         WHERE a.deleted_at IS NULL
         <if test="region != null">
             AND a.address LIKE CONCAT('%', #{region}, '%')
         </if>
-        <if test="typeCode != null">
-            AND a.type_code_code = #{typeCode}
+        <if test="code != null">
+            AND a.type_code_code = #{code}
+        </if>
+        <if test="codeTypeId != null">
+            AND a.type_code_id = #{codeTypeId}
+        </if>
+        <if test="keyword != null">
+            AND (a.name LIKE CONCAT('%', #{keyword}, '%')
+            OR a.address LIKE CONCAT('%', #{keyword}, '%')
+            OR a.acc_intro LIKE CONCAT('%', #{keyword}, '%'))
         </if>
         ORDER BY a.acc_id DESC
     </select>
@@ -76,24 +95,29 @@
     <select id="findTopRated" resultMap="accResultMap" parameterType="int">
         SELECT a.*, r.sido_name
         FROM acc a
-                 LEFT JOIN region r ON a.acc_id = r.id
+                 LEFT JOIN region r ON a.acc_id = r.region_id
         WHERE a.deleted_at IS NULL
         ORDER BY a.avgrate DESC
             LIMIT #{limit}
     </select>
 
-    <select id="findByType" resultMap="accResultMap" parameterType="int">
-        SELECT a.*, r.sido_name
+    <select id="findByType"
+            resultMap="accResultMap"
+            parameterType="org.spring.example.code.CodeDto">
+        SELECT
+            a.*,
+            r.sido_name
         FROM acc a
-                 LEFT JOIN region r ON a.region_id = r.id
-        WHERE a.type_code_code = #{typeCode}
+                 LEFT JOIN region r ON a.region_id = r.region_id
+        WHERE a.type_code_id   = #{codeTypeId}
+          AND a.type_code_code = #{code}
           AND a.deleted_at IS NULL
     </select>
 
     <select id="searchByKeyword" resultMap="accResultMap" parameterType="string">
         SELECT a.*, r.sido_name
         FROM acc a
-                 LEFT JOIN region r ON a.region_id = r.id
+                 LEFT JOIN region r ON a.region_id = r.region_id
         WHERE a.deleted_at IS NULL
           AND (a.name LIKE CONCAT('%', #{keyword}, '%')
             OR a.address LIKE CONCAT('%', #{keyword}, '%')

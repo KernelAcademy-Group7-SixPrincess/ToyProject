@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
@@ -177,37 +179,22 @@
 
     <div id="cards-container" class="cards-container">
       <header><h3 class="title">전체 개수 : </h3></header>
-
-      <article id="card-54798" class="card">
-        <img src="https://example.com/images/hotel1.jpg" alt="신화관 제주신화월드 호텔 앤 리조트" />
-        <div class="card-content">
-          <ul class="type-list">
-            <li>5성급</li>
-            <li>호텔·리조트</li>
-          </ul>
-          <h3>신화관 제주신화월드 호텔 앤 리조트</h3>
-          <p class="details">서귀포시 • 신화테마파크 & 신화워터파크 도보 3분</p>
-<%--          <p class="acc-score">⭐ <%= acc.getAvgrate() %> / <%= acc.getReviewerCnt() %>명 평가</p>--%>
-          <div class="price-section">
-            <span class="price">₩159,500</span>
+      <c:forEach var="acc" items="${accList}">
+        <article id="card-${acc.accId}" class="card">
+          <img src="${acc.mainImageUrl}" alt="${acc.name}" />
+          <div class="card-content">
+            <ul class="type-list">
+              <li>${acc.gradeCodeName}</li>
+              <li>${acc.typeCodeName}</li>
+            </ul>
+            <h3>${acc.name}</h3>
+            <p class="details">${acc.address}</p>
+            <div class="price-section">
+              <span class="price">₩${acc.priceString}</span>
+            </div>
           </div>
-        </div>
-      </article>
-
-      <article id="card-48099" class="card">
-        <img src="https://example.com/images/hotel2.jpg" alt="랜딩관 제주신화월드 호텔 앤 리조트" />
-        <div class="card-content">
-          <ul class="type-list">
-            <li>5성급</li>
-            <li>호텔·리조트</li>
-          </ul>
-          <h3>랜딩관 제주신화월드 호텔 앤 리조트</h3>
-          <p class="details">서귀포시 • 신화테마파크 & 신화워터파크 도보 3분</p>
-          <div class="price-section">
-            <span class="price">₩113,800</span>
-          </div>
-        </div>
-      </article>
+        </article>
+      </c:forEach>
     </div>
   </section>
 </main>
