@@ -25,7 +25,7 @@ public interface AccMapper {
     List<Acc> findByRegionAndType(Map<String, Object> params);
 
     // 타입으로 조회 (XML에 findByType 있음)
-    List<Acc> findByType(CodeDto codeDto);
+    List<Acc> findByType(SearchDto searchDto);
 
     // 평점 높은 숙소 상위 N개 조회
     List<Acc> findTopRated(int limit);

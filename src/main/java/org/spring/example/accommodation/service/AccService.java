@@ -2,6 +2,7 @@ package org.spring.example.accommodation.service;
 
 import org.spring.example.accommodation.domain.Acc;
 import org.spring.example.code.CodeDto;
+import org.spring.example.search.dto.SearchDto;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public interface AccService {
         List<Acc> searchByKeyword(String keyword);
 
         // 타입으로 숙소 조회 (AccMapper에 findByType 있음)
-        List<Acc> getByType(CodeDto codeDto);
+        List<Acc> getByType(SearchDto searchDto);
 
         // 숙소 등록
         int addAcc(Acc acc);

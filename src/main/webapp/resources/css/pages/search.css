@@ -80,6 +80,7 @@
 .card img {
     height: 180px;
     object-fit: cover;
+    max-width: 30%;
 }
 .card-content {
     padding: 16px;
