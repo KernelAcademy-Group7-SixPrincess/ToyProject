@@ -62,9 +62,24 @@ function doSearch() {
     params.set('guests', guests);
 
     fetch(`${contextPath}/api/search?${params}`)
-        .then(res => res.ok ? res.json() : Promise.reject(res.statusText))
+        .then(res => {
+            if (!res.ok) {
+                return Promise.reject(res.statusText);
+            }
+            return res.text(); // 우선 텍스트로 받음
+        })
+        .then(text => {
+            try {
+                return JSON.parse(text);
+            } catch (e) {
+                console.error('JSON 파싱 실패:', e);
+                console.log('받은 응답:', text);
+                throw e;
+            }
+        })
         .then(renderSearchResults)
         .catch(console.error);
+
 }
 
 function renderSearchResults(results) {

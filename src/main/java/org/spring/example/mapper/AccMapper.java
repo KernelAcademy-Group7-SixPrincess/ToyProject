@@ -3,6 +3,7 @@ package org.spring.example.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.spring.example.accommodation.domain.Acc;
 import org.spring.example.code.CodeDto;
+import org.spring.example.search.dto.SearchDto;
 
 import java.util.List;
 import java.util.Map;
@@ -40,4 +41,7 @@ public interface AccMapper {
 
     // 숙소 삭제 (soft delete)
     int delete(Long accId);
+
+    List<Acc> findAccBySearchDto(SearchDto searchDto);
+
 }

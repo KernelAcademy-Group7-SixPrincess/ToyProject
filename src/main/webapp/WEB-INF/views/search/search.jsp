@@ -29,6 +29,7 @@
   // EL 치환된 실제 문자열
   const modelCheckIn  = "${searchDto.checkIn}";
   const modelCheckOut = "${searchDto.checkOut}";
+  const currentCode = "${searchDto.code}";  // 현재 선택된 숙소 유형 코드 가져오기
 </script>
 <header class="site-header">
   <nav class="nav" aria-label="메인 메뉴">
@@ -157,12 +158,26 @@
         <h3 class="title">숙소유형</h3>
         <div id="filter-category-group" class="gc-radio-group">
           <c:forEach var="c" items="${codeDtoList}" varStatus="st">
-            <div class="gc-radio" role="radio" aria-checked="${st.index == 0}" tabindex="0"
-                 data-type-id="ACCOMMODATION_TYPE" data-value="${c.code}">
-              <button type="button" class="radio-btn"></button>
+            <div class="gc-radio" role="radio" aria-checked="${c.code == searchDto.code}"
+                 tabindex="0"
+                 data-type-id="ACCOMMODATION_TYPE" data-value="${c.code}"
+                 onclick="applyTypeFilter(${c.code})"
+                 style="cursor:pointer;">
+              <button type="button" class="radio-btn" aria-pressed="${c.code == searchDto.code}"></button>
               <span class="radio-label">${c.codeName}</span>
             </div>
           </c:forEach>
+
+          <!-- 전체 보기 옵션 추가 (code 파라미터 제거용) -->
+          <div class="gc-radio" role="radio"
+               aria-checked="${empty searchDto.code}"
+               tabindex="0"
+               onclick="clearTypeFilter()"
+               style="cursor:pointer; margin-top:10px;">
+            <button type="button" class="radio-btn"
+                    aria-pressed="${empty searchDto.code}"></button>
+            <span class="radio-label">전체</span>
+          </div>
         </div>
 <%--        <div id="filter-category-group" class="gc-radio-group"> <!-- 라디오 옵션 래퍼 -->--%>
 <%--          <div class="gc-radio" role="radio" aria-checked="true" tabindex="0">  <!-- 전체 -->--%>
@@ -178,9 +193,9 @@
     </div>
 
     <div id="cards-container" class="cards-container">
-      <header><h3 class="title">전체 개수 : </h3></header>
+      <header><h3 class="title">전체 개수 : ${fn:length(accList)}개</h3></header>
       <c:forEach var="acc" items="${accList}">
-        <article id="card-${acc.accId}" class="card">
+        <article id="card-${acc.accId}" class="card" onclick="location.href='/acc/${region}/${acc.accId}'" style="cursor:pointer;">
           <img src="${acc.mainImageUrl}" alt="${acc.name}" />
           <div class="card-content">
             <ul class="type-list">
@@ -225,6 +240,27 @@
       allowInput: false
     });
   });
+
+  function applyTypeFilter(code) {
+    console.log("applyTypeFilter 호출, code:", code);
+    const baseUrl = window.location.origin + window.location.pathname;
+    const params = new URLSearchParams(window.location.search);
+    params.set('code', code);
+    const newUrl = baseUrl + '?' + params.toString();
+    console.log("이동할 URL:", newUrl);
+    window.location.href = newUrl;
+  }
+
+  function clearTypeFilter() {
+    console.log("clearTypeFilter 호출");
+    const baseUrl = window.location.origin + window.location.pathname;
+    const params = new URLSearchParams(window.location.search);
+    params.delete('code');
+    const newUrl = baseUrl + '?' + params.toString();
+    console.log("이동할 URL:", newUrl);
+    window.location.href = newUrl;
+  }
+
 </script>
 
 </body>

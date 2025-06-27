@@ -241,5 +241,23 @@
           AND a.deleted_at IS NULL
     </select>
 
+    <select id="findAccBySearchDto" resultMap="accResultMap" parameterType="org.spring.example.search.dto.SearchDto">
+        SELECT a.*, r.sido_name
+        FROM acc a
+        LEFT JOIN region r ON a.region_id = r.id
+        WHERE a.deleted_at IS NULL
+        <if test="keyword != null and keyword != ''">
+            AND (
+            a.name LIKE CONCAT('%', #{keyword}, '%')
+            OR a.address LIKE CONCAT('%', #{keyword}, '%')
+            OR a.acc_intro LIKE CONCAT('%', #{keyword}, '%')
+            )
+        </if>
+        <if test="typeCode != null">
+            AND a.type_code_code = #{typeCode}
+        </if>
+        ORDER BY a.acc_id DESC
+    </select>
+
 
 </mapper>

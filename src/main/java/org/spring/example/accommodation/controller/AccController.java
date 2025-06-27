@@ -22,7 +22,7 @@ public class AccController {
         List<Acc> accList = accService.getByRegion(region);  // 전체 숙소 목록 조회
         model.addAttribute("accList", accList);       // JSP에서 필터링에 사용
         model.addAttribute("region", region);
-        return "accommodation/acclist";
+        return "search/search";
     }
 
     @GetMapping("/acc/{region}/{accId}")
