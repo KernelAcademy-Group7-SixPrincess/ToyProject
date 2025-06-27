@@ -31,12 +31,21 @@ public class SearchService {
             return accMapper.searchByKeyword(keyword);
         }
 
+        if(keyword == null
+                && codeTypeId != null && !codeTypeId.isEmpty()
+                && code != null
+                && (sidoCode == null || sidoCode.isEmpty())) {
+            return accMapper.findByType(searchDto);
+        }
+
         // 2. keyword + codeTypeId + code 있는 경우
         if (keyword != null
                 && codeTypeId != null && !codeTypeId.isEmpty()
                 && code != null
                 && (sidoCode == null || sidoCode.isEmpty())) {
-            return accMapper.findByType(CodeDto.builder().codeTypeId(codeTypeId).code(code).build());
+            if(code == 0)
+                return accMapper.searchByKeyword(keyword);
+            return accMapper.findByType(searchDto);
         }
 
         // 3. keyword + codeTypeId + code + sidoCode 있는 경우

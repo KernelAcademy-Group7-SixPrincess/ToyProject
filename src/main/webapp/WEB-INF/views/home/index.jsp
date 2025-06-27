@@ -22,30 +22,6 @@
 </head>
 
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
-<%--            <div class="nav__content-wrap guest" id="menu" hidden>--%>
-<%--                <div class="guest-panel">--%>
-<%--                    <a href="/user/auth" class="auth-link">로그인/회원가입</a>--%>
-<%--                </div>--%>
-<%--                <ul class="nav__menu-lists">--%>
-<%--                    <li><a href="/">국내숙소</a></li>--%>
-<%--                    <li><a href="/board">고객센터</a></li>--%>
-<%--                </ul>--%>
-<%--            </div>--%>
-
-<%--            <div class="nav__content-wrap user" id="menu" hidden>--%>
-<%--                <div class="guest-panel">--%>
-<%--                    <a href="/user/auth" class="auth-link">로그인/회원가입</a>--%>
-<%--                </div>--%>
-<%--                <ul class="nav__menu-lists">--%>
-<%--                    <li><a href="/">국내숙소</a></li>--%>
-<%--                    <li><a href="/board">고객센터</a></li>--%>
-<%--                </ul>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </nav>--%>
-<%--</header>--%>
-<%--<%@ include file="../common/header.jsp" %>--%>
 <main>
     <section class="kv" aria-label="여행 숙소 검색 섹션">
         <div class="kv-wrap">

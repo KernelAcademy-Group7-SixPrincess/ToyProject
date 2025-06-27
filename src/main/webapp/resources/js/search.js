@@ -52,49 +52,56 @@ function renderCodes(codes, codeTypeId) {
 
 function doSearch() {
     const selectedRadio = document.querySelector('.gc-radio[aria-checked="true"]');
-    const codeTypeId = selectedRadio?.dataset.typeId;
-    const code       = selectedRadio?.dataset.value;
-    const guests     = document.querySelector('.guest-count-text').textContent;
+    // 히든 인풋 대신 dataset 사용
+    const codeTypeId = selectedRadio.dataset.typeId;
+    const code       = parseInt(selectedRadio.dataset.value, 10) || null;
+    const guests     = parseInt(document.querySelector('.guest-count-text').textContent, 10) || 0;
+    const keyword       = document.querySelector('.input-keyword').value.trim();
 
     const params = new URLSearchParams();
-    if (codeTypeId) params.set('codeTypeId', codeTypeId);
-    if (code)       params.set('code', code);
+    if (keyword)    params.set('keyword',    keyword);
     params.set('guests', guests);
+    if (codeTypeId) params.set('codeTypeId', codeTypeId);
+    if (code !== null) params.set('code', code);
 
     fetch(`${contextPath}/api/search?${params}`)
         .then(res => {
-            if (!res.ok) {
-                return Promise.reject(res.statusText);
-            }
-            return res.text(); // 우선 텍스트로 받음
+            if (!res.ok) throw new Error(res.statusText);
+            return res.json();
         })
-        .then(text => {
-            try {
-                return JSON.parse(text);
-            } catch (e) {
-                console.error('JSON 파싱 실패:', e);
-                console.log('받은 응답:', text);
-                throw e;
-            }
-        })
-        .then(renderSearchResults)
-        .catch(console.error);
-
+        .then(data => renderSearchResults(data))
+        .catch(err => console.error('검색 중 에러 발생:', err));
 }
+
 
 function renderSearchResults(results) {
     const container = document.getElementById('cards-container');
     container.innerHTML = '';
+
+    const header = document.createElement('header');
+    const title  = document.createElement('h3');
+    title.className     = 'title';
+    title.textContent   = `전체 개수 : ${results.length}개`;
+    header.appendChild(title);
+    container.appendChild(header);
+
     results.forEach(r => {
         const article = document.createElement('article');
         article.className = 'card';
+        article.style.cursor = 'pointer';
+
+        article.addEventListener('click', () => {
+            location.href = `${contextPath}/acc/${region}/${r.accId}`;
+        });
+
         article.innerHTML = `
-      <img src="${r.imageUrl}" alt="${r.name}"/>
+      <img src="${r.mainImageUrl}" alt="${r.name}"/>
       <div class="card-content">
-        <ul class="type-list"><li>${r.type}</li></ul>
+        <ul class="type-list">
+            <li>${r.typeCodeName}</li>
+        </ul>
         <h3>${r.name}</h3>
-        <p class="details">${r.location}</p>
-        <div class="price-section"><span class="price">₩${r.price.toLocaleString()}</span></div>
+        <p class="details">${r.address}</p>
       </div>
     `;
         container.appendChild(article);

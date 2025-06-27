@@ -168,9 +168,14 @@
                              data-type-id="ACCOMMODATION_TYPE" data-value="${c.code}"
                              onclick="applyTypeFilter(${c.code})"
                              style="cursor:pointer;">
+                            <!-- 숨겨진 input 추가 -->
+                            <input type="hidden" name="codeTypeId" value="ACCOMMODATION_TYPE" />
+                            <input type="hidden" name="code" value="${c.code}" />
+
                             <button type="button" class="radio-btn" aria-pressed="${c.code == searchDto.code}"></button>
                             <span class="radio-label">${c.codeName}</span>
                         </div>
+
                     </c:forEach>
 
                     <!-- 전체 보기 옵션 추가 (code 파라미터 제거용) -->
@@ -184,16 +189,6 @@
                         <span class="radio-label">전체</span>
                     </div>
                 </div>
-                <%--        <div id="filter-category-group" class="gc-radio-group"> <!-- 라디오 옵션 래퍼 -->--%>
-                <%--          <div class="gc-radio" role="radio" aria-checked="true" tabindex="0">  <!-- 전체 -->--%>
-                <%--            <button type="button" class="radio-btn"><div></div></button>--%>
-                <%--            <span class="radio-label">전체</span>--%>
-                <%--          </div>--%>
-                <%--          <div class="gc-radio" role="radio" aria-checked="false" tabindex="0">  <!-- 모텔 -->--%>
-                <%--            <button type="button" class="radio-btn"></button>--%>
-                <%--            <span class="radio-label">모텔</span>--%>
-                <%--          </div>--%>
-                <%--        </div>--%>
             </section>
         </div>
 
@@ -205,14 +200,10 @@
                     <img src="${acc.mainImageUrl}" alt="${acc.name}"/>
                     <div class="card-content">
                         <ul class="type-list">
-                            <li>${acc.gradeCodeName}</li>
                             <li>${acc.typeCodeName}</li>
                         </ul>
                         <h3>${acc.name}</h3>
                         <p class="details">${acc.address}</p>
-                            <%--            <div class="price-section">--%>
-                            <%--              <span class="price">₩${acc.priceString}</span>--%>
-                            <%--            </div>--%>
                     </div>
                 </article>
             </c:forEach>

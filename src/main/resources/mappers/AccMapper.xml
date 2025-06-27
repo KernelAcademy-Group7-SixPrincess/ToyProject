@@ -125,7 +125,7 @@
 
     <select id="findByType"
             resultMap="accResultMap"
-            parameterType="org.spring.example.code.CodeDto">
+            parameterType="org.spring.example.search.dto.SearchDto">
         SELECT
             a.*,
             r.sido_name
@@ -134,6 +134,12 @@
         WHERE a.type_code_id   = #{codeTypeId}
           AND a.type_code_code = #{code}
           AND a.deleted_at IS NULL
+        <if test="keyword != null and keyword != ''">
+            AND (
+            a.name    LIKE CONCAT('%', #{keyword}, '%')
+            OR a.address LIKE CONCAT('%', #{keyword}, '%')
+            )
+        </if>
     </select>
 
     <select id="searchByKeyword" resultMap="accResultMap" parameterType="string">

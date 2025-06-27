@@ -36,5 +36,4 @@ public class SearchDto {
     private String region;
     private String codeTypeId;
     private Integer code;
-    private Integer typeCode;
 }
