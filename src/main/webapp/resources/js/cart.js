@@ -72,9 +72,9 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("결제할 숙소를 선택하세요.");
             return;
         }
-        // alert("결제 페이지로 이동합니다. (데모)");
+        window.location.href = contextPath + "/reservation/complete";
+
     });
     // 페이지 진입시 총액 초기화
     updateTotal();
-    window.location.href = `${pageContext.request.contextPath}/reservation/complete`;
 });

@@ -157,7 +157,7 @@
                             <div class="room-card__price-box">
                                 <span class="room-card__price-label">4% 쿠폰 적용가</span>
                                 <span class="room-card__price-old">1,452,000원</span>
-                                <span class="room-card__price">373,920원</span>
+                                <span class="room-card__price">140,000원</span>
                                 <button class="room-card__reserve-btn" onclick="location.href='${pageContext.request.contextPath}/reservation/cart?roomId=${room.roomId}'">객실 예약</button>
 
                             </div>

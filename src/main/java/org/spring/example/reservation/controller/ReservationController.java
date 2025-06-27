@@ -52,9 +52,9 @@ public class ReservationController {
     }
 
     @GetMapping("/complete")
-    public String completePage(@SessionAttribute("loginUserId") Long userId, Model model) {
-        List<ReservationDto> reservations = reservationService.getLatestReservations(userId); // 방금 예약한 리스트 조회
-        model.addAttribute("reservations", reservations);
+    public String completePage(Model model) {
+//        List<ReservationDto> reservations = reservationService.getLatestReservations(userId); // 방금 예약한 리스트 조회
+//        model.addAttribute("reservations", reservations);
         return "reservation/complete";
     }
 
