@@ -262,16 +262,6 @@
         </div>
     </section>
 </main>
-<%--<%@ include file="../common/footer.jsp" %>--%>
-<footer>
-    <section class="footer-container">
-        <section class="footer-left">
-            <h2>고객센터</h2>
-            <p>고객행복센터(전화): 오전 9시 ~ 새벽 3시 운영</p>
-            <p>카카오톡 문의: 24시간 운영</p>
-            <button type="button">📞 1670-6250</button>
-            <button type="button">💬 카카오 문의</button>
-        </section>
 
 <%@ include file="../common/footer.jsp" %>
 
