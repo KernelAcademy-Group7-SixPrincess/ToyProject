@@ -286,8 +286,11 @@
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/swiper.js"></script>
 <script>
+
+    let fp;
+
     document.addEventListener("DOMContentLoaded", function() {
-        flatpickr("#date-range", {
+        fp = flatpickr("#date-range", {
             locale: flatpickr.l10ns.ko,
             mode: "range",
             dateFormat: "m.d(D)",

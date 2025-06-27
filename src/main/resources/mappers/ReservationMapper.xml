@@ -3,14 +3,90 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.spring.example.mapper.ReservationMapper">
-    <select id="canReserve" resultType="int">
-  <![CDATA[
-        SELECT COUNT(reservation_id)
-        FROM reservation
-        WHERE room_id = #{roomId}
-          AND check_in < #{checkOut}
-          AND check_out > #{checkIn}
-        ]]>
+<mapper namespace="org.spring.example.reservation.mapper.ReservationMapper">
+    <insert id="insertReservation" parameterType="org.spring.example.reservation.dto.ReservationDto">
+        INSERT INTO reservation (
+            user_id, room_id, status_code_id, status_code_code,
+            usage_status_code_id, usage_status_code_code, date, period,
+            people_cnt, note, check_in, check_out, created_at, updated_at
+        ) VALUES (
+                     #{userId}, #{roomId}, #{statusCodeId}, #{statusCodeCode},
+                     #{usageStatusCodeId}, #{usageStatusCodeCode}, #{date}, #{period},
+                     #{peopleCnt}, #{note}, #{checkIn}, #{checkOut}, NOW(), NOW()
+                 )
+    </insert>
+
+    <select id="findById" parameterType="long" resultType="org.spring.example.reservation.dto.ReservationDto">
+        SELECT * FROM reservation WHERE id = #{id}
     </select>
+
+    <select id="findByUserId" parameterType="long" resultType="org.spring.example.reservation.dto.ReservationDto">
+        SELECT * FROM reservation WHERE user_id = #{userId} ORDER BY created_at DESC
+    </select>
+
+    <!-- 예약 + 객실 + 숙소 기본 정보 조인 조회 -->
+    <select id="findDetailedByUserId" parameterType="long" resultMap="ReservationRoomAccResultMap">
+        SELECT
+            r.*,
+            rm.name AS room_name,
+            rm.capacity AS room_capacity,
+            rm.max_capacity AS room_max_capacity,
+            rm.price AS room_price,
+            rm.main_image_url AS room_main_image_url,
+            a.check_in_time AS acc_check_in_time,
+            a.check_out_time AS acc_check_out_time
+        FROM reservation r
+                 JOIN room rm ON r.room_id = rm.room_id
+                 JOIN acc a ON rm.acc_id = a.acc_id
+        WHERE r.user_id = #{userId}
+        ORDER BY r.created_at DESC
+    </select>
+
+    <select id="findLatestByUserId" parameterType="long" resultMap="ReservationRoomAccResultMap">
+        SELECT
+            r.*,
+            rm.name AS room_name,
+            rm.capacity AS room_capacity,
+            rm.max_capacity AS room_max_capacity,
+            rm.price AS room_price,
+            rm.main_image_url AS room_main_image_url,
+            a.name AS acc_name,
+            a.check_in_time AS acc_check_in_time,
+            a.check_out_time AS acc_check_out_time
+        FROM reservation r
+                 JOIN room rm ON r.room_id = rm.room_id
+                 JOIN acc a ON rm.acc_id = a.acc_id
+        WHERE r.user_id = #{userId}
+        ORDER BY r.created_at DESC
+            LIMIT 3
+    </select>
+
+
+    <resultMap id="ReservationRoomAccResultMap" type="org.spring.example.reservation.dto.ReservationDto">
+        <id property="id" column="id" />
+        <result property="userId" column="user_id" />
+        <result property="roomId" column="room_id" />
+        <result property="statusCodeId" column="status_code_id" />
+        <result property="statusCodeCode" column="status_code_code" />
+        <result property="usageStatusCodeId" column="usage_status_code_id" />
+        <result property="usageStatusCodeCode" column="usage_status_code_code" />
+        <result property="date" column="date" />
+        <result property="period" column="period" />
+        <result property="peopleCnt" column="people_cnt" />
+        <result property="note" column="note" />
+        <result property="checkIn" column="check_in" />
+        <result property="checkOut" column="check_out" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedAt" column="updated_at" />
+
+        <!-- 추가 필드(별도 DTO 필요할 경우, MapStruct 등 사용 권장) -->
+        <result property="roomName" column="room_name" />
+        <result property="roomCapacity" column="room_capacity" />
+        <result property="roomMaxCapacity" column="room_max_capacity" />
+        <result property="roomPrice" column="room_price" />
+        <result property="roomMainImageUrl" column="room_main_image_url" />
+        <result property="accCheckInTime" column="acc_check_in_time" />
+        <result property="accCheckOutTime" column="acc_check_out_time" />
+    </resultMap>
+
 </mapper>
