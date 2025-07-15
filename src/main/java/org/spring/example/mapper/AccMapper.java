@@ -2,6 +2,8 @@ package org.spring.example.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.spring.example.accommodation.domain.Acc;
+import org.spring.example.code.CodeDto;
+import org.spring.example.search.dto.SearchDto;
 
 import java.util.List;
 import java.util.Map;
@@ -14,11 +16,16 @@ public interface AccMapper {
     // ID로 조회
     Acc findById(Long accId);
 
+    // 지역으로 조회
+    List<Acc> findByRegion(String region);
+
+    Acc findByIdWithRooms(Long accId);
+
     // 지역 및 타입으로 조회
     List<Acc> findByRegionAndType(Map<String, Object> params);
 
     // 타입으로 조회 (XML에 findByType 있음)
-    List<Acc> findByType(int typeCode);
+    List<Acc> findByType(SearchDto searchDto);
 
     // 평점 높은 숙소 상위 N개 조회
     List<Acc> findTopRated(int limit);
@@ -34,4 +41,7 @@ public interface AccMapper {
 
     // 숙소 삭제 (soft delete)
     int delete(Long accId);
+
+    List<Acc> findAccBySearchDto(SearchDto searchDto);
+
 }

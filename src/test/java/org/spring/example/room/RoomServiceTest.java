@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.spring.example.common.dto.SearchDto;
+import org.spring.example.search.dto.SearchDto;
 import org.spring.example.room.dto.Room;
 import org.spring.example.room.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class RoomServiceTest {
                 .statusCodeId("ROOM_STATUS")
                 .statusCodeCode(1)
                 .statusCodeName("AVAILABLE")
-                .mainImageId("28e6b4fc-f434-422c-8e57-03c428d53237")
+                .mainImageUrl("28e6b4fc-f434-422c-8e57-03c428d53237")
                 .name("101호")
                 .info("깔끔한 방입니다")
                 .addInfo("세탁기 있음")

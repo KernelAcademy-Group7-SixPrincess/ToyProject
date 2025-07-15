@@ -1,5 +1,6 @@
 package org.spring.example.board.service;
 
+import org.apache.ibatis.annotations.Update;
 import org.spring.example.board.dto.PostDto;
 import org.spring.example.mapper.PostMapper;
 import org.springframework.stereotype.Service;

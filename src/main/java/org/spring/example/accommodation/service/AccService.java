@@ -1,6 +1,8 @@
 package org.spring.example.accommodation.service;
 
 import org.spring.example.accommodation.domain.Acc;
+import org.spring.example.code.CodeDto;
+import org.spring.example.search.dto.SearchDto;
 
 import java.util.List;
 
@@ -10,6 +12,11 @@ public interface AccService {
 
         // ID로 숙소 조회
         Acc getAccById(Long accId);
+
+        // ID로 숙소 + 객실 리스트 조회
+        Acc getAccByIdWithRooms(Long accId);
+
+        List<Acc> getByRegion(String region);
 
         // 지역(region)과 타입(typeCode)으로 숙소 조회
         List<Acc> getByRegionAndType(String region, Integer typeCode);
@@ -21,7 +28,7 @@ public interface AccService {
         List<Acc> searchByKeyword(String keyword);
 
         // 타입으로 숙소 조회 (AccMapper에 findByType 있음)
-        List<Acc> getByType(int typeCode);
+        List<Acc> getByType(SearchDto searchDto);
 
         // 숙소 등록
         int addAcc(Acc acc);

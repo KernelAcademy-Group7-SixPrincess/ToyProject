@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8" />
-    <title>장바구니 - 저기어때</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/reset.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/setting.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/cart.css" />
+  <meta charset="UTF-8" />
+  <title>저기어때</title>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/reset.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/base/setting.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pages/cart.css" />
 </head>
 
 <body class="cart">
@@ -149,5 +149,10 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/cart.js"></script>
+<script>
+    const contextPath = "${pageContext.request.contextPath}";
+</script>
+<script src="${pageContext.request.contextPath}/resources/js/cart.js"></script>
+
 </body>
 </html>

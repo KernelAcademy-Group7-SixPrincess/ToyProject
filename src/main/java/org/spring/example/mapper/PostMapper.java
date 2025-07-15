@@ -2,6 +2,7 @@ package org.spring.example.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 import org.spring.example.board.dto.PostDto;
 
 import java.util.List;
@@ -39,5 +40,10 @@ public interface PostMapper {
     // 키워드 검색
     List<PostDto> searchPostsByKeyword(@Param("boardId") int boardId,
                                        @Param("keyword") String keyword);
+
+
+    // 답글 여부
+    @Update("UPDATE post SET is_answered = true WHERE post_id = #{postId}")
+    void markPostAsAnswered(@Param("postId") Long postId);
 
 }

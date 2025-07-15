@@ -1,4 +1,5 @@
-<%--<%@ page import="org.spring.example.user.dto.UserinfoDto" %>--%>
+<%@ page import="org.spring.example.user.dto.UserinfoDto" %>
+<%@ page import="org.spring.example.user.dto.UserContextDto" %><%--<%@ page import="org.spring.example.user.dto.UserinfoDto" %>--%>
 <%--
   Created by IntelliJ IDEA.
   User: hyeonjeong
@@ -8,8 +9,8 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-  // 로그인한 사용자 정보 가져오기
-//  UserinfoDto loginUser = (UserinfoDto) session.getAttribute("loginUser");
+//   로그인한 사용자 정보 가져오기
+  UserContextDto loginUser = (UserContextDto) session.getAttribute("loginUser");
 
 %>
 <header class="site-header">
@@ -27,11 +28,11 @@
     </div>
 
     <div class="nav__actions">
-<%--      <% if (loginUser == null) { %>--%>
+      <% if (loginUser == null) { %>
         <div class="btn-wrap guest">
           <a href="/user/auth" class="site-header__auth-link">로그인/회원가입</a>
 
-          <button class="nav__menu-btn" aria-label="메뉴 열기" aria-controls="guest-menu" aria-expanded="false">
+          <button class="nav__menu-btn guest" aria-label="메뉴 열기" aria-controls="guest-menu" aria-expanded="false">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="rgb(51, 51, 51)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
               <path d="M2 4h16v2H2V4zM2 14h16v2H2v-2zM18 9H2v2h16V9z" fill=""></path>
             </svg>
@@ -49,34 +50,45 @@
             </ul>
           </div>
         </div>
-<%--      <% } else { %>--%>
-        <div class="btn-wrap user">
-          <a href="/login/auth" class="">
-            <div class="user__name-wrap">
-              <img alt="프로필 이미지" srcset="https://www.yeogi.com/_next/image?url=https%3A%2F%2Fimage.goodchoice.kr%2Fprofile%2Fico%2Fico_21.png&w=64&q=75, https://www.yeogi.com/_next/image?url=https%3A%2F%2Fimage.goodchoice.kr%2Fprofile%2Fico%2Fico_21.png&w=64&q=75" src="https://www.yeogi.com/_next/image?url=https%3A%2F%2Fimage.goodchoice.kr%2Fprofile%2Fico%2Fico_21.png&w=64&q=75" width="26" height="26" style="color: transparent" />
-              <h2 class="nickname">
-<%--                <%= loginUser.getNickname() %>--%>
-                달래공주
-              </h2>
-            </div>
-          </a>
-
-          <button class="nav__menu-btn" aria-label="메뉴 열기" aria-controls="user-menu" aria-expanded="false">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="rgb(51, 51, 51)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-              <path d="M2 4h16v2H2V4zM2 14h16v2H2v-2zM18 9H2v2h16V9z" fill=""></path>
-            </svg>
-          </button>
-
-          <div class="nav__content-wrap user" id="user-menu" hidden>
-            <ul class="nav__menu-lists">
-              <li><a href="/">국내숙소</a></li>
-              <li><a href="/board/notice">공지사항</a></li>
-              <li><a href="/board/faq">자주묻는질문</a></li>
-              <li><a href="/board/qna">고객문의</a></li>
-            </ul>
-          </div>
+      <% } else { %>
+      <button class="nav__menu-btn user" aria-label="메뉴 열기" aria-controls="user-menu" aria-expanded="false">
+      <div class="nav__actions user" id="userMenuToggle">
+        <div class="user__name-wrap">
+          <img alt="프로필 이미지"
+               src="https://image.goodchoice.kr/profile/ico/ico_21.png"
+               width="26" height="26" />
+          <h2 class="nickname"><%= loginUser.getNickname() %></h2>
         </div>
-<%--      <% } %>--%>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="rgb(51, 51, 51)" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 4h16v2H2V4zM2 14h16v2H2v-2zM18 9H2v2h16V9z"></path>
+        </svg>
+      </div>
+        <div class="nav__content-wrap user" id="userDropdownMenu" hidden>
+          <ul class="nav__menu-lists">
+            <li><a href="/">국내숙소</a></li>
+            <li><a href="/board/notice">공지사항</a></li>
+            <li><a href="/board/faq">자주묻는질문</a></li>
+            <li><a href="/board/qna">고객문의</a></li>
+            <%
+              if (loginUser.getRoleIdCount() == 1){
+            %>
+            <li><a href="/user/check-role-seller">판매자로 변경</a></li>
+            <%
+              } else if (loginUser.getRoleIdCount() == 2) {
+            %>
+            <li><a href="/user/check-role-user">이용자로 변경</a></li>
+            <%
+              } else{
+            %>
+            <a href="/">관리자</a>
+            <%
+              }
+            %>
+            <li><a href="/user/logout">로그아웃</a></li>
+          </ul>
+        </div>
+      </button>
+      <% } %>
     </div>
 
 

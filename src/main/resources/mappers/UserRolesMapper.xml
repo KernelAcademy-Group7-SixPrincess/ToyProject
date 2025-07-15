@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.spring.example.mapper.RolesMapper">
+
+<!--    유저 역할 조회-->
+    <select id="getUserRoleCount" parameterType="Long" resultType="Long">
+        SELECT COUNT(*)
+        FROM user_roles
+        WHERE user_id = #{userId}
+        AND role_id != 1
+    </select>
+
+<!--    유저 회원가입시 자동 'USER'역할로 추가-->
+    <insert id="setUserRole" parameterType="Long">
+        INSERT INTO user_roles
+            (user_id)
+        VALUES
+            (#{userId})
+    </insert>
+
+<!--    유저 역할 추가-->
+    <insert id="addUserRole">
+        INSERT INTO user_roles
+            (user_id, role_id)
+        VALUES
+            (#{userId}, #{roleId})
+    </insert>
+
+
+</mapper>
+
